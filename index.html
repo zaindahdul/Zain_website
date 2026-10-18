@@ -223,22 +223,7 @@
       font-size: clamp(2.4rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -.015em; color: #fff;
     }
 
-    /* ── Projects: filters + grid ── */
-    .proj-filters { display: flex; gap: 1.6rem; flex-wrap: wrap; }
-    .filter-btn {
-      position: relative; background: none; border: 0; padding: .35rem 0; cursor: pointer;
-      font-family: var(--sans); font-size: .9rem; font-weight: 500; color: var(--text3);
-      transition: color .2s;
-    }
-    .filter-btn:hover { color: var(--text2); }
-    .filter-btn.active { color: #fff; }
-    .filter-btn::after {
-      content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: #fff;
-      transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease);
-    }
-    .filter-btn.active::after { transform: scaleX(1); }
-    .filter-btn .count { margin-left: .35rem; font-family: var(--mono); font-size: .72rem; font-weight: 400; color: var(--text3); }
-
+    /* ── Projects: grid ── */
     .proj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
     .tile {
       position: relative; display: flex; flex-direction: column;
@@ -247,7 +232,6 @@
       overflow: hidden; transition: border-color .3s var(--ease);
     }
     .tile:hover { border-color: var(--line2); }
-    .tile.is-hidden { display: none; }
     .tile-media {
       position: relative; aspect-ratio: 16 / 10; overflow: hidden;
       background: radial-gradient(ellipse at 50% 45%, rgba(53,212,226,.05), transparent 70%), #050607;
@@ -516,8 +500,8 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">Zain Dahdul</a>
   <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#leadership">Leadership</a></li>
@@ -527,8 +511,8 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#projects">Projects</a>
   <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
   <a href="#skills">Skills</a>
   <a href="#education">Education</a>
   <a href="#leadership">Leadership</a>
@@ -560,22 +544,62 @@
 </div>
 <!-- ══════════ /WIREFRAME ZONE ══════════ -->
 
+<section id="experience" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="cv">
+      <div class="cv-row reveal">
+        <div class="cv-when">May 2026 – Aug 2026</div>
+        <div>
+          <h3 class="cv-role">Clinical Technology Intern</h3>
+          <p class="cv-org">Precision Rehabilitation · Long Beach, CA</p>
+          <ul class="cv-points">
+            <li>Fitted and calibrated Bioness L300 Go functional electrical stimulation systems for patients with post-stroke gait impairment.</li>
+            <li>Tuned stimulation intensity and timing through a tablet interface during live gait training sessions.</li>
+            <li>Logged device parameters across sessions to support clinician assessment of patient response and treatment adjustment.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cv-row reveal">
+        <div class="cv-when">May 2024 – Aug 2026<br>Seasonal</div>
+        <div>
+          <h3 class="cv-role">Ocean Lifeguard</h3>
+          <p class="cv-org">Long Beach Fire Department, Marine Safety Division · Long Beach, CA</p>
+          <ul class="cv-points">
+            <li>Monitored ocean conditions and responded to emergencies to keep swimmers safe.</li>
+            <li>Served as first responder for on-site medical crises, executing Emergency Medical Response protocols.</li>
+            <li>Certified Emergency Medical Responder, USLA Open Water Lifeguard, Basic Life Support and First Aid.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cv-row reveal">
+        <div class="cv-when">Jun 2023 – Aug 2023</div>
+        <div>
+          <h3 class="cv-role">Environmental Engineering Intern</h3>
+          <p class="cv-org">Biogas Engineering · Victorville, CA</p>
+          <ul class="cv-points">
+            <li>Assisted in the design and optimization of biogas systems to improve operational efficiency.</li>
+            <li>Worked with senior engineers on the Victor Valley Wastewater Reclamation Authority project.</li>
+            <li>Turned daily production data into technical reports for management.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="projects" class="section">
   <div class="wrap">
     <div class="section-head reveal">
       <h2 class="section-title">Projects</h2>
-      <div class="proj-filters" role="group" aria-label="Filter projects">
-        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All<span class="count"></span></button>
-        <button class="filter-btn" type="button" data-filter="software" aria-pressed="false">Software<span class="count"></span></button>
-        <button class="filter-btn" type="button" data-filter="hardware" aria-pressed="false">Hardware<span class="count"></span></button>
-        <button class="filter-btn" type="button" data-filter="ai" aria-pressed="false">AI &amp; ML<span class="count"></span></button>
-      </div>
     </div>
 
-    <!-- To add a project: copy a tile + its <template>, give both the same slug, and list its categories in data-cats -->
+    <!-- To add a project: copy a tile + its <template> and give both the same slug -->
     <div class="proj-grid reveal">
 
-      <a class="tile" id="project-vellum" href="#project-vellum" data-id="vellum" data-cats="software ai" aria-haspopup="dialog">
+      <a class="tile" id="project-vellum" href="#project-vellum" data-id="vellum" aria-haspopup="dialog">
         <div class="tile-media">
           <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
           <div class="tile-art">
@@ -649,14 +673,14 @@
           <span class="tile-flag award">ElevenLabs Track winner</span>
         </div>
         <div class="tile-info">
-          <p class="tile-kicker">Software · AI &amp; ML · 2026</p>
+          <p class="tile-kicker">2026</p>
           <h3 class="tile-title">Vellum</h3>
           <p class="tile-sub">AI advocate that audits hospital bills and negotiates them by voice.</p>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
         </div>
       </a>
 
-      <a class="tile" id="project-tipsy" href="#project-tipsy" data-id="tipsy" data-cats="software" aria-haspopup="dialog">
+      <a class="tile" id="project-tipsy" href="#project-tipsy" data-id="tipsy" aria-haspopup="dialog">
         <div class="tile-media">
           <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
           <div class="tile-art">
@@ -710,14 +734,14 @@
           <span class="tile-flag"><span class="flag-dot"></span>On the App Store</span>
         </div>
         <div class="tile-info">
-          <p class="tile-kicker">Software · iOS · 2026</p>
+          <p class="tile-kicker">2026</p>
           <h3 class="tile-title">Tipsy</h3>
           <p class="tile-sub">Social drink-tracking app for college students, co-founded and shipped.</p>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
         </div>
       </a>
 
-      <a class="tile" id="project-kalshi" href="#project-kalshi" data-id="kalshi" data-cats="software ai" aria-haspopup="dialog">
+      <a class="tile" id="project-kalshi" href="#project-kalshi" data-id="kalshi" aria-haspopup="dialog">
         <div class="tile-media">
           <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
           <div class="tile-art">
@@ -762,14 +786,14 @@
           </div>
         </div>
         <div class="tile-info">
-          <p class="tile-kicker">Software · AI &amp; ML · 2026</p>
+          <p class="tile-kicker">2026</p>
           <h3 class="tile-title">Kalshi Market Predictor</h3>
           <p class="tile-sub">Conv1D + GRU model that predicts 60-second price moves on Kalshi markets.</p>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
         </div>
       </a>
 
-      <a class="tile" id="project-wind-turbine" href="#project-wind-turbine" data-id="wind-turbine" data-cats="hardware" aria-haspopup="dialog">
+      <a class="tile" id="project-wind-turbine" href="#project-wind-turbine" data-id="wind-turbine" aria-haspopup="dialog">
         <div class="tile-media">
           <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
           <div class="tile-art">
@@ -816,7 +840,7 @@
           </div>
         </div>
         <div class="tile-info">
-          <p class="tile-kicker">Hardware · Mechanical · 2025</p>
+          <p class="tile-kicker">2025</p>
           <h3 class="tile-title">Small-Scale Wind Turbine</h3>
           <p class="tile-sub">3D-printed turbine designed with SolidWorks FEA and checked against load tests.</p>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
@@ -903,52 +927,6 @@
         <p class="pm-stack"><span>Built with</span>SolidWorks · FEA · 3D printing · Load testing</p>
       </div>
     </template>
-  </div>
-</section>
-
-<section id="experience" class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <h2 class="section-title">Experience</h2>
-    </div>
-    <div class="cv">
-      <div class="cv-row reveal">
-        <div class="cv-when">May 2026 – Aug 2026</div>
-        <div>
-          <h3 class="cv-role">Clinical Technology Intern</h3>
-          <p class="cv-org">Precision Rehabilitation · Long Beach, CA</p>
-          <ul class="cv-points">
-            <li>Fitted and calibrated Bioness L300 Go functional electrical stimulation systems for patients with post-stroke gait impairment.</li>
-            <li>Tuned stimulation intensity and timing through a tablet interface during live gait training sessions.</li>
-            <li>Logged device parameters across sessions to support clinician assessment of patient response and treatment adjustment.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="cv-row reveal">
-        <div class="cv-when">May 2024 – Aug 2026<br>Seasonal</div>
-        <div>
-          <h3 class="cv-role">Ocean Lifeguard</h3>
-          <p class="cv-org">Long Beach Fire Department, Marine Safety Division · Long Beach, CA</p>
-          <ul class="cv-points">
-            <li>Monitored ocean conditions and responded to emergencies to keep swimmers safe.</li>
-            <li>Served as first responder for on-site medical crises, executing Emergency Medical Response protocols.</li>
-            <li>Certified Emergency Medical Responder, USLA Open Water Lifeguard, Basic Life Support and First Aid.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="cv-row reveal">
-        <div class="cv-when">Jun 2023 – Aug 2023</div>
-        <div>
-          <h3 class="cv-role">Environmental Engineering Intern</h3>
-          <p class="cv-org">Biogas Engineering · Victorville, CA</p>
-          <ul class="cv-points">
-            <li>Assisted in the design and optimization of biogas systems to improve operational efficiency.</li>
-            <li>Worked with senior engineers on the Victor Valley Wastewater Reclamation Authority project.</li>
-            <li>Turned daily production data into technical reports for management.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1093,7 +1071,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 gsap.registerPlugin(ScrollTrigger);
@@ -1933,7 +1910,6 @@ gsap.registerPlugin(ScrollTrigger);
    PORTFOLIO JS — smooth scroll, nav, reveals, project grid + view
 ══════════════════════════════════════════════════════════════ */
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (window.Flip) gsap.registerPlugin(Flip);
 
 /* Smooth scroll — Lenis eases the wheel, GSAP's ticker drives it so
    ScrollTrigger and the scroll position never drift apart */
@@ -1989,7 +1965,7 @@ const sectionIO = new IntersectionObserver(entries => {
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
-['wireframe-zone', 'projects', 'experience', 'skills', 'education', 'leadership', 'contact']
+['wireframe-zone', 'experience', 'projects', 'skills', 'education', 'leadership', 'contact']
   .forEach(id => { const s = document.getElementById(id); if (s) sectionIO.observe(s); });
 
 /* Reveal on scroll */
@@ -2010,35 +1986,7 @@ if (!REDUCED_MOTION) {
   });
 }
 
-/* ── Projects: category filters ── */
 const tiles = [...document.querySelectorAll('.tile')];
-const filterBtns = [...document.querySelectorAll('.filter-btn')];
-const inCat = (tile, f) => f === 'all' || tile.dataset.cats.split(' ').includes(f);
-let currentFilter = 'all';
-
-filterBtns.forEach(btn => {
-  btn.querySelector('.count').textContent = tiles.filter(t => inCat(t, btn.dataset.filter)).length;
-  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
-});
-
-function applyFilter(f) {
-  if (f === currentFilter) return;
-  currentFilter = f;
-  filterBtns.forEach(b => {
-    const on = b.dataset.filter === f;
-    b.classList.toggle('active', on);
-    b.setAttribute('aria-pressed', String(on));
-  });
-  const state = window.Flip && !REDUCED_MOTION ? Flip.getState(tiles, { props: 'opacity' }) : null;
-  tiles.forEach(t => t.classList.toggle('is-hidden', !inCat(t, f)));
-  if (!state) { ScrollTrigger.refresh(); return; }
-  Flip.from(state, {
-    duration: 0.6, ease: 'power3.inOut', absolute: true, scale: true,
-    onEnter: els => gsap.fromTo(els, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.45, delay: 0.15, ease: 'power2.out' }),
-    onLeave: els => gsap.to(els, { opacity: 0, scale: 0.96, duration: 0.3, ease: 'power2.in' }),
-    onComplete: () => ScrollTrigger.refresh()
-  });
-}
 
 /* Illustrations only animate while their tile is on screen */
 const playIO = new IntersectionObserver(entries => {
@@ -2091,16 +2039,15 @@ function fillProject(id) {
   pmContent.replaceChildren(...tpl.querySelector('.tpl-content').children);
   pmContent.querySelector('.pm-title').id = 'pm-title';
 
-  /* Previous / next walk the projects visible under the current filter */
-  const list = tiles.filter(t => !t.classList.contains('is-hidden'));
-  const i = Math.max(0, list.indexOf(tile));
-  const prev = list[(i - 1 + list.length) % list.length];
-  const next = list[(i + 1) % list.length];
+  /* Previous / next wrap around the grid order */
+  const i = tiles.indexOf(tile);
+  const prev = tiles[(i - 1 + tiles.length) % tiles.length];
+  const next = tiles[(i + 1) % tiles.length];
   pmPrev.dataset.id = prev.dataset.id;
   pmNext.dataset.id = next.dataset.id;
   pmPrev.querySelector('.pm-nav-name').textContent = prev.querySelector('.tile-title').textContent;
   pmNext.querySelector('.pm-nav-name').textContent = next.querySelector('.tile-title').textContent;
-  pmPrev.hidden = pmNext.hidden = list.length < 2;
+  pmPrev.hidden = pmNext.hidden = tiles.length < 2;
   pmBody.scrollTop = 0;
   panel.scrollTop = 0;
   openId = id;
