@@ -252,6 +252,8 @@
     }
     .tile:hover .tile-art { transform: scale(1.035); }
     .tile-art svg { width: 100%; height: 100%; max-height: 300px; overflow: visible; }
+    .tile-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+    .tile:hover .tile-cover { transform: scale(1.035); }
     .tile-flag, .pm-flag {
       display: inline-flex; align-items: center; gap: .45rem;
       padding: .28rem .6rem; border-radius: 5px;
@@ -296,6 +298,25 @@
     .pm-visual { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--line); background: #050607; }
     .pm-art { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 2.4rem 2.2rem; }
     .pm-art svg { position: relative; width: 100%; height: 100%; max-height: 380px; overflow: visible; }
+
+    /* Image carousel, for projects whose template has a .tpl-gallery */
+    .pm-art.is-gallery { padding: 0; align-items: stretch; }
+    .gal { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .gal-view { position: relative; flex: 1; min-height: 0; overflow: hidden; touch-action: pan-y; }
+    .gal-track { position: absolute; inset: 0; display: flex; transition: transform .6s var(--ease); }
+    .gal-slide { flex: 0 0 100%; height: 100%; margin: 0; padding: 1.8rem 2rem; display: flex; align-items: center; justify-content: center; }
+    .gal-slide img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; user-select: none; -webkit-user-drag: none; }
+    .gal-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1.1rem .8rem 1.4rem; border-top: 1px solid var(--line); }
+    .gal-caption { min-width: 0; font-size: .84rem; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .gal-count { margin-right: .8rem; font-family: var(--mono); font-size: .74rem; color: var(--text3); font-variant-numeric: tabular-nums; }
+    .gal-btns { flex: none; display: flex; gap: .5rem; }
+    .gal-btns button {
+      width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      background: none; border: 1px solid var(--line2); color: var(--text);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .gal-btns button:hover { background: #fff; color: #000; border-color: #fff; }
+    .gal-btns svg { width: 14px; height: 14px; }
     .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 1.6rem; }
     .pm-content { flex: 1; }
     .pm-kicker { font-family: var(--mono); font-size: .76rem; color: var(--text3); margin-bottom: 1rem; }
@@ -374,14 +395,6 @@
     .pv-kalshi .pulse { fill: #8ff2ff; animation: kFlow 2.8s linear infinite; }
     @keyframes kFlow { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(290px); opacity: 0; } }
 
-    /* Wind turbine — rotor turns, load case pulses against the FEA curve */
-    .pv-turbine .blades { transform-box: view-box; transform-origin: 180px 111px; animation: spin 10s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .pv-turbine .load { animation: tLoad 3.6s ease-in-out infinite; }
-    @keyframes tLoad { 0%, 100% { transform: translateX(10px); opacity: .45; } 50% { transform: none; opacity: 1; } }
-    .pv-turbine .defl { stroke: var(--coral); stroke-width: 1.1; fill: none; stroke-dasharray: 3 4; animation: tDefl 3.6s ease-in-out infinite; }
-    @keyframes tDefl { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
-
     /* ── CV rows (experience, leadership) ── */
     .cv-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: .4rem 2.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
     .cv-row:first-child { padding-top: .5rem; }
@@ -441,9 +454,12 @@
       .edu-grid { grid-template-columns: 1fr; gap: 2.8rem; }
       .pm-panel { width: 100%; height: 100%; border: 0; border-radius: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; overflow-y: auto; }
       .pm-close { top: 14px; right: 14px; }
-      .pm-visual { border-right: 0; border-bottom: 1px solid var(--line); }
+      .pm-visual { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; }
       .pm-art { flex: none; height: 300px; padding: 1.6rem; }
-      .pm-body { overflow: visible; padding: 2.2rem 1.5rem 2rem; }
+      .pm-art.is-gallery { height: auto; }
+      .gal-view { flex: none; height: min(84vw, 460px); }
+      .gal-slide { padding: 1.2rem; }
+      .pm-body { overflow: visible; min-height: auto; padding: 2.2rem 1.5rem 2rem; }
       footer { flex-direction: column; text-align: center; padding: 1.6rem; }
       #hud-readout { display: none; }
       .hud-label-tl { top: 76px; left: 20px; }
@@ -795,49 +811,7 @@
 
       <a class="tile" id="project-wind-turbine" href="#project-wind-turbine" data-id="wind-turbine" aria-haspopup="dialog">
         <div class="tile-media">
-          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
-          <div class="tile-art">
-              <svg class="pv pv-turbine" viewBox="0 0 360 300" role="img" aria-label="Illustration: a three-blade wind turbine on a tapered tower, with a lateral load and the FEA-predicted tower deflection">
-                <line class="dm" x1="96" y1="282" x2="264" y2="282"/>
-                <line class="dm" x1="106" y1="282" x2="100" y2="289"/>
-                <line class="dm" x1="118" y1="282" x2="112" y2="289"/>
-                <line class="dm" x1="130" y1="282" x2="124" y2="289"/>
-                <line class="dm" x1="142" y1="282" x2="136" y2="289"/>
-                <line class="dm" x1="154" y1="282" x2="148" y2="289"/>
-                <line class="dm" x1="166" y1="282" x2="160" y2="289"/>
-                <line class="dm" x1="178" y1="282" x2="172" y2="289"/>
-                <line class="dm" x1="190" y1="282" x2="184" y2="289"/>
-                <line class="dm" x1="202" y1="282" x2="196" y2="289"/>
-                <line class="dm" x1="214" y1="282" x2="208" y2="289"/>
-                <line class="dm" x1="226" y1="282" x2="220" y2="289"/>
-                <line class="dm" x1="238" y1="282" x2="232" y2="289"/>
-                <line class="dm" x1="250" y1="282" x2="244" y2="289"/>
-                <line class="dm" x1="262" y1="282" x2="256" y2="289"/>
-                <path class="defl" d="M180,282 Q180,200 162,124"/>
-                <polyline class="ln" points="170,282 177,122"/>
-                <polyline class="ln" points="190,282 183,122"/>
-                <line class="dm" x1="171.75" y1="242" x2="188.25" y2="242"/>
-                <line class="dm" x1="173.5" y1="202" x2="186.5" y2="202"/>
-                <line class="dm" x1="175.25" y1="162" x2="184.75" y2="162"/>
-                <circle class="dm dash" cx="180" cy="111" r="80"/>
-                <rect class="ln" x="172" y="104" width="16" height="15" rx="4"/>
-                <g class="blades">
-                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z"/>
-                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z" transform="rotate(120 180 111)"/>
-                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z" transform="rotate(240 180 111)"/>
-                </g>
-                <circle class="br" cx="180" cy="111" r="6" fill="#040506"/>
-                <g class="load">
-                  <line class="br" x1="252" y1="215" x2="191" y2="215"/>
-                  <polyline class="br" points="197,210 191,215 197,220"/>
-                  <text class="tx tx-a tx-lg" x="258" y="219">F</text>
-                </g>
-                <text class="tx" x="204" y="236">LOAD TEST</text>
-                <text class="tx" x="128" y="252" text-anchor="end">FEA PREDICTION</text>
-                <line class="dm" x1="132" y1="249" x2="171" y2="249"/>
-                <text class="tx tx-a tx-lg" x="148" y="136">δ</text>
-              </svg>
-          </div>
+          <img class="tile-cover" src="/projects/wind-turbine/cover.webp" width="1600" height="1000" alt="SolidWorks render of the wind turbine: a three-blade rotor on a tapered lattice tower" loading="lazy" decoding="async">
         </div>
         <div class="tile-info">
           <p class="tile-kicker">2025</p>
@@ -910,6 +884,18 @@
     </template>
 
     <template id="pm-tpl-wind-turbine">
+      <!-- Carousel order follows the source file numbers; images live in public/projects/wind-turbine -->
+      <div class="tpl-gallery">
+        <figure><img src="/projects/wind-turbine/1.webp" width="1161" height="1400" loading="lazy" decoding="async" alt="SolidWorks render of the wind turbine: a three-blade rotor and nacelle on a tapered lattice tower with eight footpads"><figcaption>Final assembly in SolidWorks</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/2.webp" width="1048" height="1400" loading="lazy" decoding="async" alt="The 3D-printed tower clamped to a load-test rig in the lab"><figcaption>Load testing the printed tower</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/4.webp" width="905" height="1400" loading="lazy" decoding="async" alt="Exploded view of the turbine assembly: rotor, upper tower section and base"><figcaption>Exploded view: rotor, upper tower and base</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/5.webp" width="1400" height="1075" loading="lazy" decoding="async" alt="SolidWorks FEA plot of resultant displacement, peaking at about 0.40 mm at the top of the tower"><figcaption>FEA: tower displacement under a lateral load</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/6.webp" width="1400" height="767" loading="lazy" decoding="async" alt="SolidWorks Mass Properties dialog for the final tower, next to a render of the tower"><figcaption>Mass properties of the final tower</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/7.webp" width="1400" height="834" loading="lazy" decoding="async" alt="SolidWorks render of the three-blade rotor and hub"><figcaption>Three-blade rotor</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/8.webp" width="1219" height="1400" loading="lazy" decoding="async" alt="Front-view drawing of the tower with overall height and base dimensions"><figcaption>Dimensioned drawing, front view</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/9.webp" width="1159" height="1400" loading="lazy" decoding="async" alt="Side-view drawing of the tower with nacelle-mount and base dimensions"><figcaption>Dimensioned drawing, side view</figcaption></figure>
+        <figure><img src="/projects/wind-turbine/10.webp" width="1400" height="871" loading="lazy" decoding="async" alt="Bar chart of power in milliwatts against current in milliamps, peaking near 1,250 mW at 260.9 mA"><figcaption>Power vs. current, peaking at 1.24 W</figcaption></figure>
+      </div>
       <div class="tpl-metrics">
         <div class="metric"><div class="metric-val">1.242<sub>W</sub></div><div class="metric-label">Output</div></div>
         <div class="metric"><div class="metric-val">12.4<sub>N/mm</sub></div><div class="metric-label">Tower stiffness</div></div>
@@ -2009,7 +1995,13 @@ const pmNav = modal.querySelector('.pm-nav');
 const pmPrev = modal.querySelector('.pm-prev');
 const pmNext = modal.querySelector('.pm-next');
 const pmClose = modal.querySelector('.pm-close');
-let openId = null, openTile = null, pushed = false, busy = false;
+let openId = null, openTile = null, pushed = false, busy = false, closing = false, closeQueued = false;
+
+/* A transition just finished — run a close that was requested mid-animation */
+function settle() {
+  busy = false;
+  if (closeQueued) { closeQueued = false; closeProject(); }
+}
 
 const panelRadius = () => (innerWidth <= 900 ? 0 : 12);
 const pmParts = () => [pmVisual, ...pmContent.children, pmNav];
@@ -2022,10 +2014,8 @@ function clipTo(rect) {
   return 'inset(' + v.join(' ') + ' round 10px)';
 }
 
-function fillProject(id) {
-  const tile = document.getElementById('project-' + id);
-  const tpl = document.getElementById('pm-tpl-' + id).content.cloneNode(true);
-  /* Illustration: clone the tile's SVG, renaming ids so gradients stay unique */
+/* Illustration: clone the tile's SVG, renaming ids so gradients stay unique */
+function illustration(tile) {
   const svg = tile.querySelector('.tile-art svg').cloneNode(true);
   svg.querySelectorAll('[id]').forEach(el => {
     const oldRef = 'url(#' + el.id + ')';
@@ -2034,7 +2024,80 @@ function fillProject(id) {
       if (a.value.includes(oldRef)) a.value = a.value.split(oldRef).join('url(#' + el.id + ')');
     }));
   });
-  pmArt.replaceChildren(svg);
+  return svg;
+}
+
+const arrowIcon = d => '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="' + d + '"/></svg>';
+
+/* Carousel: one <figure> per slide, figcaption moves into the caption bar */
+function gallery(src) {
+  const gal = document.createElement('div');
+  gal.className = 'gal';
+  gal.setAttribute('role', 'region');
+  gal.setAttribute('aria-roledescription', 'carousel');
+  gal.setAttribute('aria-label', 'Project images');
+  gal.innerHTML =
+    '<div class="gal-view"><div class="gal-track"></div></div>' +
+    '<div class="gal-bar"><p class="gal-caption" aria-live="polite"><span class="gal-count"></span><span class="gal-text"></span></p>' +
+    '<div class="gal-btns"><button class="gal-prev" type="button" aria-label="Previous image">' + arrowIcon('M13 8H3M7 4L3 8l4 4') + '</button>' +
+    '<button class="gal-next" type="button" aria-label="Next image">' + arrowIcon('M3 8h10M9 4l4 4-4 4') + '</button></div></div>';
+  const track = gal.querySelector('.gal-track');
+  const slides = [...src.querySelectorAll('figure')];
+  const captions = slides.map(f => {
+    const c = f.querySelector('figcaption');
+    if (!c) return '';
+    c.remove();
+    return c.textContent;
+  });
+  slides.forEach(f => {
+    f.className = 'gal-slide';
+    f.querySelector('img').draggable = false;
+    track.append(f);
+  });
+  const n = slides.length;
+  let cur = 0;
+  const go = i => {
+    cur = (i + n) % n;
+    track.style.transform = 'translateX(' + (-100 * cur) + '%)';
+    slides.forEach((f, j) => {
+      f.inert = j !== cur;
+      /* fetch the visible image and its neighbours so a step never lands on a blank slide */
+      const d = Math.abs(j - cur);
+      if (d <= 1 || d === n - 1) f.querySelector('img').loading = 'eager';
+    });
+    gal.querySelector('.gal-count').textContent = (cur + 1) + ' / ' + n;
+    gal.querySelector('.gal-text').textContent = captions[cur];
+  };
+  gal.querySelector('.gal-prev').addEventListener('click', () => go(cur - 1));
+  gal.querySelector('.gal-next').addEventListener('click', () => go(cur + 1));
+  /* With focus in the carousel, arrow keys step images instead of switching projects */
+  gal.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    go(cur + (e.key === 'ArrowRight' ? 1 : -1));
+  });
+  /* Swipe / drag */
+  const view = gal.querySelector('.gal-view');
+  let x0 = null;
+  view.addEventListener('pointerdown', e => { x0 = e.clientX; });
+  view.addEventListener('pointercancel', () => { x0 = null; });
+  view.addEventListener('pointerup', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+  });
+  gal.querySelector('.gal-btns').hidden = n < 2;
+  go(0);
+  return gal;
+}
+
+function fillProject(id) {
+  const tile = document.getElementById('project-' + id);
+  const tpl = document.getElementById('pm-tpl-' + id).content.cloneNode(true);
+  const images = tpl.querySelector('.tpl-gallery');
+  pmArt.classList.toggle('is-gallery', !!images);
+  pmArt.replaceChildren(images ? gallery(images) : illustration(tile));
   pmMetrics.replaceChildren(...tpl.querySelector('.tpl-metrics').children);
   pmContent.replaceChildren(...tpl.querySelector('.tpl-content').children);
   pmContent.querySelector('.pm-title').id = 'pm-title';
@@ -2077,7 +2140,7 @@ function openProject(id, { push = true } = {}) {
   gsap.to(panel, {
     clipPath: 'inset(0px 0px 0px 0px round ' + panelRadius() + 'px)',
     duration: 0.75, ease: 'expo.inOut',
-    onComplete: () => { panel.style.clipPath = ''; busy = false; }
+    onComplete: () => { panel.style.clipPath = ''; settle(); }
   });
   gsap.to(pmParts(), { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.4 });
   gsap.to(pmClose, { opacity: 1, duration: 0.4, delay: 0.5 });
@@ -2095,7 +2158,7 @@ function swapProject(id) {
       replace();
       gsap.fromTo(pmParts(), { opacity: 0, y: 14 }, {
         opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.04,
-        onComplete: () => { busy = false; }
+        onComplete: settle
       });
     }
   });
@@ -2103,14 +2166,18 @@ function swapProject(id) {
 
 /* Close via button / Esc / backdrop — goes through history if we pushed an entry */
 function closeProject() {
-  if (!openId || busy) return;
+  if (!openId || closing) return;
+  if (busy) { closeQueued = true; return; }
   if (pushed) history.back();
   else { finishClose(); history.replaceState(null, '', location.pathname + location.search); }
 }
 
 function finishClose() {
-  if (!openId) return;
+  if (!openId || closing) return;
   const tile = openTile;
+  /* Back can land mid-open or mid-switch: stop those tweens and shrink from where the panel is */
+  gsap.killTweensOf([panel, backdrop, pmClose, ...pmParts()]);
+  const fromClip = panel.style.clipPath || 'inset(0px 0px 0px 0px round ' + panelRadius() + 'px)';
   const done = () => {
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
@@ -2120,15 +2187,15 @@ function finishClose() {
     pmArt.replaceChildren();
     openId = openTile = null;
     pushed = false;
-    busy = false;
+    busy = closing = closeQueued = false;
     tile.focus({ preventScroll: true });
   };
   if (REDUCED_MOTION) { done(); return; }
-  busy = true;
+  busy = closing = true;
   gsap.to([...pmParts(), pmClose], { opacity: 0, duration: 0.2 });
   gsap.to(backdrop, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
   gsap.fromTo(panel,
-    { clipPath: 'inset(0px 0px 0px 0px round ' + panelRadius() + 'px)' },
+    { clipPath: fromClip },
     { clipPath: clipTo(tile.getBoundingClientRect()), duration: 0.6, ease: 'expo.inOut', onComplete: done });
 }
 
@@ -2146,7 +2213,7 @@ addEventListener('popstate', e => {
 
 addEventListener('keydown', e => {
   if (e.key === 'Escape') { if (openId) closeProject(); else closeMenu(); return; }
-  if (!openId) return;
+  if (!openId || e.defaultPrevented) return;
   if (e.key === 'ArrowRight' && !pmNext.hidden) openProject(pmNext.dataset.id);
   else if (e.key === 'ArrowLeft' && !pmPrev.hidden) openProject(pmPrev.dataset.id);
   else if (e.key === 'Tab') {
