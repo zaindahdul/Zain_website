@@ -3,95 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zain Dahdul — Mechanical Engineer</title>
+  <title>Zain Dahdul · Mechanical Engineering, UC Berkeley</title>
+  <meta name="description" content="Zain Dahdul studies Mechanical Engineering at UC Berkeley with a minor in EECS. Projects include an AI medical-bill advocate, an iOS app, a Kalshi price-prediction model and a 3D-printed wind turbine." />
+  <meta property="og:title" content="Zain Dahdul · Mechanical Engineering, UC Berkeley" />
+  <meta property="og:description" content="Hardware and software projects by Zain Dahdul, UC Berkeley." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#000000" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+    /* Lenis smooth-scroll hooks; pm-lock = project view open */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-stopped, html.pm-lock { overflow: hidden; }
+
+    :root {
+      --bg:      #000000;
+      --surface: #0a0b0c;
+      --line:    rgba(255,255,255,.09);
+      --line2:   rgba(255,255,255,.18);
+      --text:    #ececec;
+      --text2:   #a3a3a3;
+      --text3:   #6f6f6f;
+      --body:    #c9c9c9;
+      --accent:  #35d4e2;
+      --gold:    #d9b979;
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'IBM Plex Sans', system-ui, sans-serif;
+      --mono:    'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      --ease:    cubic-bezier(.16,1,.3,1);
+      --radius:  10px;
+      --maxw:    1120px;
+    }
+
     body {
-      background: #000;
+      background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: var(--sans);
       font-size: 16px;
       line-height: 1.6;
-      cursor: none;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
     }
+    ::selection { background: rgba(53,212,226,.25); color: #fff; }
+    :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 
-    :root {
-      --bg:      #000000;
-      --bg2:     #060708;
-      --bg3:     #0d0f11;
-      --panel:   rgba(255,255,255,.022);
-      --border:  rgba(255,255,255,.08);
-      --border2: rgba(255,255,255,.16);
-      --text:    #f3f5f7;
-      --text2:   #9aa0a8;
-      --text3:   #5c626a;
-      --accent:  #35d4e2;
-      --accent2: #6fe3ee;
-      --cyan:    #00e5ff;
-      --white:   #ffffff;
-      --ease:    cubic-bezier(.16,1,.3,1);
-      --maxw:    1120px;
-    }
-
-    ::selection { background: rgba(53,212,226,.22); color: #fff; }
-
-    /* ── Canvases ── */
+    /* ── Helicopter canvas ── */
     #bg-canvas {
       position: fixed; inset: 0; z-index: 0;
       pointer-events: none; display: block;
       width: 100%; height: 100%;
     }
-    #canvas-bg {
-      position: fixed; inset: 0; z-index: 1;
-      pointer-events: none; opacity: 0;
-    }
-
-    /* ── Background orbs ── */
-    .orb {
-      position: fixed; border-radius: 50%;
-      filter: blur(120px); pointer-events: none; z-index: 0;
-    }
-    .orb-1 {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(255,255,255,.018) 0%, transparent 70%);
-      top: -15%; left: -10%;
-      animation: drift1 22s ease-in-out infinite alternate;
-    }
-    .orb-2 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(53,212,226,.03) 0%, transparent 70%);
-      bottom: -10%; right: -8%;
-      animation: drift2 26s ease-in-out infinite alternate;
-    }
-    .orb-3 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(255,255,255,.01) 0%, transparent 70%);
-      top: 40%; left: 45%;
-      animation: drift3 32s ease-in-out infinite alternate;
-    }
-    @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(120px,80px) scale(1.15); } }
-    @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-100px,-60px) scale(1.2); } }
-    @keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px,100px) scale(.9); } }
-
-    /* ── Cursor ── */
-    #cursor { position: fixed; inset: 0 auto auto 0; z-index: 9999; pointer-events: none; }
-    #cd { width: 7px; height: 7px; background: #fff; border-radius: 50%; position: absolute; transform: translate(-50%,-50%); }
-    #cr {
-      width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.35);
-      border-radius: 50%; position: absolute; transform: translate(-50%,-50%);
-      transition: all .15s cubic-bezier(.16,1,.3,1);
-    }
-    .cursor-hover #cr { width: 46px; height: 46px; border-color: rgba(53,212,226,.55); background: rgba(53,212,226,.06); }
 
     /* ── HUD corners ── */
     .hud-corners { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
@@ -100,425 +69,426 @@
       border-color: rgba(0,229,255,.22); border-style: solid;
       transition: opacity .8s;
     }
-    .hc-tl { top: 18px; left: 18px; border-width: 1px 0 0 1px; }
-    .hc-tr { top: 18px; right: 18px; border-width: 1px 1px 0 0; }
+    .hc-tl { top: 74px; left: 18px; border-width: 1px 0 0 1px; }
+    .hc-tr { top: 74px; right: 18px; border-width: 1px 1px 0 0; }
     .hc-bl { bottom: 18px; left: 18px; border-width: 0 0 1px 1px; }
     .hc-br { bottom: 18px; right: 18px; border-width: 0 1px 1px 0; }
 
     /* ── HUD labels (top-left / bottom-right) ── */
     .hud-label-tl {
-      position: fixed; top: 22px; left: 24px;
-      font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+      position: fixed; top: 80px; left: 26px;
+      font-family: var(--mono); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase;
       color: rgba(0,229,255,.4); line-height: 1.9; z-index: 5; pointer-events: none;
     }
     .hud-label-br {
-      position: fixed; bottom: 22px; right: 24px;
-      font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; text-align: right;
+      position: fixed; bottom: 22px; right: 26px;
+      font-family: var(--mono); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; text-align: right;
       color: rgba(0,229,255,.35); line-height: 1.9; z-index: 5; pointer-events: none;
     }
     #hud-pct { color: rgba(0,229,255,.65); }
 
-    /* ── HUD left readout (visible during systems check) ── */
+    /* ── HUD left readout (visible during the deconstruct) ── */
     #hud-readout {
-      position: fixed; left: 24px; top: 50%;
+      position: fixed; left: 26px; top: 50%;
       transform: translateY(-50%);
-      font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+      font-family: var(--mono); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase;
       color: rgba(0,229,255,.3); line-height: 2.4; z-index: 5; pointer-events: none;
       opacity: 0; transition: opacity .6s;
     }
     #hud-readout.active { opacity: 1; }
     #hud-readout span { color: rgba(0,229,255,.75); }
 
-    /* ── HUD center part label (subtle, bottom-center during systems check) ── */
-    #hud-part-label {
-      position: fixed; bottom: 52px; left: 50%;
-      transform: translateX(-50%);
-      text-align: center; pointer-events: none; z-index: 5;
-      opacity: 0; transition: opacity .35s;
+    /* ── Exploded-view callouts (screen-space labels on 3D parts) ── */
+    #wf-callouts { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
+    .callout { position: absolute; left: 0; top: 0; opacity: 0; will-change: transform, opacity; }
+    .callout-dot {
+      position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%;
+      border: 1px solid rgba(0,229,255,.85); background: rgba(0,229,255,.18);
     }
-    #hud-part-label.active { opacity: 1; }
-    #hud-part-name {
-      font-size: .62rem; letter-spacing: .38em; text-transform: uppercase;
-      color: rgba(255,255,255,.55);
+    .callout-line {
+      position: absolute; left: 0; top: 0; height: 1px; transform-origin: 0 0;
+      background: linear-gradient(90deg, rgba(0,229,255,.6), rgba(0,229,255,.15));
     }
-    #hud-part-spec {
-      font-size: .52rem; letter-spacing: .3em;
-      color: rgba(0,229,255,.35); margin-top: .25rem;
-      text-transform: uppercase;
-    }
-
-    /* ── Crosshair ── */
-    #crosshair {
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 56px; height: 56px; pointer-events: none; z-index: 5; opacity: 0;
-      transition: opacity .7s;
-    }
-    #crosshair::before, #crosshair::after {
-      content: ''; position: absolute; background: rgba(0,229,255,.4);
-    }
-    #crosshair::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
-    #crosshair::after  { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-50%); }
-    .ch-ring { position: absolute; inset: 9px; border: 1px solid rgba(0,229,255,.28); border-radius: 50%; }
-    #crosshair.active { opacity: 1; }
+    .callout-text { position: absolute; white-space: nowrap; font-family: var(--mono); line-height: 1.5; }
+    .callout-name { display: block; font-size: .6rem; letter-spacing: .24em; color: rgba(255,255,255,.82); }
+    .callout-spec { display: block; font-size: .5rem; letter-spacing: .18em; color: rgba(0,229,255,.5); }
+    .callout.flip .callout-text { text-align: right; }
 
     /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem; height: 60px;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: saturate(180%) blur(22px);
-      -webkit-backdrop-filter: saturate(180%) blur(22px);
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid transparent;
-      transition: border-color .4s var(--ease), background .4s var(--ease);
+      transition: border-color .3s, background .3s;
     }
-    nav.scrolled { border-bottom-color: var(--border); background: rgba(0,0,0,.72); }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 500; color: var(--white); letter-spacing: .04em; }
-    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
-    .nav-links a {
-      color: var(--text2); text-decoration: none;
-      font-size: .72rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
-      position: relative; padding: .35rem 0; transition: color .25s var(--ease);
+    nav.scrolled { border-bottom-color: var(--line); background: rgba(0,0,0,.82); }
+    .nav-logo { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: .86rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+    .nav-toggle {
+      display: none; width: 40px; height: 40px; margin-right: -8px;
+      background: none; border: 0; position: relative; z-index: 2; cursor: pointer;
     }
-    .nav-links a::after {
-      content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 0;
-      background: var(--accent); transition: width .3s var(--ease);
+    .nav-toggle span {
+      position: absolute; left: 10px; right: 10px; height: 1px; background: #fff;
+      transition: transform .4s var(--ease), top .4s var(--ease);
     }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-toggle span:nth-child(1) { top: 16px; }
+    .nav-toggle span:nth-child(2) { top: 23px; }
+    .menu-open .nav-toggle span:nth-child(1) { top: 20px; transform: rotate(45deg); }
+    .menu-open .nav-toggle span:nth-child(2) { top: 20px; transform: rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,.96);
+      display: flex; flex-direction: column; justify-content: center; gap: .3rem;
+      padding: 0 2rem; opacity: 0; visibility: hidden;
+      transition: opacity .35s var(--ease), visibility 0s linear .35s;
+    }
+    .menu-open .mobile-menu { opacity: 1; visibility: visible; transition: opacity .35s var(--ease); }
+    .mobile-menu a {
+      font-family: var(--serif); font-size: clamp(2.2rem, 10vw, 2.8rem); font-weight: 400;
+      color: #fff; text-decoration: none; line-height: 1.3;
+    }
 
     /* ── Wireframe zone ── */
     #wireframe-zone { position: relative; z-index: 2; }
+    #wf-explode { height: 180vh; pointer-events: none; }
 
     /* ── Hero ── */
     #hero {
-      min-height: 100vh;
+      min-height: 100vh; position: relative;
       display: flex; align-items: center; justify-content: center;
       padding: 6rem 2rem 4rem; text-align: center;
-      position: relative; z-index: 2;
-      background: transparent;
     }
-    .hero-inner { max-width: 880px; position: relative; z-index: 2; }
-    .hero-eyebrow {
-      font-size: .68rem; letter-spacing: .32em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.8rem;
-      opacity: 0; animation: fadeUp .7s .2s forwards;
+    .hero-inner { position: relative; max-width: 760px; will-change: transform, opacity; }
+    /* soft falloff so the copy reads over the wireframe */
+    .hero-inner::before {
+      content: ''; position: absolute; inset: -14% -20%; z-index: -1; pointer-events: none;
+      background: radial-gradient(closest-side, rgba(0,0,0,.62), rgba(0,0,0,.25) 60%, transparent);
     }
+    .hero-inner > * { opacity: 0; animation: fadeUp 1s var(--ease) forwards; }
     .hero-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(4rem, 11vw, 9.5rem);
-      font-weight: 300; line-height: .9; letter-spacing: -.02em; color: var(--white);
-      opacity: 0; animation: fadeUp .9s .35s forwards;
+      font-family: var(--serif);
+      font-size: clamp(4rem, 11vw, 9rem);
+      font-weight: 300; line-height: .92; letter-spacing: -.02em; color: #fff;
       text-shadow: 0 0 60px rgba(0,0,0,.85), 0 0 120px rgba(0,0,0,.55);
+      animation-delay: .2s;
     }
-    .hero-tagline {
-      margin-top: 2rem;
-      font-size: clamp(.95rem, 1.8vw, 1.15rem); color: var(--text2);
-      font-weight: 300; line-height: 1.8; max-width: 580px;
-      margin-left: auto; margin-right: auto;
-      opacity: 0; animation: fadeUp .9s .55s forwards;
-      text-shadow: 0 0 20px rgba(0,0,0,1);
+    .hero-role {
+      margin-top: 1.6rem; font-size: clamp(1rem, 1.9vw, 1.2rem); color: var(--text);
+      text-shadow: 0 0 18px #000, 0 0 36px #000;
+      animation-delay: .4s;
     }
-    .hero-tagline strong { color: var(--text); font-weight: 500; }
-    .hero-ctas {
-      margin-top: 2.75rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp .9s .75s forwards;
+    .hero-intro {
+      margin: .6rem auto 0; max-width: 540px;
+      font-size: .98rem; line-height: 1.7; color: var(--text2);
+      text-shadow: 0 0 18px #000, 0 0 36px #000;
+      animation-delay: .55s;
     }
-    .btn-primary {
-      display: inline-block; padding: .85rem 2.2rem;
-      background: var(--white); color: #05070a; border: 1px solid var(--white);
-      font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 600;
-      letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 980px;
-      cursor: none; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+    .hero-ctas { margin-top: 2.3rem; display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; animation-delay: .7s; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .78rem 1.4rem; border-radius: 6px;
+      font-family: var(--sans); font-size: .88rem; font-weight: 500; text-decoration: none;
+      transition: background .2s, border-color .2s, color .2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(255,255,255,.14); background: #eef1f4; }
-    .btn-secondary {
-      display: inline-block; padding: .85rem 2.2rem;
-      background: rgba(255,255,255,.04); color: var(--text);
-      border: 1px solid var(--border2);
-      font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 500;
-      letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 980px;
-      cursor: none; transition: all .25s var(--ease); backdrop-filter: blur(4px);
-    }
-    .btn-secondary:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.28); color: var(--white); transform: translateY(-2px); }
+    .btn-solid { background: #fff; color: #000; border: 1px solid #fff; }
+    .btn-solid:hover { background: #d9d9d9; border-color: #d9d9d9; }
+    .btn-ghost { background: rgba(0,0,0,.4); color: var(--text); border: 1px solid var(--line2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.45); color: #fff; }
     .hero-scroll {
-      margin-top: 4rem;
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      opacity: 0; animation: fadeUp .7s 1.1s forwards;
+      position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .3rem;
+      font-size: .74rem; color: var(--text3);
+      opacity: 0; animation: fadeIn 1s 1.5s forwards;
     }
-    .hero-scroll span { font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--text3); }
-    .scroll-line {
-      width: 1px; height: 52px;
-      background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
-      animation: scrollPulse 2.4s ease-in-out infinite;
-    }
+    .hero-scroll svg { width: 14px; height: 14px; }
 
-    /* ── Wireframe overlay sections ── */
-    .wf-section {
-      position: relative; z-index: 2;
-      display: flex; align-items: center;
-      padding: 4rem 5vw;
-      background: transparent;
-    }
-    .wf-section.align-right  { justify-content: flex-end; }
-    .wf-section.align-left   { justify-content: flex-start; }
-    .wf-section.align-center { justify-content: center; text-align: center; }
-
-    /* Resume info card — minimal, recruiter-focused */
-    .wf-card {
-      max-width: 310px; width: 100%;
-      border-left: 1px solid rgba(0,229,255,.2);
-      padding: 1.4rem 1.8rem;
-    }
-    .wf-card-eyebrow {
-      font-size: .55rem; letter-spacing: .42em; text-transform: uppercase;
-      color: rgba(0,229,255,.5); margin-bottom: .9rem;
-    }
-    .wf-card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 300; color: var(--white);
-      line-height: 1.1; letter-spacing: -.02em; margin-bottom: .6rem;
-    }
-    .wf-card-sub {
-      font-size: .7rem; color: rgba(0,229,255,.55);
-      letter-spacing: .06em; margin-bottom: 1.1rem;
-    }
-    .wf-divider { width: 20px; height: 1px; background: rgba(0,229,255,.25); margin: .9rem 0; }
-    .wf-card-lines { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
-    .wf-card-lines li {
-      font-size: .72rem; color: rgba(200,225,255,.45); line-height: 1.6;
-      padding-left: .9rem; position: relative;
-    }
-    .wf-card-lines li::before { content: '—'; position: absolute; left: 0; color: rgba(0,229,255,.3); font-size: .6rem; }
-    .wf-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .8rem; }
-    .wf-card-tag {
-      font-size: .55rem; letter-spacing: .12em; text-transform: uppercase;
-      border: 1px solid rgba(0,229,255,.18); color: rgba(0,229,255,.5);
-      padding: .22rem .65rem;
-    }
-    .wf-final-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 300; color: var(--white);
-      line-height: .95; letter-spacing: -.03em;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 40px rgba(0,0,0,.8);
-    }
-    .wf-scroll-arrow {
-      display: inline-flex; flex-direction: column; align-items: center; gap: .5rem;
-      color: rgba(0,229,255,.5); font-size: .6rem; letter-spacing: .3em;
-      text-transform: uppercase; text-decoration: none; margin-top: 1.5rem;
-      animation: arrowPulse 2s ease-in-out infinite;
-    }
-    .wf-scroll-arrow svg { width: 16px; height: 16px; }
-    @keyframes arrowPulse { 0%,100% { opacity: .4; transform: translateY(0); } 50% { opacity: .9; transform: translateY(5px); } }
-
-    /* Scan lines overlay */
-    body::after {
-      content: ''; position: fixed; inset: 0; z-index: 3;
-      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.018) 2px,rgba(0,0,0,.018) 4px);
-      pointer-events: none;
-    }
-
-    /* ── Layout ── */
+    /* ── Sections ── */
     section { position: relative; z-index: 2; }
-
-    /* ── Marquee ── */
-    .marquee-wrap {
-      overflow: hidden; padding: 1.15rem 0;
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      background: var(--bg2); position: relative; z-index: 2;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    .section { padding: 7rem 2rem; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; }
+    .section-head {
+      display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap;
+      gap: 1.2rem 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); margin-bottom: 3rem;
     }
-    .marquee-track { display: flex; gap: 3.5rem; animation: marquee 45s linear infinite; width: max-content; }
-    .marquee-item { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text3); white-space: nowrap; transition: color .25s; }
-    .marquee-item:hover { color: var(--text2); }
-    .marquee-item span { color: var(--text2); margin: 0 .4rem; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* ── Stats ── */
-    #stats { background: var(--bg2); padding: 3.5rem 2rem; }
-    .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; max-width: var(--maxw); margin: 0 auto; }
-    .stat-item {
-      flex: 1; min-width: 170px; text-align: center; padding: 1.5rem 1rem;
-      border-right: 1px solid var(--border);
-      opacity: 0; transform: translateY(16px); transition: all .55s var(--ease);
+    .section-title {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(2.4rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -.015em; color: #fff;
     }
-    .stat-item:last-child { border-right: none; }
-    .stat-item.visible { opacity: 1; transform: translateY(0); }
-    .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3.1rem; font-weight: 400; color: var(--white); line-height: 1; letter-spacing: -.01em; }
-    .stat-label { margin-top: .55rem; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text3); }
 
-    /* ── Section header ── */
-    .section-header { text-align: center; margin-bottom: 4.5rem; }
-    .section-label { display: block; font-size: .64rem; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem,5vw,3.7rem); font-weight: 300; color: var(--white); line-height: 1.08; letter-spacing: -.02em; }
-    .section-line { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 1.5rem auto 0; opacity: .6; }
-
-    /* ── About ── */
-    #about { padding: 8.5rem 2rem; }
-    .about-inner { max-width: var(--maxw); margin: 0 auto; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center; }
-    .about-card { background: var(--bg3); border: 1px solid var(--border); padding: 3rem; position: relative; border-radius: 4px; }
-    .about-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(53,212,226,.4), transparent); }
-    .about-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--white); line-height: 1.55; margin-bottom: 1.8rem; }
-    .about-quote em { font-style: italic; color: var(--accent2); }
-    .about-sub { font-size: .86rem; color: var(--text2); line-height: 1.9; }
-    .about-floater { position: absolute; bottom: -1px; right: -1px; background: var(--white); color: #000; padding: .7rem 1.2rem; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
-    .about-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 300; color: var(--white); margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -.01em; }
-    .about-text p { font-size: .88rem; color: var(--text2); line-height: 1.95; margin-bottom: 1.15rem; }
-    .about-text p strong { color: var(--text); font-weight: 500; }
-    .about-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
-    .tag { padding: .38rem 1rem; border: 1px solid var(--border); color: var(--text2); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; border-radius: 980px; transition: all .25s var(--ease); }
-    .tag:hover { border-color: var(--accent); color: var(--white); background: rgba(53,212,226,.06); }
-
-    /* ── Experience ── */
-    #experience { padding: 8.5rem 2rem; background: var(--bg2); }
-    .exp-wrapper { max-width: 940px; margin: 0 auto; }
-    .timeline { position: relative; padding-left: 2.5rem; }
-    .timeline::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(53,212,226,.35), rgba(255,255,255,.03)); }
-    .timeline-item { position: relative; padding: 0 0 3.5rem 2.5rem; opacity: 0; transform: translateX(-16px); transition: all .65s var(--ease); }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-item.visible { opacity: 1; transform: translateX(0); }
-    .timeline-dot { position: absolute; left: -2.5rem; top: 5px; transform: translateX(-50%); width: 11px; height: 11px; border-radius: 50%; background: var(--bg2); border: 1.5px solid var(--accent); transition: all .3s var(--ease); }
-    .timeline-item:hover .timeline-dot { background: var(--accent); box-shadow: 0 0 16px rgba(53,212,226,.4); }
-    .timeline-date { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; }
-    .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.85rem; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: .3rem; }
-    .timeline-org { font-size: .8rem; color: var(--text2); margin-bottom: 1.3rem; }
-    .timeline-card { border: 1px solid var(--border); border-left: 2px solid rgba(53,212,226,.25); padding: 1.5rem 1.9rem; border-radius: 0 4px 4px 0; transition: border-color .3s var(--ease), background .3s var(--ease); }
-    .timeline-item:hover .timeline-card { border-color: var(--border2); border-left-color: var(--accent); background: var(--panel); }
-    .timeline-card ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
-    .timeline-card li { font-size: .84rem; color: var(--text2); line-height: 1.7; padding-left: 1.2rem; position: relative; }
-    .timeline-card li::before { content: ''; position: absolute; left: 0; top: .62em; width: 5px; height: 1px; background: var(--accent); }
-    .timeline-note { font-family: 'Inter', sans-serif; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text3); border: 1px solid var(--border2); border-radius: 980px; padding: .2rem .6rem; vertical-align: middle; margin-left: .6rem; }
-
-    /* ── Projects ── */
-    #projects { padding: 8.5rem 2rem; }
-    .proj-wrapper { max-width: 940px; margin: 0 auto; }
-    .proj-card {
-      border: 1px solid var(--border); border-radius: 4px; padding: 3rem;
-      position: relative; overflow: hidden; background: var(--bg3);
-      opacity: 0; transform: translateY(24px); transition: all .7s var(--ease);
+    /* ── Projects: filters + grid ── */
+    .proj-filters { display: flex; gap: 1.6rem; flex-wrap: wrap; }
+    .filter-btn {
+      position: relative; background: none; border: 0; padding: .35rem 0; cursor: pointer;
+      font-family: var(--sans); font-size: .9rem; font-weight: 500; color: var(--text3);
+      transition: color .2s;
     }
-    .proj-card.visible { opacity: 1; transform: translateY(0); }
-    .proj-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(53,212,226,.45), transparent); }
-    .proj-card:hover { border-color: var(--border2); }
-    .proj-badge { display: inline-block; padding: .3rem .8rem; border: 1px solid var(--border2); color: var(--accent); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 1.3rem; border-radius: 980px; }
-    .proj-title { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: .45rem; letter-spacing: -.01em; }
-    .proj-sub { font-size: .78rem; color: var(--accent); margin-bottom: 2rem; }
-    .proj-specs { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2rem; }
-    .proj-spec { background: var(--bg2); padding: 1.4rem 1.2rem; text-align: center; }
-    .proj-spec-val { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400; color: var(--white); line-height: 1; }
-    .proj-spec-val sub { font-size: .5em; color: var(--text3); letter-spacing: .08em; margin-left: .15em; }
-    .proj-spec-label { margin-top: .5rem; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text3); }
-    .proj-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
-    .proj-list li { font-size: .84rem; color: var(--text2); line-height: 1.75; padding-left: 1.2rem; position: relative; }
-    .proj-list li::before { content: ''; position: absolute; left: 0; top: .62em; width: 5px; height: 1px; background: var(--accent); }
-    .proj-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+    .filter-btn:hover { color: var(--text2); }
+    .filter-btn.active { color: #fff; }
+    .filter-btn::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: #fff;
+      transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease);
+    }
+    .filter-btn.active::after { transform: scaleX(1); }
+    .filter-btn .count { margin-left: .35rem; font-family: var(--mono); font-size: .72rem; font-weight: 400; color: var(--text3); }
 
-    /* ── Skills ── */
-    #skills { padding: 8.5rem 2rem; }
-    .skills-wrapper { max-width: var(--maxw); margin: 0 auto; }
-    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .skill-card { background: var(--bg); padding: 2.4rem; position: relative; overflow: hidden; cursor: default; transition: background .3s var(--ease); opacity: 0; transform: translateY(24px); }
-    .skill-card.visible { opacity: 1; transform: translateY(0); }
-    .skill-card:hover { background: var(--bg3); }
-    .skill-icon { width: 34px; height: 34px; margin-bottom: 1.5rem; color: var(--accent); display: block; transition: transform .3s var(--ease); }
-    .skill-card:hover .skill-icon { transform: translateY(-2px); }
-    .skill-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--white); margin-bottom: .5rem; }
-    .skill-desc { font-size: .78rem; color: var(--text2); line-height: 1.75; }
-    .skill-bar-wrap { margin-top: 1.4rem; height: 2px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
-    .skill-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; border-radius: 2px; transition: width 1.3s var(--ease) .25s; }
-    .skill-card.visible .skill-bar { width: var(--level); }
+    .proj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+    .tile {
+      position: relative; display: flex; flex-direction: column;
+      color: inherit; text-decoration: none;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; transition: border-color .3s var(--ease);
+    }
+    .tile:hover { border-color: var(--line2); }
+    .tile.is-hidden { display: none; }
+    .tile-media {
+      position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+      background: radial-gradient(ellipse at 50% 45%, rgba(53,212,226,.05), transparent 70%), #050607;
+      border-bottom: 1px solid var(--line);
+    }
+    .tile-media::before, .pm-art::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 28px 28px; background-position: center;
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    }
+    .tile-art {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      padding: 1.6rem 1.6rem 1.2rem; transition: transform .7s var(--ease);
+    }
+    .tile:hover .tile-art { transform: scale(1.035); }
+    .tile-art svg { width: 100%; height: 100%; max-height: 300px; overflow: visible; }
+    .tile-flag, .pm-flag {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .28rem .6rem; border-radius: 5px;
+      font-size: .74rem; color: var(--text); border: 1px solid var(--line2); background: rgba(0,0,0,.65);
+    }
+    .tile-flag { position: absolute; top: 14px; left: 14px; z-index: 2; }
+    .tile-flag.award, .pm-flag.award { color: var(--gold); border-color: rgba(217,185,121,.35); }
+    .flag-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; }
+    .tile-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.2rem; padding: 1.25rem 1.4rem 1.4rem; }
+    .tile-kicker { font-family: var(--mono); font-size: .74rem; color: var(--text3); margin-bottom: .4rem; }
+    .tile-title { font-family: var(--serif); font-size: 1.85rem; font-weight: 500; line-height: 1.1; color: #fff; }
+    .tile-sub { margin-top: .35rem; font-size: .88rem; line-height: 1.55; color: var(--text2); }
+    .tile-arrow {
+      grid-column: 2; grid-row: 1 / span 3; align-self: end;
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      border: 1px solid var(--line2); color: var(--text);
+      transition: background .25s, color .25s, border-color .25s;
+    }
+    .tile-arrow svg { width: 14px; height: 14px; }
+    .tile:hover .tile-arrow { background: #fff; color: #000; border-color: #fff; }
+
+    /* ── Project detail view ── */
+    .pm { position: fixed; inset: 0; z-index: 300; visibility: hidden; }
+    .pm.open { visibility: visible; }
+    .pm-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.8); opacity: 0; }
+    .pm-panel {
+      --pw: min(1120px, calc(100vw - 48px)); --ph: min(700px, calc(100vh - 48px));
+      position: absolute; inset: 0; margin: auto; width: var(--pw); height: var(--ph);
+      display: grid; grid-template-columns: 1.05fr 1fr;
+      background: var(--surface); border: 1px solid var(--line2); border-radius: 12px; overflow: hidden;
+    }
+    .pm-close {
+      position: absolute; z-index: 5; cursor: pointer;
+      top: calc((100vh - min(700px, calc(100vh - 48px))) / 2 + 14px);
+      right: calc((100vw - min(1120px, calc(100vw - 48px))) / 2 + 14px);
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(0,0,0,.55); border: 1px solid var(--line2); color: #fff;
+      transition: background .2s, border-color .2s;
+    }
+    .pm-close:hover { background: #fff; color: #000; border-color: #fff; }
+    .pm-close svg { width: 14px; height: 14px; }
+    .pm-visual { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--line); background: #050607; }
+    .pm-art { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 2.4rem 2.2rem; }
+    .pm-art svg { position: relative; width: 100%; height: 100%; max-height: 380px; overflow: visible; }
+    .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 1.6rem; }
+    .pm-content { flex: 1; }
+    .pm-kicker { font-family: var(--mono); font-size: .76rem; color: var(--text3); margin-bottom: 1rem; }
+    .pm-flag { margin-bottom: 1.1rem; }
+    .pm-title { font-family: var(--serif); font-size: clamp(2.3rem, 3.4vw, 3rem); font-weight: 500; line-height: 1.02; color: #fff; }
+    .pm-sub { margin: .5rem 0 1.7rem; font-size: .98rem; color: var(--text2); }
+    .pm-points, .cv-points, .edu-points { list-style: none; display: flex; flex-direction: column; }
+    .pm-points { gap: .85rem; }
+    .pm-points li, .cv-points li, .edu-points li { position: relative; padding-left: 1.1rem; font-size: .9rem; line-height: 1.7; color: var(--body); }
+    .pm-points li::before, .cv-points li::before, .edu-points li::before {
+      content: ''; position: absolute; left: 0; top: .82em; width: 5px; height: 1px; background: var(--text3);
+    }
+    .pm-stack { margin-top: 1.8rem; font-size: .86rem; color: var(--text2); }
+    .pm-stack span { display: block; margin-bottom: .25rem; font-family: var(--mono); font-size: .72rem; color: var(--text3); }
+    .pm-link {
+      display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.6rem;
+      font-size: .9rem; color: #fff; text-decoration: underline; text-underline-offset: 5px;
+      text-decoration-color: var(--line2); transition: text-decoration-color .2s;
+    }
+    .pm-link:hover { text-decoration-color: #fff; }
+    .pm-link svg { width: 11px; height: 11px; }
+    .pm-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+    .pm-nav button { display: flex; flex-direction: column; gap: .15rem; background: none; border: 0; cursor: pointer; text-align: left; color: var(--text); font-family: var(--sans); }
+    .pm-nav .pm-next { text-align: right; margin-left: auto; }
+    .pm-nav-label { font-size: .74rem; color: var(--text3); }
+    .pm-nav-name { font-size: .9rem; transition: color .2s; }
+    .pm-nav button:hover .pm-nav-name { color: var(--accent); }
+
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .metric { padding: 1.1rem .8rem 1.15rem; text-align: center; border-right: 1px solid var(--line); }
+    .metric:last-child { border-right: none; }
+    .metric-val { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: #fff; line-height: 1; white-space: nowrap; }
+    .metric-val sub { font-size: .5em; color: var(--text3); margin-left: .12em; vertical-align: baseline; }
+    .metric-label { margin-top: .45rem; font-size: .74rem; color: var(--text3); }
+
+    /* ── Project illustrations (line-art, animated while on screen) ── */
+    .pv .ln  { fill: none; stroke: rgba(53,212,226,.6); stroke-width: 1.2; }
+    .pv .dm  { fill: none; stroke: rgba(53,212,226,.2); stroke-width: 1; }
+    .pv .br  { fill: none; stroke: #8ff2ff; stroke-width: 1.4; }
+    .pv .fl  { fill: rgba(53,212,226,.06); stroke: none; }
+    .pv .dash { stroke-dasharray: 3 4; }
+    .pv .cap { stroke-linecap: round; }
+    .pv .tx  { font-family: var(--mono); font-size: 8px; letter-spacing: .14em; fill: rgba(154,160,168,.75); }
+    .pv .tx-a { fill: var(--accent); }
+    .pv .tx-lg { font-size: 10px; }
+    .tile:not(.playing) .pv *, .pm-lock .tile .pv * { animation-play-state: paused !important; }
+
+    /* Vellum — statement scan, flagged lines, live voice waveform */
+    .pv-vellum .scan { animation: vScan 5.2s linear infinite; }
+    @keyframes vScan { 0% { transform: translateY(56px); opacity: 0; } 6% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateY(198px); opacity: 0; } }
+    .pv-vellum .flag rect { fill: rgba(255,122,107,.09); stroke: rgba(255,122,107,.55); stroke-width: 1; }
+    .pv-vellum .flag line { stroke: rgba(255,122,107,.55); stroke-width: 1; }
+    .pv-vellum .flag text { fill: var(--coral); }
+    .pv-vellum .flag-1 { animation: vFlag1 5.2s linear infinite; }
+    .pv-vellum .flag-2 { animation: vFlag2 5.2s linear infinite; }
+    @keyframes vFlag1 { 0%, 29% { opacity: 0; } 33%, 90% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes vFlag2 { 0%, 63% { opacity: 0; } 67%, 90% { opacity: 1; } 100% { opacity: 0; } }
+    .pv-vellum .wv { fill: var(--accent); opacity: .75; transform-box: fill-box; transform-origin: center; animation: wave 1.3s ease-in-out infinite; animation-delay: calc(var(--d) * -1s); }
+    @keyframes wave { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+
+    /* Tipsy — live leaderboard, safety toast, score ring */
+    .pv-tipsy .bar { fill: rgba(53,212,226,.65); transform-box: fill-box; transform-origin: left center; animation: tBar 4.8s var(--ease) infinite; animation-delay: calc(var(--d) * 1s); }
+    @keyframes tBar { 0% { transform: scaleX(var(--a)); } 45%, 55% { transform: scaleX(var(--b)); } 100% { transform: scaleX(var(--a)); } }
+    .pv-tipsy .toast { animation: tToast 6s var(--ease) infinite; }
+    @keyframes tToast { 0%, 52% { transform: translateY(-14px); opacity: 0; } 60%, 88% { transform: none; opacity: 1; } 96%, 100% { transform: translateY(-14px); opacity: 0; } }
+    .pv-tipsy .ring { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tRing 6s var(--ease) infinite; }
+    @keyframes tRing { 0% { stroke-dashoffset: 1; } 40%, 85% { stroke-dashoffset: .28; } 100% { stroke-dashoffset: 1; } }
+
+    /* Kalshi — trade history draws in, data flows through the model */
+    .pv-kalshi .price { stroke-dasharray: 1; stroke-dashoffset: 1; animation: kDraw 7s var(--ease) infinite; }
+    @keyframes kDraw { 0% { stroke-dashoffset: 1; opacity: 1; } 55%, 92% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+    .pv-kalshi .now-dot { fill: var(--accent); animation: kDot 7s linear infinite; }
+    @keyframes kDot { 0%, 52% { opacity: 0; } 58%, 92% { opacity: 1; } 100% { opacity: 0; } }
+    .pv-kalshi .fc-up { animation: kUp 7s var(--ease) infinite; }
+    @keyframes kUp { 0%, 58% { opacity: 0; transform: translateY(8px); } 66%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    .pv-kalshi .pulse { fill: #8ff2ff; animation: kFlow 2.8s linear infinite; }
+    @keyframes kFlow { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(290px); opacity: 0; } }
+
+    /* Wind turbine — rotor turns, load case pulses against the FEA curve */
+    .pv-turbine .blades { transform-box: view-box; transform-origin: 180px 111px; animation: spin 10s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pv-turbine .load { animation: tLoad 3.6s ease-in-out infinite; }
+    @keyframes tLoad { 0%, 100% { transform: translateX(10px); opacity: .45; } 50% { transform: none; opacity: 1; } }
+    .pv-turbine .defl { stroke: var(--coral); stroke-width: 1.1; fill: none; stroke-dasharray: 3 4; animation: tDefl 3.6s ease-in-out infinite; }
+    @keyframes tDefl { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
+
+    /* ── CV rows (experience, leadership) ── */
+    .cv-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: .4rem 2.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+    .cv-row:first-child { padding-top: .5rem; }
+    .cv-when { padding-top: .45rem; font-size: .86rem; color: var(--text3); font-variant-numeric: tabular-nums; }
+    .cv-role { font-family: var(--serif); font-size: 1.65rem; font-weight: 500; line-height: 1.2; color: #fff; }
+    .cv-org { margin-top: .2rem; font-size: .9rem; color: var(--text2); }
+    .cv-points { margin-top: 1rem; gap: .5rem; max-width: 720px; }
+    .cv-desc { margin-top: .8rem; max-width: 720px; font-size: .9rem; line-height: 1.7; color: var(--body); }
+
+    /* ── Definition rows (skills, interests) ── */
+    .def-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: .3rem 2.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+    .def-row:first-child { padding-top: .4rem; }
+    .def-row dt { font-size: .88rem; color: var(--text3); padding-top: .1rem; }
+    .def-row dd { font-size: .95rem; line-height: 1.65; color: var(--text); }
+    .interests { margin-top: 3.5rem; }
 
     /* ── Education ── */
-    #education { padding: 8.5rem 2rem; background: var(--bg2); }
-    .edu-wrapper { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .edu-card { background: var(--bg2); padding: 3rem; position: relative; overflow: hidden; opacity: 0; transform: translateY(24px); transition: all .65s var(--ease); }
-    .edu-card.visible { opacity: 1; transform: translateY(0); }
-    .edu-card:hover { background: var(--bg3); }
-    .edu-badge { display: inline-block; padding: .3rem .8rem; border: 1px solid var(--border2); color: var(--accent); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 1.3rem; border-radius: 980px; }
-    .edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: .45rem; }
-    .edu-school { font-size: .78rem; color: var(--accent); margin-bottom: 1.5rem; letter-spacing: .01em; }
-    .edu-highlights { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
-    .edu-highlights li { font-size: .8rem; color: var(--text2); padding-left: 1.1rem; position: relative; line-height: 1.65; }
-    .edu-highlights li::before { content: ''; position: absolute; left: 0; top: .6em; width: 5px; height: 1px; background: var(--accent); }
-
-    /* ── Volunteer ── */
-    #volunteer { padding: 8.5rem 2rem; }
-    .vol-wrapper { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-    .vol-card { padding: 2.6rem; border: 1px solid var(--border); position: relative; overflow: hidden; opacity: 0; transform: scale(.97); border-radius: 4px; transition: all .65s var(--ease); }
-    .vol-card.visible { opacity: 1; transform: scale(1); }
-    .vol-card:hover { border-color: var(--border2); background: var(--bg3); transform: translateY(-3px); }
-    .vol-icon { width: 30px; height: 30px; margin-bottom: 1.5rem; color: var(--accent); display: block; }
-    .vol-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; color: var(--white); line-height: 1.25; margin-bottom: .45rem; }
-    .vol-meta { font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
-    .vol-desc { font-size: .82rem; color: var(--text2); line-height: 1.85; }
-    .interests { margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border); text-align: center; }
-    .interests-label { display: block; font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: var(--text3); margin-bottom: 1.4rem; }
-    .interests-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 4rem; }
+    .edu-when { font-size: .86rem; color: var(--text3); margin-bottom: .6rem; }
+    .edu-degree { font-family: var(--serif); font-size: 1.8rem; font-weight: 500; line-height: 1.2; color: #fff; }
+    .edu-minor { margin-top: .35rem; font-size: .95rem; color: var(--text); }
+    .edu-school { margin-top: .25rem; font-size: .9rem; color: var(--text2); }
+    .edu-points { margin-top: 1.3rem; gap: .45rem; }
 
     /* ── Contact ── */
-    #contact { padding: 9rem 2rem; background: var(--bg2); text-align: center; }
-    .contact-inner { max-width: 680px; margin: 0 auto; }
-    .contact-inner p { font-size: .95rem; color: var(--text2); line-height: 1.9; margin: 1.6rem 0 2.8rem; }
-    .contact-links { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; }
-    .contact-item { display: flex; align-items: center; gap: .6rem; padding: .8rem 1.6rem; border: 1px solid var(--border2); color: var(--text2); text-decoration: none; font-size: .78rem; transition: all .25s var(--ease); border-radius: 980px; }
-    .contact-item svg { width: 14px; height: 14px; flex-shrink: 0; transition: color .25s var(--ease); }
-    .contact-item:hover { border-color: var(--accent); color: var(--white); background: rgba(53,212,226,.06); transform: translateY(-2px); }
-    .contact-item:hover svg { color: var(--accent); }
+    .contact-lead { max-width: 560px; margin-bottom: 1.6rem; font-size: 1.05rem; color: var(--text2); }
+    .contact-row {
+      display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: .2rem 2.5rem; align-items: baseline;
+      padding: 1.15rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none;
+    }
+    .contact-row span:first-child { font-size: .88rem; color: var(--text3); }
+    .contact-val { font-family: var(--serif); font-size: 1.55rem; font-weight: 500; color: #fff; overflow-wrap: anywhere; transition: color .2s; }
+    a.contact-row:hover .contact-val { color: var(--accent); }
 
     /* ── Footer ── */
-    footer { padding: 1.8rem 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 1rem; position: relative; z-index: 2; }
-    footer span { font-size: .68rem; color: var(--text3); letter-spacing: .06em; }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: var(--text2); letter-spacing: .04em; }
+    footer {
+      position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 1rem;
+      padding: 2rem 2.5rem; border-top: 1px solid var(--line); font-size: .8rem; color: var(--text3);
+    }
 
-    /* ── Keyframes ── */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes scrollPulse { 0%,100% { opacity: .25; } 50% { opacity: .7; } }
-
-    .reveal { opacity: 0; transform: translateY(32px); transition: all .75s cubic-bezier(.16,1,.3,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ── Motion ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
-      #hero { padding: 7rem 1.5rem 4rem; }
-      #about,#experience,#projects,#skills,#education,#volunteer,#contact { padding: 5.5rem 1.5rem; }
-      .proj-card { padding: 2rem 1.5rem; }
-      .proj-specs { grid-template-columns: 1fr; }
-      .section-header { margin-bottom: 3.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .edu-wrapper,.vol-wrapper { grid-template-columns: 1fr; }
-      .wf-section { padding: 4rem 1.5rem; }
-      footer { flex-direction: column; gap: .8rem; text-align: center; padding: 1.5rem; }
+      .nav-toggle { display: block; }
+      #hero { padding: 7rem 1.5rem 5rem; }
+      .section { padding: 5rem 1.5rem; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .cv-row, .def-row, .contact-row { grid-template-columns: 1fr; }
+      .cv-when { padding-top: 0; }
+      .edu-grid { grid-template-columns: 1fr; gap: 2.8rem; }
+      .pm-panel { width: 100%; height: 100%; border: 0; border-radius: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; overflow-y: auto; }
+      .pm-close { top: 14px; right: 14px; }
+      .pm-visual { border-right: 0; border-bottom: 1px solid var(--line); }
+      .pm-art { flex: none; height: 300px; padding: 1.6rem; }
+      .pm-body { overflow: visible; padding: 2.2rem 1.5rem 2rem; }
+      footer { flex-direction: column; text-align: center; padding: 1.6rem; }
       #hud-readout { display: none; }
+      .hud-label-tl { top: 76px; left: 20px; }
+    }
+    @media (max-width: 760px) {
+      #wf-callouts { display: none; }
     }
     @media (max-width: 540px) {
-      .skills-grid { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; align-items: stretch; }
-      .btn-primary, .btn-secondary { text-align: center; }
-      .wf-stats { gap: 1.5rem; }
+      .tile-title { font-size: 1.6rem; }
+      .metric-val { font-size: 1.35rem; }
+      .contact-val { font-size: 1.3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      /* Illustrations rest on a fully drawn, static frame */
+      .pv * { animation: none !important; }
+      .pv-kalshi .price { stroke-dashoffset: 0; }
+      .pv-tipsy .ring { stroke-dashoffset: .28; }
+      .pv-vellum .scan { display: none; }
     }
   </style>
 </head>
 <body>
 
 <canvas id="bg-canvas"></canvas>
-<canvas id="canvas-bg"></canvas>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-
-<div id="cursor"><div id="cd"></div><div id="cr"></div></div>
-
-<!-- HUD overlay -->
+<!-- HUD overlay (helicopter sequence only) -->
 <div class="hud-corners">
   <div class="hud-corner hc-tl"></div>
   <div class="hud-corner hc-tr"></div>
@@ -533,276 +503,448 @@
   <div id="hud-pct">0%</div>
   <div id="hud-phase">OVERVIEW</div>
 </div>
-
-<!-- Left readout (visible during systems check) -->
-<div id="hud-readout">
-  <div>RPM &nbsp;<span id="hud-rpm">—</span></div>
-  <div>SYS &nbsp;<span id="hud-sys">STANDBY</span></div>
-  <div>SEQ &nbsp;<span id="hud-seq">OVERVIEW</span></div>
-  <div>COMP &nbsp;<span id="hud-comp">18</span></div>
+<div id="hud-left">
+  <div id="hud-readout">
+    <div>RPM &nbsp;<span id="hud-rpm">—</span></div>
+    <div>SYS &nbsp;<span id="hud-sys">STANDBY</span></div>
+    <div>SEQ &nbsp;<span id="hud-seq">OVERVIEW</span></div>
+    <div>COMP &nbsp;<span id="hud-comp">18</span></div>
+  </div>
 </div>
-
-<!-- Center part label (visible during systems check) -->
-<div id="hud-part-label">
-  <div id="hud-part-name"></div>
-  <div id="hud-part-spec"></div>
-</div>
-
-<div id="crosshair"><div class="ch-ring"></div></div>
+<div id="wf-callouts" aria-hidden="true"></div>
 
 <nav id="navbar">
-  <div class="nav-logo">Zain Dahdul</div>
+  <a href="#hero" class="nav-logo">Zain Dahdul</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
+    <li><a href="#leadership">Leadership</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
 </nav>
 
-<!-- ══════════ WIREFRAME ZONE (720vh) ══════════ -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#leadership">Leadership</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ══════════ WIREFRAME ZONE (280vh) ══════════ -->
 <div id="wireframe-zone">
 
-  <!-- S1 · Hero (100vh) -->
-  <section id="hero" style="min-height:100vh;">
+  <section id="hero">
     <div class="hero-inner">
-      <p class="hero-eyebrow">Mechanical Engineering &nbsp;·&nbsp; University of California, Berkeley</p>
       <h1 class="hero-name">Zain Dahdul</h1>
-      <p class="hero-tagline">
-        Mechanical design, shipped software, and split-second response —
-        I build things that have to work <strong>the first time</strong>.
-      </p>
+      <p class="hero-role">Mechanical Engineering at UC Berkeley, minor in EECS</p>
+      <p class="hero-intro">I build hardware and software. Recent work includes an AI medical-bill advocate, an iOS app on the App Store, and a 3D-printed wind turbine.</p>
       <div class="hero-ctas">
-        <a href="#about" class="btn-primary">View My Work</a>
-        <a href="#contact" class="btn-secondary">Get In Touch</a>
-      </div>
-      <div class="hero-scroll">
-        <div class="scroll-line"></div>
-        <span>Scroll to explore</span>
+        <a href="#projects" class="btn btn-solid">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
-  </section>
-
-  <!-- S2 · Systems orbit (200vh) — camera orbits, parts highlighted -->
-  <section class="wf-section align-right" id="wf-orbit" style="min-height:200vh;">
-    <div class="wf-card reveal">
-      <div class="wf-card-eyebrow">Education · Expected May 2029</div>
-      <div class="wf-card-name">Zain Dahdul</div>
-      <div class="wf-card-sub">B.S. Mechanical Engineering · UC Berkeley</div>
-      <div class="wf-divider"></div>
-      <ul class="wf-card-lines">
-        <li>College of Engineering · 3.3 GPA</li>
-        <li>Coursework: Solid Mechanics, 3D CAD &amp; Prototyping, Programming &amp; Data Analysis for Engineers, Linear Algebra &amp; Differential Equations</li>
-        <li>Cal Men's Club Water Polo · Phi Kappa Psi</li>
-        <li>Millikan High School Valedictorian — Gold Robe</li>
-      </ul>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6l4 4 4-4"/></svg>
     </div>
   </section>
 
-  <!-- S3 · Cockpit zoom (150vh) -->
-  <section class="wf-section align-right" id="wf-cockpit" style="min-height:150vh;">
-    <div class="wf-card reveal">
-      <div class="wf-card-eyebrow">Experience · 2025 – Present</div>
-      <div class="wf-card-name">Co-Founder — Tipsy</div>
-      <div class="wf-card-sub">Biometric drinking-safety iOS app · Live in the App Store</div>
-      <div class="wf-divider"></div>
-      <ul class="wf-card-lines">
-        <li>One of two technical founders — concept to App Store in under a year</li>
-        <li>Personalized limit system and digital buddy feature to reduce high-risk drinking</li>
-        <li>Design, development, and launch with no outside funding or engineering hires</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- S4 · Deconstruct (170vh) — exploded view -->
-  <section class="wf-section align-left" id="wf-deconstruct" style="min-height:170vh;">
-    <div class="wf-card reveal">
-      <div class="wf-card-eyebrow">Project · 2026</div>
-      <div class="wf-card-name">Small-Scale Wind Turbine</div>
-      <div class="wf-card-sub">UC Berkeley · 4-person team</div>
-      <div class="wf-divider"></div>
-      <ul class="wf-card-lines">
-        <li>1.242 W peak output at 140.7 g under fixed volume and swept-radius constraints</li>
-        <li>SolidWorks FEA deflection predictions validated against physical load testing</li>
-        <li>Traced a 2× sim-vs-measured discrepancy to print infill density and corrected the model</li>
-      </ul>
-      <div class="wf-card-tags">
-        <span class="wf-card-tag">SolidWorks · FEA</span>
-        <span class="wf-card-tag">3D Printing</span>
-        <span class="wf-card-tag">Load Testing</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- S5 · Final CTA (100vh) — reassembled -->
-  <section class="wf-section align-center" id="wf-final" style="min-height:100vh;">
-    <div style="text-align:center;">
-      <p style="font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(0,229,255,.4);margin-bottom:1.2rem;">Mechanical Engineer · UC Berkeley · 2029</p>
-      <h2 class="wf-final-title">Full Profile<br>Below</h2>
-      <a href="#about" class="wf-scroll-arrow">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M3 9l5 5 5-5"/></svg>
-        Explore My Work
-      </a>
-    </div>
-  </section>
+  <!-- Camera angles down, airframe comes apart into an exploded view (180vh) -->
+  <section id="wf-explode" aria-hidden="true"></section>
 
 </div>
 <!-- ══════════ /WIREFRAME ZONE ══════════ -->
 
-<!-- ══════════ PORTFOLIO ══════════ -->
+<section id="projects" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Projects</h2>
+      <div class="proj-filters" role="group" aria-label="Filter projects">
+        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All<span class="count"></span></button>
+        <button class="filter-btn" type="button" data-filter="software" aria-pressed="false">Software<span class="count"></span></button>
+        <button class="filter-btn" type="button" data-filter="hardware" aria-pressed="false">Hardware<span class="count"></span></button>
+        <button class="filter-btn" type="button" data-filter="ai" aria-pressed="false">AI &amp; ML<span class="count"></span></button>
+      </div>
+    </div>
 
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">UC Berkeley</span>
-    <span class="marquee-item">Mechanical Engineering</span>
-    <span class="marquee-item">Tipsy — Co-Founder</span>
-    <span class="marquee-item">Shipped on the App Store</span>
-    <span class="marquee-item">SolidWorks · FEA</span>
-    <span class="marquee-item">Wind Turbine Design</span>
-    <span class="marquee-item">3D Printing</span>
-    <span class="marquee-item">Ocean Lifeguard</span>
-    <span class="marquee-item">EMR Certified</span>
-    <span class="marquee-item">Valedictorian</span>
-    <span class="marquee-item">Robotics Founder</span>
-    <span class="marquee-item">Bilingual ES · EN</span>
-    <span class="marquee-item">UC Berkeley</span>
-    <span class="marquee-item">Mechanical Engineering</span>
-    <span class="marquee-item">Tipsy — Co-Founder</span>
-    <span class="marquee-item">Shipped on the App Store</span>
-    <span class="marquee-item">SolidWorks · FEA</span>
-    <span class="marquee-item">Wind Turbine Design</span>
-    <span class="marquee-item">3D Printing</span>
-    <span class="marquee-item">Ocean Lifeguard</span>
-    <span class="marquee-item">EMR Certified</span>
-    <span class="marquee-item">Valedictorian</span>
-    <span class="marquee-item">Robotics Founder</span>
-    <span class="marquee-item">Bilingual ES · EN</span>
-  </div>
-</div>
+    <!-- To add a project: copy a tile + its <template>, give both the same slug, and list its categories in data-cats -->
+    <div class="proj-grid reveal">
 
-<section id="stats">
-  <div class="stats-grid">
-    <div class="stat-item"><div class="stat-number" data-target="1">0</div><div class="stat-label">iOS App Shipped</div></div>
-    <div class="stat-item"><div class="stat-number" data-target="2000" data-prefix="$" data-suffix="+">0</div><div class="stat-label">Funding Raised</div></div>
-    <div class="stat-item"><div class="stat-number" data-target="5">0</div><div class="stat-label">Safety Certifications</div></div>
-    <div class="stat-item"><div class="stat-number" data-target="4.8">0</div><div class="stat-label">Weighted GPA · Valedictorian</div></div>
-    <div class="stat-item"><div class="stat-number" data-target="2029">0</div><div class="stat-label">Expected Graduation</div></div>
+      <a class="tile" id="project-vellum" href="#project-vellum" data-id="vellum" data-cats="software ai" aria-haspopup="dialog">
+        <div class="tile-media">
+          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
+          <div class="tile-art">
+              <svg class="pv pv-vellum" viewBox="0 0 360 300" role="img" aria-label="Illustration: an itemized hospital bill being audited line by line, with two errors flagged, above a live voice-agent waveform">
+                <defs>
+                  <linearGradient id="vScanGrad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#35d4e2" stop-opacity="0"/>
+                    <stop offset="1" stop-color="#35d4e2" stop-opacity=".28"/>
+                  </linearGradient>
+                </defs>
+                <rect class="ln" x="78" y="16" width="204" height="214" rx="6"/>
+                <text class="tx" x="94" y="38">ITEMIZED STATEMENT</text>
+                <line class="dm" x1="94" y1="50" x2="266" y2="50"/>
+                <line class="dm cap" x1="94" y1="68" x2="186" y2="68"/><line class="dm cap" x1="236" y1="68" x2="266" y2="68"/>
+                <line class="dm cap" x1="94" y1="84" x2="164" y2="84"/><line class="dm cap" x1="240" y1="84" x2="266" y2="84"/>
+                <line class="dm cap" x1="94" y1="100" x2="198" y2="100"/><line class="dm cap" x1="232" y1="100" x2="266" y2="100"/>
+                <line class="dm cap" x1="94" y1="116" x2="174" y2="116"/><line class="dm cap" x1="238" y1="116" x2="266" y2="116"/>
+                <line class="dm cap" x1="94" y1="132" x2="190" y2="132"/><line class="dm cap" x1="234" y1="132" x2="266" y2="132"/>
+                <line class="dm cap" x1="94" y1="148" x2="158" y2="148"/><line class="dm cap" x1="242" y1="148" x2="266" y2="148"/>
+                <line class="dm cap" x1="94" y1="164" x2="182" y2="164"/><line class="dm cap" x1="236" y1="164" x2="266" y2="164"/>
+                <line class="dm cap" x1="94" y1="180" x2="168" y2="180"/><line class="dm cap" x1="240" y1="180" x2="266" y2="180"/>
+                <g class="flag flag-1">
+                  <rect x="86" y="92" width="188" height="16" rx="3"/>
+                  <line x1="274" y1="100" x2="288" y2="100"/>
+                  <text class="tx" x="292" y="103">FLAGGED</text>
+                </g>
+                <g class="flag flag-2">
+                  <rect x="86" y="140" width="188" height="16" rx="3"/>
+                  <line x1="274" y1="148" x2="288" y2="148"/>
+                  <text class="tx" x="292" y="151">FLAGGED</text>
+                </g>
+                <line class="ln" x1="94" y1="198" x2="266" y2="198"/>
+                <text class="tx" x="94" y="217">TOTAL</text>
+                <line class="br cap" x1="228" y1="213" x2="266" y2="213" stroke-width="2"/>
+                <g class="scan">
+                  <rect x="80" y="-16" width="200" height="16" fill="url(#vScanGrad)"/>
+                  <line class="br" x1="80" y1="0" x2="280" y2="0" stroke-opacity=".75"/>
+                </g>
+                <rect class="wv" x="96.0" y="254.0" width="2.4" height="8" rx="1.2" style="--d:0.00"/>
+                <rect class="wv" x="102.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:0.37"/>
+                <rect class="wv" x="108.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:0.74"/>
+                <rect class="wv" x="114.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:1.11"/>
+                <rect class="wv" x="120.0" y="245.0" width="2.4" height="26" rx="1.2" style="--d:0.18"/>
+                <rect class="wv" x="126.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.55"/>
+                <rect class="wv" x="132.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:0.92"/>
+                <rect class="wv" x="138.0" y="247.0" width="2.4" height="22" rx="1.2" style="--d:1.29"/>
+                <rect class="wv" x="144.0" y="244.0" width="2.4" height="28" rx="1.2" style="--d:0.36"/>
+                <rect class="wv" x="150.0" y="250.0" width="2.4" height="16" rx="1.2" style="--d:0.73"/>
+                <rect class="wv" x="156.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:1.10"/>
+                <rect class="wv" x="162.0" y="246.0" width="2.4" height="24" rx="1.2" style="--d:0.17"/>
+                <rect class="wv" x="168.0" y="243.0" width="2.4" height="30" rx="1.2" style="--d:0.54"/>
+                <rect class="wv" x="174.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:0.91"/>
+                <rect class="wv" x="180.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:1.28"/>
+                <rect class="wv" x="186.0" y="245.0" width="2.4" height="26" rx="1.2" style="--d:0.35"/>
+                <rect class="wv" x="192.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.72"/>
+                <rect class="wv" x="198.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:1.09"/>
+                <rect class="wv" x="204.0" y="247.0" width="2.4" height="22" rx="1.2" style="--d:0.16"/>
+                <rect class="wv" x="210.0" y="244.0" width="2.4" height="28" rx="1.2" style="--d:0.53"/>
+                <rect class="wv" x="216.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:0.90"/>
+                <rect class="wv" x="222.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:1.27"/>
+                <rect class="wv" x="228.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:0.34"/>
+                <rect class="wv" x="234.0" y="246.0" width="2.4" height="24" rx="1.2" style="--d:0.71"/>
+                <rect class="wv" x="240.0" y="250.0" width="2.4" height="16" rx="1.2" style="--d:1.08"/>
+                <rect class="wv" x="246.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:0.15"/>
+                <rect class="wv" x="252.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.52"/>
+                <rect class="wv" x="258.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:0.89"/>
+                <rect class="wv" x="264.0" y="254.0" width="2.4" height="8" rx="1.2" style="--d:1.26"/>
+                <text class="tx" x="180" y="292" text-anchor="middle">VOICE AGENT · NEGOTIATING LIVE</text>
+              </svg>
+          </div>
+          <span class="tile-flag award">ElevenLabs Track winner</span>
+        </div>
+        <div class="tile-info">
+          <p class="tile-kicker">Software · AI &amp; ML · 2026</p>
+          <h3 class="tile-title">Vellum</h3>
+          <p class="tile-sub">AI advocate that audits hospital bills and negotiates them by voice.</p>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </div>
+      </a>
+
+      <a class="tile" id="project-tipsy" href="#project-tipsy" data-id="tipsy" data-cats="software" aria-haspopup="dialog">
+        <div class="tile-media">
+          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
+          <div class="tile-art">
+              <svg class="pv pv-tipsy" viewBox="0 0 360 300" role="img" aria-label="Illustration: the Tipsy iPhone app showing a live friend leaderboard, a safety alert and a hangover score">
+                <rect class="ln" x="125" y="12" width="110" height="276" rx="20"/>
+                <rect class="dm" x="131" y="18" width="98" height="264" rx="15"/>
+                <rect class="fl" x="161" y="24" width="38" height="10" rx="5"/>
+                <g class="toast">
+                  <rect x="134" y="40" width="92" height="22" rx="7" fill="rgba(53,212,226,.1)" stroke="rgba(53,212,226,.5)" stroke-width="1"/>
+                  <circle cx="145" cy="51" r="2.5" fill="#ff7a6b"/>
+                  <text class="tx tx-a" x="152" y="53.5" style="font-size:7px">SAFETY ALERT</text>
+                </g>
+                <text class="tx tx-a" x="137" y="83" style="font-size:7px">LEADERBOARD</text>
+                <circle cx="221" cy="80.5" r="2.5" fill="#35d4e2"/>
+                <line class="dm" x1="137" y1="91" x2="223" y2="91"/>
+                <text class="tx" x="137" y="109">1</text>
+                <circle class="ln" cx="156" cy="106" r="8"/>
+                <line class="dm cap" x1="170" y1="102" x2="200" y2="102"/>
+                <rect class="bar" x="170" y="108" width="44" height="3" rx="1.5" style="--a:.82;--b:.96;--d:0"/>
+                <text class="tx" x="137" y="137">2</text>
+                <circle class="dm" cx="156" cy="134" r="8"/>
+                <line class="dm cap" x1="170" y1="130" x2="196" y2="130"/>
+                <rect class="bar" x="170" y="136" width="44" height="3" rx="1.5" style="--a:.7;--b:.58;--d:.3"/>
+                <text class="tx" x="137" y="165">3</text>
+                <circle class="dm" cx="156" cy="162" r="8"/>
+                <line class="dm cap" x1="170" y1="158" x2="204" y2="158"/>
+                <rect class="bar" x="170" y="164" width="44" height="3" rx="1.5" style="--a:.5;--b:.68;--d:.6"/>
+                <text class="tx" x="137" y="193">4</text>
+                <circle class="dm" cx="156" cy="190" r="8"/>
+                <line class="dm cap" x1="170" y1="186" x2="192" y2="186"/>
+                <rect class="bar" x="170" y="192" width="44" height="3" rx="1.5" style="--a:.38;--b:.3;--d:.9"/>
+                <circle class="dm" cx="180" cy="238" r="17"/>
+                <circle class="br ring" cx="180" cy="238" r="17" pathLength="1" stroke-width="2" stroke-linecap="round" transform="rotate(-90 180 238)"/>
+                <circle cx="180" cy="238" r="2.5" fill="#35d4e2"/>
+                <line class="dm cap" x1="166" y1="279" x2="194" y2="279" stroke-width="2"/>
+                <!-- feature callouts -->
+                <text class="tx" x="104" y="54" text-anchor="end">SAFETY ALERTS</text>
+                <circle cx="110" cy="51" r="1.8" fill="#35d4e2"/>
+                <line class="dm" x1="112" y1="51" x2="134" y2="51"/>
+                <text class="tx" x="104" y="137" text-anchor="end">FRIEND GROUPS</text>
+                <circle cx="110" cy="134" r="1.8" fill="#35d4e2"/>
+                <line class="dm" x1="112" y1="134" x2="148" y2="134"/>
+                <text class="tx" x="256" y="83">LIVE LEADERBOARD</text>
+                <circle cx="250" cy="80.5" r="1.8" fill="#35d4e2"/>
+                <line class="dm" x1="226" y1="80.5" x2="248" y2="80.5"/>
+                <text class="tx" x="256" y="241">HANGOVER SCORE</text>
+                <circle cx="250" cy="238" r="1.8" fill="#35d4e2"/>
+                <line class="dm" x1="197" y1="238" x2="248" y2="238"/>
+              </svg>
+          </div>
+          <span class="tile-flag"><span class="flag-dot"></span>On the App Store</span>
+        </div>
+        <div class="tile-info">
+          <p class="tile-kicker">Software · iOS · 2026</p>
+          <h3 class="tile-title">Tipsy</h3>
+          <p class="tile-sub">Social drink-tracking app for college students, co-founded and shipped.</p>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </div>
+      </a>
+
+      <a class="tile" id="project-kalshi" href="#project-kalshi" data-id="kalshi" data-cats="software ai" aria-haspopup="dialog">
+        <div class="tile-media">
+          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
+          <div class="tile-art">
+              <svg class="pv pv-kalshi" viewBox="0 0 360 300" role="img" aria-label="Illustration: a prediction-market price history feeding a Conv1D and GRU model that forecasts the next 60-second move">
+                <line class="dm" x1="40" y1="24" x2="40" y2="176"/>
+                <line class="dm" x1="40" y1="176" x2="330" y2="176"/>
+                <line class="dm dash" x1="40" y1="64" x2="330" y2="64"/>
+                <line class="dm dash" x1="40" y1="104" x2="330" y2="104"/>
+                <line class="dm dash" x1="40" y1="144" x2="330" y2="144"/>
+                <text class="tx" x="34" y="67" text-anchor="end">75¢</text>
+                <text class="tx" x="34" y="107" text-anchor="end">50¢</text>
+                <text class="tx" x="34" y="147" text-anchor="end">25¢</text>
+                <rect class="fl" x="268" y="24" width="62" height="152"/>
+                <line class="dm dash" x1="268" y1="24" x2="268" y2="176"/>
+                <text class="tx" x="268" y="16" text-anchor="middle">NOW</text>
+                <path class="br price" pathLength="1" d="M40,123 H54 V118 H66 V121 H80 V112 H92 V115 H104 V106 H118 V110 H130 V100 H142 V96 H156 V103 H168 V94 H182 V90 H194 V97 H208 V86 H220 V90 H234 V82 H246 V85 H258 V78 H268"/>
+                <circle class="now-dot" cx="268" cy="78" r="3"/>
+                <g class="fc-up">
+                  <line class="br" x1="299" y1="98" x2="299" y2="58"/>
+                  <polyline class="br" points="293,64 299,58 305,64"/>
+                </g>
+                <line class="dm" x1="299" y1="108" x2="299" y2="146"/>
+                <polyline class="dm" points="293,140 299,146 305,140"/>
+                <text class="tx tx-a" x="299" y="168" text-anchor="middle">t+60s</text>
+                <circle class="pulse" cx="40" cy="211" r="2.4"/>
+                <rect class="ln" x="40" y="196" width="62" height="30" rx="4"/>
+                <rect class="ln" x="116" y="196" width="62" height="30" rx="4"/>
+                <rect class="ln" x="192" y="196" width="62" height="30" rx="4"/>
+                <rect class="ln" x="268" y="196" width="62" height="30" rx="4"/>
+                <text class="tx" x="71" y="214" text-anchor="middle">TRADES</text>
+                <text class="tx" x="147" y="214" text-anchor="middle">CONV1D</text>
+                <text class="tx" x="223" y="214" text-anchor="middle">GRU</text>
+                <text class="tx tx-a" x="299" y="214" text-anchor="middle">Δ 60s</text>
+                <line class="dm" x1="102" y1="211" x2="114" y2="211"/><polyline class="dm" points="110,208 114,211 110,214"/>
+                <line class="dm" x1="178" y1="211" x2="190" y2="211"/><polyline class="dm" points="186,208 190,211 186,214"/>
+                <line class="dm" x1="254" y1="211" x2="266" y2="211"/><polyline class="dm" points="262,208 266,211 262,214"/>
+                <text class="tx tx-a" x="40" y="252">MODEL · 59.1%</text>
+                <line class="br cap" x1="40" y1="262" x2="211.4" y2="262" stroke-width="3"/>
+                <text class="tx" x="40" y="280">BASELINE · 52.6%</text>
+                <line class="cap" x1="40" y1="290" x2="192.5" y2="290" stroke="rgba(154,160,168,.4)" stroke-width="3"/>
+              </svg>
+          </div>
+        </div>
+        <div class="tile-info">
+          <p class="tile-kicker">Software · AI &amp; ML · 2026</p>
+          <h3 class="tile-title">Kalshi Market Predictor</h3>
+          <p class="tile-sub">Conv1D + GRU model that predicts 60-second price moves on Kalshi markets.</p>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </div>
+      </a>
+
+      <a class="tile" id="project-wind-turbine" href="#project-wind-turbine" data-id="wind-turbine" data-cats="hardware" aria-haspopup="dialog">
+        <div class="tile-media">
+          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
+          <div class="tile-art">
+              <svg class="pv pv-turbine" viewBox="0 0 360 300" role="img" aria-label="Illustration: a three-blade wind turbine on a tapered tower, with a lateral load and the FEA-predicted tower deflection">
+                <line class="dm" x1="96" y1="282" x2="264" y2="282"/>
+                <line class="dm" x1="106" y1="282" x2="100" y2="289"/>
+                <line class="dm" x1="118" y1="282" x2="112" y2="289"/>
+                <line class="dm" x1="130" y1="282" x2="124" y2="289"/>
+                <line class="dm" x1="142" y1="282" x2="136" y2="289"/>
+                <line class="dm" x1="154" y1="282" x2="148" y2="289"/>
+                <line class="dm" x1="166" y1="282" x2="160" y2="289"/>
+                <line class="dm" x1="178" y1="282" x2="172" y2="289"/>
+                <line class="dm" x1="190" y1="282" x2="184" y2="289"/>
+                <line class="dm" x1="202" y1="282" x2="196" y2="289"/>
+                <line class="dm" x1="214" y1="282" x2="208" y2="289"/>
+                <line class="dm" x1="226" y1="282" x2="220" y2="289"/>
+                <line class="dm" x1="238" y1="282" x2="232" y2="289"/>
+                <line class="dm" x1="250" y1="282" x2="244" y2="289"/>
+                <line class="dm" x1="262" y1="282" x2="256" y2="289"/>
+                <path class="defl" d="M180,282 Q180,200 162,124"/>
+                <polyline class="ln" points="170,282 177,122"/>
+                <polyline class="ln" points="190,282 183,122"/>
+                <line class="dm" x1="171.75" y1="242" x2="188.25" y2="242"/>
+                <line class="dm" x1="173.5" y1="202" x2="186.5" y2="202"/>
+                <line class="dm" x1="175.25" y1="162" x2="184.75" y2="162"/>
+                <circle class="dm dash" cx="180" cy="111" r="80"/>
+                <rect class="ln" x="172" y="104" width="16" height="15" rx="4"/>
+                <g class="blades">
+                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z"/>
+                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z" transform="rotate(120 180 111)"/>
+                  <path class="ln" fill="rgba(53,212,226,.05)" d="M180,105 C186,86 186,58 182,33 L178,33 C175,58 175,86 180,105 Z" transform="rotate(240 180 111)"/>
+                </g>
+                <circle class="br" cx="180" cy="111" r="6" fill="#040506"/>
+                <g class="load">
+                  <line class="br" x1="252" y1="215" x2="191" y2="215"/>
+                  <polyline class="br" points="197,210 191,215 197,220"/>
+                  <text class="tx tx-a tx-lg" x="258" y="219">F</text>
+                </g>
+                <text class="tx" x="204" y="236">LOAD TEST</text>
+                <text class="tx" x="128" y="252" text-anchor="end">FEA PREDICTION</text>
+                <line class="dm" x1="132" y1="249" x2="171" y2="249"/>
+                <text class="tx tx-a tx-lg" x="148" y="136">δ</text>
+              </svg>
+          </div>
+        </div>
+        <div class="tile-info">
+          <p class="tile-kicker">Hardware · Mechanical · 2025</p>
+          <h3 class="tile-title">Small-Scale Wind Turbine</h3>
+          <p class="tile-sub">3D-printed turbine designed with SolidWorks FEA and checked against load tests.</p>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Project detail content, loaded into the project view on open -->
+    <template id="pm-tpl-vellum">
+      <div class="tpl-metrics">
+        <div class="metric"><div class="metric-val">27%</div><div class="metric-label">Avg. errors caught</div></div>
+        <div class="metric"><div class="metric-val">500+</div><div class="metric-label">Tests</div></div>
+        <div class="metric"><div class="metric-val">2</div><div class="metric-label">Live voice agents</div></div>
+      </div>
+      <div class="tpl-content">
+        <p class="pm-kicker">Blockchain at Berkeley Hackathon · Oct 2026</p>
+        <span class="pm-flag award">Winner, ElevenLabs Track</span>
+        <h3 class="pm-title">Vellum</h3>
+        <p class="pm-sub">AI medical-bill advocate</p>
+        <ul class="pm-points">
+          <li>Won the ElevenLabs track with an AI advocate that audits hospital bills, catching an average of 27% in errors.</li>
+          <li>Built the research layer: pulled Medicare and hospital prices, keeping only verbatim-cited .gov sources, backed by 500+ tests.</li>
+          <li>Team built two Claude Haiku voice agents that negotiate bills live, with spending caps enforced in code.</li>
+        </ul>
+        <p class="pm-stack"><span>Built with</span>TypeScript · ElevenLabs · Context.dev · Fly.io</p>
+      </div>
+    </template>
+
+    <template id="pm-tpl-tipsy">
+      <div class="tpl-metrics">
+        <div class="metric"><div class="metric-val">Live</div><div class="metric-label">On the App Store</div></div>
+        <div class="metric"><div class="metric-val">iOS</div><div class="metric-label">React Native</div></div>
+        <div class="metric"><div class="metric-val">4</div><div class="metric-label">Core features</div></div>
+      </div>
+      <div class="tpl-content">
+        <p class="pm-kicker">Co-founder · 2026</p>
+        <span class="pm-flag"><span class="flag-dot"></span>Live on the App Store</span>
+        <h3 class="pm-title">Tipsy</h3>
+        <p class="pm-sub">Social drink-tracking iOS app for college students</p>
+        <ul class="pm-points">
+          <li>Co-founded, built and shipped a social drink-tracking iOS app, now live on the App Store for college students.</li>
+          <li>Designed the UI and core features: friend groups, a live leaderboard, safety alerts and a hangover score.</li>
+        </ul>
+        <p class="pm-stack"><span>Built with</span>React Native · Firebase</p>
+        <a class="pm-link" href="https://apps.apple.com/us/app/tipsy-drink-smart/id6762439560" target="_blank" rel="noopener">View on the App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
+      </div>
+    </template>
+
+    <template id="pm-tpl-kalshi">
+      <div class="tpl-metrics">
+        <div class="metric"><div class="metric-val">1.48M</div><div class="metric-label">Trades collected</div></div>
+        <div class="metric"><div class="metric-val">400</div><div class="metric-label">Kalshi markets</div></div>
+        <div class="metric"><div class="metric-val">59.1%</div><div class="metric-label">Accuracy (52.6% baseline)</div></div>
+      </div>
+      <div class="tpl-content">
+        <p class="pm-kicker">Individual project · 2026</p>
+        <h3 class="pm-title">Kalshi Market Predictor</h3>
+        <p class="pm-sub">Deep learning on prediction-market trade data</p>
+        <ul class="pm-points">
+          <li>Built a REST API pipeline with exponential backoff, collecting 1.48M trades across 400 Kalshi markets.</li>
+          <li>Trained a Conv1D + GRU model to predict 60-second price moves: 59.1% accuracy vs. a 52.6% baseline.</li>
+        </ul>
+        <p class="pm-stack"><span>Built with</span>Python · TensorFlow/Keras · pandas</p>
+        <a class="pm-link" href="https://github.com/zaindahdul/TensorflowModel" target="_blank" rel="noopener">View the code on GitHub <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
+      </div>
+    </template>
+
+    <template id="pm-tpl-wind-turbine">
+      <div class="tpl-metrics">
+        <div class="metric"><div class="metric-val">1.242<sub>W</sub></div><div class="metric-label">Output</div></div>
+        <div class="metric"><div class="metric-val">12.4<sub>N/mm</sub></div><div class="metric-label">Tower stiffness</div></div>
+        <div class="metric"><div class="metric-val">140.7<sub>g</sub></div><div class="metric-label">Assembly mass</div></div>
+      </div>
+      <div class="tpl-content">
+        <p class="pm-kicker">UC Berkeley · 4-person team · 2025</p>
+        <h3 class="pm-title">Small-Scale Wind Turbine</h3>
+        <p class="pm-sub">Mechanical design, FEA and physical validation</p>
+        <ul class="pm-points">
+          <li>Designed and 3D-printed a 140.7 g wind turbine under fixed volume and swept-radius constraints, achieving 1.242 W output and 12.4 N/mm stiffness.</li>
+          <li>Ran SolidWorks FEA to predict tower deflection, then validated the predictions against physical load testing.</li>
+          <li>Diagnosed a 2× discrepancy between simulated and measured deflection, traced the error to print infill density, and corrected the model.</li>
+        </ul>
+        <p class="pm-stack"><span>Built with</span>SolidWorks · FEA · 3D printing · Load testing</p>
+      </div>
+    </template>
   </div>
 </section>
 
-<section id="about">
-  <div class="about-inner">
-    <div class="section-header reveal">
-      <span class="section-label">Who I Am</span>
-      <h2 class="section-title">Built Different</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-visual reveal">
-        <div class="about-card">
-          <p class="about-quote">
-            "The ocean teaches you one thing: <em>hesitation costs lives.</em>
-            Engineering teaches you another: <em>precision saves them.</em>"
-          </p>
-          <p class="about-sub">
-            I bring both to every problem I touch — whether it's shipping an app to the
-            App Store, catching my own FEA model being wrong, or responding to a swimmer
-            in distress a half-mile offshore.
-          </p>
-          <div class="about-floater">Gold Robe Valedictorian</div>
-        </div>
-      </div>
-      <div class="about-text reveal">
-        <h3>Engineering meets action.</h3>
-        <p>
-          I'm a <strong>Mechanical Engineering student at UC Berkeley</strong> who ships.
-          I co-founded <strong>Tipsy</strong>, a biometric drinking-safety iOS app now live in
-          the App Store — taken from concept to release in under a year by two technical
-          founders, with no outside funding and no engineering hires.
-        </p>
-        <p>
-          On the hardware side I work the full loop: design, simulate, build, test, iterate.
-          I've run <strong>SolidWorks FEA</strong> on a 3D-printed wind turbine, validated it
-          against physical load testing, and tracked down my own model error when the two
-          disagreed by 2×.
-        </p>
-        <p>
-          I've also operated under life-or-death pressure as an <strong>Ocean Lifeguard</strong>
-          for the Long Beach Fire Department Marine Safety Division, and tuned
-          <strong>Bioness L300 Go</strong> stimulation systems on post-stroke patients in live
-          gait training at Precision Rehabilitation.
-        </p>
-        <div class="about-tags">
-          <span class="tag">Design → Test → Iterate</span>
-          <span class="tag">Calm Under Pressure</span>
-          <span class="tag">Ships Product</span>
-          <span class="tag">Team Leadership</span>
-          <span class="tag">Bilingual</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="exp-wrapper">
-    <div class="section-header reveal">
-      <span class="section-label">Career</span>
+<section id="experience" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
       <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
     </div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">2025 — Present</div>
-        <div class="timeline-role">Co-Founder</div>
-        <div class="timeline-org">Tipsy — Berkeley, CA</div>
-        <div class="timeline-card">
-          <ul>
-            <li>Co-founded and shipped a biometric drinking-safety iOS app, now live in the App Store, as one of two technical founders.</li>
-            <li>Designed a personalized limit system and digital buddy feature to reduce high-risk drinking among college students.</li>
-            <li>Took the product from concept to App Store release in under a year — design, development, and launch without outside funding or engineering hires.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">May 2026 — Aug 2026</div>
-        <div class="timeline-role">Clinical Technology Intern</div>
-        <div class="timeline-org">Precision Rehabilitation — Long Beach, CA</div>
-        <div class="timeline-card">
-          <ul>
+    <div class="cv">
+      <div class="cv-row reveal">
+        <div class="cv-when">May 2026 – Aug 2026</div>
+        <div>
+          <h3 class="cv-role">Clinical Technology Intern</h3>
+          <p class="cv-org">Precision Rehabilitation · Long Beach, CA</p>
+          <ul class="cv-points">
             <li>Fitted and calibrated Bioness L300 Go functional electrical stimulation systems for patients with post-stroke gait impairment.</li>
             <li>Tuned stimulation intensity and timing through a tablet interface during live gait training sessions.</li>
             <li>Logged device parameters across sessions to support clinician assessment of patient response and treatment adjustment.</li>
           </ul>
         </div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">May 2024 — Aug 2026</div>
-        <div class="timeline-role">Ocean Lifeguard <span class="timeline-note">Seasonal</span></div>
-        <div class="timeline-org">Long Beach Fire Department — Marine Safety Division, CA</div>
-        <div class="timeline-card">
-          <ul>
-            <li>Prevented and responded to water emergencies through active surveillance and enforcement across public beaches.</li>
+      <div class="cv-row reveal">
+        <div class="cv-when">May 2024 – Aug 2026<br>Seasonal</div>
+        <div>
+          <h3 class="cv-role">Ocean Lifeguard</h3>
+          <p class="cv-org">Long Beach Fire Department, Marine Safety Division · Long Beach, CA</p>
+          <ul class="cv-points">
+            <li>Monitored ocean conditions and responded to emergencies to keep swimmers safe.</li>
             <li>Served as first responder for on-site medical crises, executing Emergency Medical Response protocols.</li>
-            <li>Certified Emergency Medical Responder (EMR), USLA Open Water Lifeguard, BLS, and CPR/AED for Professional Responders.</li>
+            <li>Certified Emergency Medical Responder, USLA Open Water Lifeguard, Basic Life Support and First Aid.</li>
           </ul>
         </div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">Jun 2023 — Aug 2023</div>
-        <div class="timeline-role">Environmental Engineering Intern</div>
-        <div class="timeline-org">Biogas Engineering — Victorville, CA</div>
-        <div class="timeline-card">
-          <ul>
-            <li>Supported biogas system design and optimization at the Victor Valley Wastewater Reclamation Authority, converting methane and CO<sub>2</sub> from waste streams into usable energy.</li>
-            <li>Compiled daily production data into technical reports used by plant management.</li>
-            <li>Worked alongside senior engineers on operational efficiency improvements to the digestion and gas capture process.</li>
+      <div class="cv-row reveal">
+        <div class="cv-when">Jun 2023 – Aug 2023</div>
+        <div>
+          <h3 class="cv-role">Environmental Engineering Intern</h3>
+          <p class="cv-org">Biogas Engineering · Victorville, CA</p>
+          <ul class="cv-points">
+            <li>Assisted in the design and optimization of biogas systems to improve operational efficiency.</li>
+            <li>Worked with senior engineers on the Victor Valley Wastewater Reclamation Authority project.</li>
+            <li>Turned daily production data into technical reports for management.</li>
           </ul>
         </div>
       </div>
@@ -810,216 +952,149 @@
   </div>
 </section>
 
-<section id="projects">
-  <div class="proj-wrapper">
-    <div class="section-header reveal">
-      <span class="section-label">Selected Work</span>
-      <h2 class="section-title">Projects</h2>
-      <div class="section-line"></div>
+<section id="skills" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Skills</h2>
     </div>
-    <div class="proj-card">
-      <span class="proj-badge">2026 · UC Berkeley · 4-Person Team</span>
-      <div class="proj-title">Small-Scale Wind Turbine</div>
-      <div class="proj-sub">SolidWorks · FEA · 3D Printing · Data Analysis</div>
-      <div class="proj-specs">
-        <div class="proj-spec">
-          <div class="proj-spec-val">1.242<sub>W</sub></div>
-          <div class="proj-spec-label">Peak Output</div>
-        </div>
-        <div class="proj-spec">
-          <div class="proj-spec-val">12.4<sub>N/mm</sub></div>
-          <div class="proj-spec-label">Tower Stiffness</div>
-        </div>
-        <div class="proj-spec">
-          <div class="proj-spec-val">140.7<sub>g</sub></div>
-          <div class="proj-spec-label">Assembly Mass</div>
-        </div>
-      </div>
-      <ul class="proj-list">
-        <li>Designed and 3D-printed a full turbine assembly under fixed volume and swept-radius constraints.</li>
-        <li>Ran SolidWorks FEA to predict tower deflection, then validated those predictions against physical load testing.</li>
-        <li>Diagnosed a 2× discrepancy between simulated and measured deflection, traced the error to print infill density, and corrected the model.</li>
-      </ul>
-      <div class="proj-tags">
-        <span class="tag">Design for Manufacturing</span>
-        <span class="tag">Finite Element Analysis</span>
-        <span class="tag">Physical Load Testing</span>
-        <span class="tag">Rapid Prototyping</span>
-      </div>
-    </div>
+    <dl class="reveal">
+      <div class="def-row"><dt>Programming</dt><dd>Python, Go, C/C++, Java, TypeScript/JavaScript, Rust, SQL, MATLAB, HTML/CSS</dd></div>
+      <div class="def-row"><dt>Backend &amp; ML</dt><dd>FastAPI, Node.js, PyTorch, TensorFlow/Keras, OpenCV, MediaPipe, pandas</dd></div>
+      <div class="def-row"><dt>Mobile &amp; cloud</dt><dd>React Native, Firebase, ElevenLabs, Context.dev, Fly.io</dd></div>
+      <div class="def-row"><dt>Mechanical</dt><dd>SolidWorks (3D CAD, finite element analysis), 3D printing and prototyping, physical load testing, data analysis</dd></div>
+      <div class="def-row"><dt>Electronics</dt><dd>PCB design and testing, sensor data pipelines, telemetry, VEX V5 robotics</dd></div>
+      <div class="def-row"><dt>Certifications</dt><dd>Emergency Medical Responder, USLA Open Water Lifeguard, BLS, CPR/AED for Professional Responders, First Aid</dd></div>
+      <div class="def-row"><dt>Languages</dt><dd>English, Spanish (fluent)</dd></div>
+    </dl>
   </div>
 </section>
 
-<section id="skills">
-  <div class="skills-wrapper">
-    <div class="section-header reveal">
-      <span class="section-label">Capabilities</span>
-      <h2 class="section-title">Skills &amp; Tools</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        <div class="skill-name">SolidWorks · 3D CAD &amp; FEA</div>
-        <div class="skill-desc">Part and assembly modeling, technical drawings, and finite element analysis validated against physical load testing.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:88%"></div></div>
-      </div>
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-        <div class="skill-name">3D Printing &amp; Prototyping</div>
-        <div class="skill-desc">Rapid iteration from CAD to printed part, with design-for-manufacturing decisions made at the model stage.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:85%"></div></div>
-      </div>
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        <div class="skill-name">Python &amp; Data Analysis</div>
-        <div class="skill-desc">Python and OpenCV for engineering data — processing test results, and turning measurements into conclusions.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:80%"></div></div>
-      </div>
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="10.5" y1="18.5" x2="13.5" y2="18.5"/></svg>
-        <div class="skill-name">iOS &amp; Backend Development</div>
-        <div class="skill-desc">Built and deployed a production iOS app end to end, including server-side features and App Store release.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:82%"></div></div>
-      </div>
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2.5-7 5 14 2.5-7h6"/></svg>
-        <div class="skill-name">Emergency Medical Response</div>
-        <div class="skill-desc">Certified EMR, BLS, CPR/AED for Professional Responders, First Aid, and USLA Open Water Lifeguard.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:95%"></div></div>
-      </div>
-      <div class="skill-card">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        <div class="skill-name">Bilingual (ES / EN)</div>
-        <div class="skill-desc">Full professional fluency in Spanish and English — effective across cultures and clinical settings.</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="--level:100%"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div style="max-width:1000px;margin:0 auto;">
-    <div class="section-header reveal">
-      <span class="section-label">Academic</span>
+<section id="education" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
       <h2 class="section-title">Education</h2>
-      <div class="section-line"></div>
     </div>
-    <div class="edu-wrapper">
-      <div class="edu-card">
-        <span class="edu-badge">In Progress · Expected May 2029</span>
-        <div class="edu-degree">B.S. Mechanical Engineering</div>
-        <div class="edu-school">University of California, Berkeley — College of Engineering</div>
-        <ul class="edu-highlights">
+    <div class="edu-grid">
+      <div class="reveal">
+        <p class="edu-when">Expected May 2029</p>
+        <h3 class="edu-degree">B.S. Mechanical Engineering</h3>
+        <p class="edu-minor">Minor in Electrical Engineering &amp; Computer Sciences</p>
+        <p class="edu-school">University of California, Berkeley · College of Engineering</p>
+        <ul class="edu-points">
           <li>3.3 / 4.0 GPA</li>
-          <li>Coursework: Solid Mechanics · 3D CAD &amp; Prototyping · Programming &amp; Data Analysis for Engineers · Linear Algebra &amp; Differential Equations · Multivariable Calculus · Physics for Engineers I &amp; II</li>
+          <li>Coursework: Solid Mechanics, 3D CAD &amp; Prototyping, Programming &amp; Data Analysis for Engineers, Linear Algebra &amp; Differential Equations, Multivariable Calculus, Physics for Engineers I &amp; II</li>
+          <li>Entrepreneurs at Berkeley</li>
           <li>Cal Men's Club Water Polo</li>
           <li>Phi Kappa Psi Fraternity</li>
         </ul>
       </div>
-      <div class="edu-card">
-        <span class="edu-badge">Aug 2021 — Jun 2025</span>
-        <div class="edu-degree">High School Diploma</div>
-        <div class="edu-school">Millikan High School — Long Beach, CA</div>
-        <ul class="edu-highlights">
-          <li>Valedictorian — Gold Robe Recipient</li>
-          <li>4.8 Weighted GPA / 4.0 Unweighted · QUEST Program</li>
-          <li>Captain: Water Polo &amp; Swim · 2× All-Moore League · 2024 Offensive Player of the Year</li>
-          <li>Founder &amp; President, Robotics Club — raised $2,000+ in funding</li>
+      <div class="reveal">
+        <p class="edu-when">Aug 2021 – Jun 2025</p>
+        <h3 class="edu-degree">High School Diploma</h3>
+        <p class="edu-school">Millikan High School · Long Beach, CA</p>
+        <ul class="edu-points">
+          <li>Valedictorian, Gold Robe recipient</li>
+          <li>4.8 weighted GPA / 4.0 unweighted · QUEST Program</li>
+          <li>Captain, Water Polo &amp; Swim · 2× All-Moore League · 2024 Offensive Player of the Year</li>
+          <li>Founder &amp; President, Robotics Club · raised $2,000+ in funding</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="volunteer">
-  <div style="max-width:960px;margin:0 auto;">
-    <div class="section-header reveal">
-      <span class="section-label">Leadership &amp; Service</span>
-      <h2 class="section-title">Beyond the Classroom</h2>
-      <div class="section-line"></div>
+<section id="leadership" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Leadership &amp; activities</h2>
     </div>
-    <div class="vol-wrapper">
-      <div class="vol-card">
-        <svg class="vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-        <div class="vol-title">Space Enterprise at Berkeley</div>
-        <div class="vol-meta">Avionics Sub-team · 2026 — Present</div>
-        <div class="vol-desc">Build sensor data-collection pipelines and validate telemetry integrity from flight to ground. Design and test PCBs for the rocket avionics stack, enabling telemetry links back to the ground station.</div>
+    <div class="cv">
+      <div class="cv-row reveal">
+        <div class="cv-when">2026 – present</div>
+        <div>
+          <h3 class="cv-role">Space Enterprise at Berkeley</h3>
+          <p class="cv-org">Avionics sub-team</p>
+          <p class="cv-desc">Build sensor data-collection pipelines and validate telemetry integrity from flight to ground. Design and test PCBs for the rocket avionics stack, enabling the telemetry link to the ground station.</p>
+        </div>
       </div>
-      <div class="vol-card">
-        <svg class="vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 4v4"/><circle cx="12" cy="3" r="1"/><path d="M9 13h.01M15 13h.01M9 17h6"/></svg>
-        <div class="vol-title">Millikan Robotics Club</div>
-        <div class="vol-meta">Founder &amp; President · 2023 — 2025</div>
-        <div class="vol-desc">Founded the school's first robotics club and grew it to 8&ndash;10 active members, independently securing $2,000+ in funding for VEX V5 hardware. Led design and build cycles from concept to working machine, and taught new members CAD and assembly fundamentals.</div>
+      <div class="cv-row reveal">
+        <div class="cv-when">2025 – present</div>
+        <div>
+          <h3 class="cv-role">Cal Men's Club Water Polo</h3>
+          <p class="cv-org">Member</p>
+          <p class="cv-desc">Compete on UC Berkeley's club water polo team alongside a full engineering course load, after captaining varsity water polo and swim in high school.</p>
+        </div>
       </div>
-      <div class="vol-card">
-        <svg class="vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></svg>
-        <div class="vol-title">Life Rolls On</div>
-        <div class="vol-meta">Deep Water Instructor, Volunteer · 2022</div>
-        <div class="vol-desc">Assisted adaptive athletes with transfers from wheelchairs into the water and provided in-water stabilization during surf sessions in Santa Monica.</div>
+      <div class="cv-row reveal">
+        <div class="cv-when">2023 – 2025</div>
+        <div>
+          <h3 class="cv-role">Millikan Robotics Club</h3>
+          <p class="cv-org">Founder &amp; President</p>
+          <p class="cv-desc">Founded the school's first robotics club and grew it to 8–10 active members, independently securing $2,000+ in funding for VEX V5 hardware. Led design and build cycles from concept to working machine, and taught new members CAD and assembly.</p>
+        </div>
       </div>
-      <div class="vol-card">
-        <svg class="vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 0 0 0 18M12 3a14 14 0 0 1 0 18M3.5 9h17M3.5 15h17"/></svg>
-        <div class="vol-title">Cal Men's Club Water Polo</div>
-        <div class="vol-meta">Member · 2025 — Present</div>
-        <div class="vol-desc">Compete on UC Berkeley's club water polo team alongside a full engineering course load, after captaining varsity water polo and swim through high school.</div>
-      </div>
-    </div>
-    <div class="interests reveal">
-      <span class="interests-label">Off the Clock</span>
-      <div class="interests-tags">
-        <span class="tag">Surfing</span>
-        <span class="tag">Backpacking</span>
-        <span class="tag">Cooking</span>
-        <span class="tag">Pickleball</span>
-        <span class="tag">Concerts</span>
-        <span class="tag">Snowboarding</span>
-        <span class="tag">Electronics</span>
-        <span class="tag">Traveling</span>
+      <div class="cv-row reveal">
+        <div class="cv-when">2022</div>
+        <div>
+          <h3 class="cv-role">Life Rolls On</h3>
+          <p class="cv-org">Deep Water Instructor, volunteer</p>
+          <p class="cv-desc">Helped adaptive athletes transfer from wheelchairs into the water and provided in-water stabilization during surf sessions in Santa Monica.</p>
+        </div>
       </div>
     </div>
+    <dl class="interests reveal">
+      <div class="def-row"><dt>Outside of class</dt><dd>Surfing, backpacking, cooking, pickleball, concerts, snowboarding, electronics, traveling</dd></div>
+    </dl>
   </div>
 </section>
 
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-header reveal">
-      <span class="section-label">Let's Connect</span>
-      <h2 class="section-title">Get In Touch</h2>
-      <div class="section-line"></div>
+<section id="contact" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Contact</h2>
     </div>
-    <p>Whether you're looking for an engineer who ships, someone who stays calm when the stakes are real, or a bilingual collaborator who'll own a problem end to end — I'd love to hear from you.</p>
-    <div class="contact-links">
-      <a href="mailto:zaindahdul@berkeley.edu" class="contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        zaindahdul@berkeley.edu
-      </a>
-      <a href="https://www.linkedin.com/in/zaindahdul" target="_blank" rel="noopener" class="contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-11h4v1.5A5 5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
-      <a href="tel:5626760788" class="contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        (562) 676-0788
-      </a>
-      <a href="#" class="contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Berkeley, CA
-      </a>
+    <p class="contact-lead reveal">Email is the best way to reach me.</p>
+    <div class="reveal">
+      <a class="contact-row" href="mailto:zaindahdul@berkeley.edu"><span>Email</span><span class="contact-val">zaindahdul@berkeley.edu</span></a>
+      <a class="contact-row" href="https://www.linkedin.com/in/zaindahdul" target="_blank" rel="noopener"><span>LinkedIn</span><span class="contact-val">linkedin.com/in/zaindahdul</span></a>
+      <a class="contact-row" href="https://github.com/zaindahdul" target="_blank" rel="noopener"><span>GitHub</span><span class="contact-val">github.com/zaindahdul</span></a>
+      <a class="contact-row" href="tel:5626760788"><span>Phone</span><span class="contact-val">(562) 676-0788</span></a>
+      <div class="contact-row"><span>Based in</span><span class="contact-val">Berkeley, CA</span></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">Zain Dahdul</div>
-  <span>© 2026 · Mechanical Engineering · UC Berkeley</span>
+  <span>© 2026 Zain Dahdul</span>
   <span>Berkeley, CA</span>
 </footer>
+
+<!-- Project view -->
+<div class="pm" id="project-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pm-title">
+  <div class="pm-backdrop"></div>
+  <div class="pm-panel" data-lenis-prevent>
+    <div class="pm-visual">
+      <!-- MEDIA SLOT: photo / video gallery for the open project -->
+      <div class="pm-art"></div>
+      <div class="metrics pm-metrics"></div>
+    </div>
+    <div class="pm-body" data-lenis-prevent>
+      <div class="pm-content"></div>
+      <div class="pm-nav">
+        <button class="pm-prev" type="button"><span class="pm-nav-label">← Previous</span><span class="pm-nav-name"></span></button>
+        <button class="pm-next" type="button"><span class="pm-nav-label">Next →</span><span class="pm-nav-name"></span></button>
+      </div>
+    </div>
+  </div>
+  <button class="pm-close" type="button" aria-label="Close project"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+</div>
 
 <!-- ── Scripts ── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1548,45 +1623,27 @@ gsap.registerPlugin(ScrollTrigger);
   }
   annotGroup.add(dashed(ttipPts, mAnnotDash));
 
-  /* ── Selector box (systems-check highlight) ── */
-  const gSel = new THREE.Group(); heli.add(gSel);
-  const selMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
-  const selBox = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)), selMat);
-  gSel.add(selBox);
-
-  const highlightDefs = [
-    { name: 'FUSELAGE',      spec: 'SEMI-MONOCOQUE · LIGHT ALLOY',    pos: [0, 0, -0.1],          sz: [2.2, 1.5, 4.4] },
-    { name: 'POWERPLANT',    spec: 'ALLISON 250-C20J · 420 SHP',      pos: [0, 0.68, -1.1],       sz: [1.6, 0.8, 1.7] },
-    { name: 'MAIN GEARBOX',  spec: 'TWO-STAGE PLANETARY',             pos: [0, 0.85, -0.42],      sz: [1.3, 1.0, 1.3] },
-    { name: 'COCKPIT',       spec: 'DUAL CONTROLS · 5 SEATS',         pos: [0, 0.1, 1.1],         sz: [1.9, 1.3, 2.1] },
-    { name: 'SWASHPLATE',    spec: 'CYCLIC + COLLECTIVE MIXER',       pos: [0, 1.44, -0.42],      sz: [0.9, 0.55, 0.9] },
-    { name: 'MAIN ROTOR',    spec: '2-BLADE TEETERING · Ø 10.2 M',    pos: [0, 1.7, -0.42],       sz: [8.5, 0.5, 8.5] },
-    { name: 'TAIL BOOM',     spec: 'TAPERED MONOCOQUE + DRIVELINE',   pos: [0, 0, -2.9],          sz: [1.9, 0.9, 4.1] },
-    { name: 'TAIL ROTOR',    spec: 'ANTI-TORQUE · 2 BLADE',           pos: [-0.20, 0.55, -4.66],  sz: [0.5, 1.7, 1.7] },
-    { name: 'EXHAUST STACK', spec: 'TURBINE EFFLUX',                  pos: [0.72, 0.70, -1.05],   sz: [0.6, 0.7, 0.9] },
-    { name: 'LANDING SKIDS', spec: 'TUBULAR GEAR + CROSS STRUTS',     pos: [0, -0.68, 0],         sz: [2.0, 0.65, 3.9] },
-  ];
-
-  /* ── Parts (exploded-view targets are absolute group positions) ── */
+  /* ── Parts (exploded-view targets are absolute group positions; the
+        rotor stack, tail and skids sit compact so the 3/4 view frames it) ── */
   const parts = [
     { g: gFuse,         home: [0, 0, 0],            ex: [0, -0.35, 0],      anchor: [0, 0, 0] },
-    { g: gCockpit,      home: [0, 0, 0],            ex: [0, 1.0, 2.9],      anchor: [0, 0.25, 1.4] },
+    { g: gCockpit,      home: [0, 0, 0],            ex: [0, 0.9, 2.6],      anchor: [0, 0.25, 1.4] },
     { g: gDoorL,        home: [-0.735, 0, 0.89],    ex: [-3.835, 0.5, 1.59], anchor: [0, 0, -0.44] },
     { g: gDoorR,        home: [0.735, 0, 0.89],     ex: [3.835, 0.5, 1.59],  anchor: [0, 0, -0.44] },
-    { g: gCtrl,         home: [0, 0, 0],            ex: [0, -1.3, 3.3],     anchor: [0, 0.1, 0.9] },
+    { g: gCtrl,         home: [0, 0, 0],            ex: [0, -1.1, 3.0],     anchor: [0, 0.1, 0.9] },
     { g: gInterior,     home: [0, 0, 0],            ex: [0, -1.9, 1.5],     anchor: [0, -0.1, 0] },
     { g: gEngine,       home: [0, 0, 0],            ex: [0, 2.1, -3.1],     anchor: [0, 0.7, -1.1] },
     { g: gTransmission, home: [0, 0, 0],            ex: [0, 1.5, 0],        anchor: [0, 0.85, -0.42] },
-    { g: gMast,         home: [0, 0, 0],            ex: [0, 2.4, 0],        anchor: [0, 1.3, -0.42] },
-    { g: gSwashplate,   home: [0, 0, 0],            ex: [0, 3.2, 0],        anchor: [0, 1.5, -0.42] },
-    { g: gRotor,        home: [0, 1.7, -0.42],      ex: [0, 5.5, -0.42],    anchor: [0, 0, 0] },
+    { g: gMast,         home: [0, 0, 0],            ex: [0, 2.2, 0],        anchor: [0, 1.3, -0.42] },
+    { g: gSwashplate,   home: [0, 0, 0],            ex: [0, 2.95, 0],       anchor: [0, 1.5, -0.42] },
+    { g: gRotor,        home: [0, 1.7, -0.42],      ex: [0, 5.0, -0.42],    anchor: [0, 0, 0] },
     { g: gExhaust,      home: [0, 0, 0],            ex: [2.8, 2.6, -2.1],   anchor: [0.72, 0.7, -1.05] },
-    { g: gIntake,       home: [0, 0, 0],            ex: [-2.9, 2.4, -1.6],  anchor: [-0.8, 0.56, -0.72] },
+    { g: gIntake,       home: [0, 0, 0],            ex: [-2.9, 2.4, 1.0],   anchor: [-0.8, 0.56, -0.72] },
     { g: gBoom,         home: [0, 0, 0],            ex: [0.1, -0.6, -3.9],  anchor: [0, -0.05, -2.9] },
-    { g: gFin,          home: [0, 0, 0],            ex: [0.7, 1.6, -6.4],   anchor: [0, 0.4, -4.7] },
-    { g: gTRot,         home: [-0.20, 0.55, -4.66], ex: [-2.3, 2.1, -6.8],  anchor: [0, 0, 0] },
-    { g: gSkidL,        home: [0, 0, 0],            ex: [-2.3, -2.1, 0],    anchor: [-0.76, -0.8, -0.15] },
-    { g: gSkidR,        home: [0, 0, 0],            ex: [2.3, -2.1, 0],     anchor: [0.76, -0.8, -0.15] },
+    { g: gFin,          home: [0, 0, 0],            ex: [0.7, 1.5, -5.6],   anchor: [0, 0.4, -4.7] },
+    { g: gTRot,         home: [-0.20, 0.55, -4.66], ex: [-1.4, 3.4, -7.4],  anchor: [0, 0, 0] },
+    { g: gSkidL,        home: [0, 0, 0],            ex: [-2.3, -1.75, 0],   anchor: [-0.76, -0.8, -0.15] },
+    { g: gSkidR,        home: [0, 0, 0],            ex: [2.3, -1.75, 0],    anchor: [0.76, -0.8, -0.15] },
   ];
   const compEl = document.getElementById('hud-comp');
   if (compEl) compEl.textContent = parts.length;
@@ -1600,83 +1657,97 @@ gsap.registerPlugin(ScrollTrigger);
     leaders.add(dashed([[hx, hy, hz], [hx + dx, hy + dy, hz + dz]], mLeader));
   });
 
-  /* ── GSAP ScrollTrigger timeline (≈15.35 units, scrub 3 for a
-        calm, trailing camera — previously scrub 1.5) ── */
+  /* ── Exploded-view callouts — key assemblies labelled in screen
+        space, tracked every frame from their 3D anchors. `off` is the
+        leader's end (px from the part), routed into clear space ── */
+  const calloutDefs = [
+    { g: gRotor,        off: [-215, -36], name: 'MAIN ROTOR',      spec: '2-BLADE TEETERING · Ø 10.2 M' },
+    { g: gEngine,       off: [170, 100],  name: 'POWERPLANT',      spec: 'ALLISON 250-C20J · 420 SHP' },
+    { g: gTransmission, off: [-70, 10],   name: 'MAIN GEARBOX',    spec: 'TWO-STAGE PLANETARY' },
+    { g: gCtrl,         off: [-60, 52],   name: 'FLIGHT CONTROLS', spec: 'CYCLIC · COLLECTIVE · PEDALS' },
+    { g: gTRot,         off: [110, -60],  name: 'TAIL ROTOR',      spec: 'ANTI-TORQUE · 2 BLADE' },
+    { g: gSkidR,        off: [80, 18],    name: 'LANDING GEAR',    spec: 'TUBULAR GEAR + CROSS STRUTS' },
+  ];
+  const calloutWrap = document.getElementById('wf-callouts');
+  const callouts = calloutDefs.map(def => {
+    const el = document.createElement('div');
+    el.className = 'callout' + (def.off[0] < 0 ? ' flip' : '');
+    el.innerHTML = '<span class="callout-dot"></span><span class="callout-line"></span>' +
+      '<span class="callout-text"><span class="callout-name">' + def.name + '</span>' +
+      '<span class="callout-spec">' + def.spec + '</span></span>';
+    calloutWrap.appendChild(el);
+    return { el, off: def.off, part: parts.find(p => p.g === def.g), v: new THREE.Vector3() };
+  });
+  /* Leader lengths are tuned at 900px tall and scale with the viewport,
+     since the projected parts close up on shorter screens */
+  function layoutCallouts() {
+    const k = Math.max(0.72, Math.min(1.2, innerHeight / 900));
+    callouts.forEach(c => {
+      const dx = c.off[0] * k, dy = c.off[1] * k;
+      const len = Math.hypot(dx, dy);
+      const line = c.el.children[1], text = c.el.children[2];
+      line.style.width = (len - 6).toFixed(1) + 'px';
+      line.style.transform = 'translate(' + (dx / len * 6).toFixed(1) + 'px,' + (dy / len * 6).toFixed(1) + 'px) rotate(' + Math.atan2(dy, dx).toFixed(4) + 'rad)';
+      text.style.top = (dy - 11).toFixed(1) + 'px';
+      if (dx < 0) text.style.right = (6 - dx).toFixed(1) + 'px';
+      else text.style.left = (dx + 6).toFixed(1) + 'px';
+    });
+  }
+  layoutCallouts();
+  addEventListener('resize', layoutCallouts);
+  const calloutFx = { o: 0 };
+  let calloutsShown = false;
+
+  /* ── GSAP ScrollTrigger timeline (10 units across the 280vh zone):
+        0–30%   camera rises and angles down onto the airframe
+        26–76%  ordered separation into the exploded view
+        76–100% hold the exploded assembly while callouts settle in ── */
   const scrollState = { p: 0 };
   const wfZone = document.getElementById('wireframe-zone');
+  const hudPct = document.getElementById('hud-pct');
+  const hudPhase = document.getElementById('hud-phase');
+  const PHASES = ['OVERVIEW', 'DECONSTRUCT', 'EXPLODED VIEW'];
+  function phaseOf(p) { return p < 0.26 ? 0 : p < 0.76 ? 1 : 2; }
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: wfZone,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 3,
+      scrub: 2,
       onUpdate(self) {
         scrollState.p = self.progress;
-        const pct = Math.round(self.progress * 100);
-        document.getElementById('hud-pct').textContent = pct + '%';
-        const ph = pct < 13 ? 'OVERVIEW'
-                 : pct < 40 ? 'SYS · CHECK'
-                 : pct < 62 ? 'COCKPIT'
-                 : pct < 85 ? 'DECONSTRUCT'
-                 : 'ASSEMBLY';
-        document.getElementById('hud-phase').textContent = ph;
-        const xh = document.getElementById('crosshair');
-        (pct > 40 && pct < 64) ? xh.classList.add('active') : xh.classList.remove('active');
+        hudPct.textContent = Math.round(self.progress * 100) + '%';
+        hudPhase.textContent = PHASES[phaseOf(self.progress)];
       }
     }
   });
 
-  /* Phase 0–13% · Hero — slow azimuth drift */
-  tl.to(rig, { theta: 0.84, radius: 12.4, duration: 2.0, ease: 'none' }, 0);
+  /* 0–30% · Camera angles down — datum lines sketch in, then clear */
+  tl.to(rig,  { theta: 0.9, phi: 0.42, radius: 14.6, duration: 3.0, ease: 'sine.inOut' }, 0);
+  tl.to(look, { x: -0.1, y: 0.45, z: -0.9, duration: 3.0, ease: 'sine.inOut' }, 0);
+  tl.to([mAnnot, mAnnotDash], { opacity: 0.45, duration: 0.8 }, 0.4);
+  tl.to([mAnnot, mAnnotDash], { opacity: 0, duration: 0.6 }, 2.3);
 
-  /* Phase 13–40% · Systems check — one continuous 240° orbit */
-  tl.to(rig, { theta: 5.05, duration: 4.0, ease: 'none' }, 2.0);
-  tl.to(rig, { radius: 10.6, duration: 4.0, ease: 'sine.inOut' }, 2.0);
-  tl.to(rig, { phi: 0.46, duration: 2.0, ease: 'sine.inOut' }, 2.0);
-  tl.to(rig, { phi: 0.22, duration: 2.0, ease: 'sine.inOut' }, 4.0);
-  tl.to(look, { y: 0.5, duration: 1.5, ease: 'sine.inOut' }, 2.0);
-  tl.to([mAnnot, mAnnotDash], { opacity: 0.5, duration: 0.7 }, 2.2);
-  tl.to([mAnnot, mAnnotDash], { opacity: 0, duration: 0.6 }, 5.4);
-
-  /* Phase 40–62% · Cockpit — long, gentle dolly through the nose quarter;
-     crew doors swing open for the inspection, latch before pull-back */
-  tl.to(rig, { theta: 5.95, radius: 3.95, phi: 0.07, duration: 3.3, ease: 'power2.inOut' }, 6.0);
-  tl.to(look, { x: 0, y: 0.12, z: 0.85, duration: 3.3, ease: 'power2.inOut' }, 6.0);
-  tl.to(gDoorL.rotation, { y: 0.55, duration: 1.6, ease: 'power2.inOut' }, 6.3);
-  tl.to(gDoorR.rotation, { y: -0.34, duration: 1.6, ease: 'power2.inOut' }, 6.55);
-  tl.to(gDoorL.rotation, { y: 0, duration: 0.85, ease: 'power2.inOut' }, 9.3);
-  tl.to(gDoorR.rotation, { y: 0, duration: 0.85, ease: 'power2.inOut' }, 9.3);
-
-  /* Phase 62–66% · Pull back to service distance */
-  tl.to(rig, { theta: 6.28, radius: 15.8, phi: 0.40, duration: 0.9, ease: 'power2.inOut' }, 9.3);
-  tl.to(look, { y: 0.85, z: -1.3, duration: 0.9, ease: 'power2.inOut' }, 9.3);
-
-  /* Phase 66–84% · Exploded view — ordered separation + leader lines */
-  tl.to(mLeader, { opacity: 0.32, duration: 0.8 }, 10.3);
+  /* 26–76% · Exploded view — ordered separation + leader lines,
+     with a slow azimuth drift that carries through the hold */
   parts.forEach((p, i) => {
-    tl.to(p.g.position, { x: p.ex[0], y: p.ex[1], z: p.ex[2], duration: 1.8, ease: 'power2.out' }, 10.0 + i * 0.06);
+    tl.to(p.g.position, { x: p.ex[0], y: p.ex[1], z: p.ex[2], duration: 3.0, ease: 'power3.inOut' }, 2.6 + i * 0.11);
   });
-  tl.to(rig, { theta: 6.60, radius: 15.6, duration: 2.9, ease: 'none' }, 10.0);
+  tl.to(mLeader, { opacity: 0.32, duration: 1.2 }, 4.2);
+  tl.to(rig,  { theta: 1.25, duration: 7.0, ease: 'none' }, 3.0);
+  tl.to(rig,  { radius: 18.3, duration: 4.6, ease: 'sine.inOut' }, 3.0);
+  tl.to(look, { x: -0.05, y: 0.25, z: -1.3, duration: 4.6, ease: 'sine.inOut' }, 3.0);
 
-  /* Phase 84–100% · Reassembly — settle back near the hero angle */
-  tl.to(mLeader, { opacity: 0, duration: 1.2 }, 13.3);
-  parts.forEach((p, i) => {
-    tl.to(p.g.position, { x: p.home[0], y: p.home[1], z: p.home[2], duration: 1.5, ease: 'power2.inOut' }, 12.9 + i * 0.055);
-  });
-  tl.to(rig, { theta: 6.94, radius: 11.8, phi: 0.30, duration: 2.45, ease: 'sine.inOut' }, 12.9);
-  tl.to(look, { x: 0, y: 0.4, z: -0.8, duration: 2.45, ease: 'sine.inOut' }, 12.9);
+  /* 72–100% · Callouts fade in on the separated assemblies */
+  tl.to(calloutFx, { o: 1, duration: 1.0, ease: 'power1.out' }, 7.2);
 
   /* Canvas crossfade as the wireframe zone ends */
   gsap.to('#bg-canvas', {
     opacity: 0,
     scrollTrigger: { trigger: wfZone, start: 'bottom 60%', end: 'bottom top', scrub: 1 }
   });
-  gsap.to('#canvas-bg', {
-    opacity: 0.55,
-    scrollTrigger: { trigger: wfZone, start: 'bottom 60%', end: 'bottom top', scrub: 1 }
-  });
-  gsap.to(['#hud-tl', '#hud-br', '.hud-corners'], {
+  gsap.to(['#hud-tl', '#hud-br', '.hud-corners', '#hud-left', '#wf-callouts'], {
     opacity: 0,
     scrollTrigger: { trigger: wfZone, start: 'bottom 80%', end: 'bottom top', scrub: 1 }
   });
@@ -1711,19 +1782,30 @@ gsap.registerPlugin(ScrollTrigger);
 
   /* ── Render loop ── */
   const clock = new THREE.Clock();
-  let rotorSpd = 0, rotAngle = 0, bobAmt = 1, rpmDisplay = 0, lastHighlightIdx = -1;
+  const readoutEl = document.getElementById('hud-readout');
+  const rpmEl = document.getElementById('hud-rpm');
+  const sysEl = document.getElementById('hud-sys');
+  const seqEl = document.getElementById('hud-seq');
+  let rotorSpd = 0, rotAngle = 0, bobAmt = 1, rpmDisplay = 0;
+
+  /* Once the page is past the zone the canvas has faded out — skip rendering */
+  let zoneEnd = Infinity;
+  function measureZone() { zoneEnd = wfZone.offsetTop + wfZone.offsetHeight + innerHeight * 0.5; }
+  measureZone();
+  addEventListener('resize', measureZone);
+  ScrollTrigger.addEventListener('refresh', measureZone);
 
   (function animate() {
     requestAnimationFrame(animate);
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.getElapsedTime();
+    if (scrollY > zoneEnd) return;
     const p = scrollState.p;
     const intro = Math.max(0, Math.min(1, (t - 1.2) / 1.6));
 
-    /* Rotor spool — smoothed toward per-phase target (slow, stately;
-       spins down for the deconstruct, back up for assembly) */
-    const target = REDUCED ? 0.1
-      : p < 0.13 ? 0.9 : p < 0.40 ? 0.42 : p < 0.62 ? 0.32 : p < 0.85 ? 0.05 : 0.95;
+    /* Rotor spool — full speed in the hero, winds down as the camera
+       angles in so the airframe is at rest before it comes apart */
+    const target = REDUCED ? 0.1 : p < 0.08 ? 0.9 : p < 0.24 ? 0.45 : 0.04;
     rotorSpd += (target - rotorSpd) * Math.min(1, dt * 1.4);
     const spool = Math.min(1, rotorSpd / 0.9);
 
@@ -1795,20 +1877,13 @@ gsap.registerPlugin(ScrollTrigger);
         : 0.5 + 0.1 * Math.sin(t * 1.3 + i));
     }
 
-    /* Cockpit instrument glow during cockpit phase */
-    if (p > 0.40 && p < 0.65) {
-      const pulse = 0.5 + 0.5 * Math.sin(t * 1.8);
-      mCtrl.color.setRGB(0.06 * pulse, 0.898, 0.70 + 0.18 * pulse);
-    } else if (t > 3.4) {
-      mCtrl.color.setRGB(0, 0.898, 0.753);
-    }
-
-    updateHighlight(p, t);
     updateHudReadout(p);
 
-    /* Camera from spherical rig + slow idle breathing */
+    /* Camera from spherical rig + slow idle breathing; portrait screens
+       pull back so the exploded assembly still fits the narrow frame */
     const breathe = REDUCED ? 0 : Math.sin(t * 0.3) * 0.05 * (0.3 + 0.7 * bobAmt);
-    const r = rig.radius + introCam.radius + breathe;
+    const fit = Math.min(1.75, Math.max(1, 1.05 / camera.aspect));
+    const r = (rig.radius + introCam.radius + breathe) * fit;
     const cp = Math.cos(rig.phi + introCam.phi), sp = Math.sin(rig.phi + introCam.phi);
     camera.position.set(
       look.x + Math.sin(rig.theta + introCam.theta) * cp * r,
@@ -1818,153 +1893,334 @@ gsap.registerPlugin(ScrollTrigger);
     lookV.set(look.x, look.y, look.z);
     camera.lookAt(lookV);
     renderer.render(scene, camera);
+    updateCallouts();
   })();
 
-  function updateHighlight(p, t) {
-    const oStart = 0.135, oEnd = 0.395;
-    const partLabel = document.getElementById('hud-part-label');
-    const readout = document.getElementById('hud-readout');
-
-    if (p < oStart || p > oEnd) {
-      selMat.opacity = 0;
-      if (partLabel) partLabel.classList.remove('active');
-      if (readout) readout.classList.remove('active');
+  /* Project each callout's part anchor (heli space) to the screen —
+     runs after render so the world matrices are current */
+  function updateCallouts() {
+    const o = calloutFx.o;
+    if (o < 0.01) {
+      if (calloutsShown) {
+        callouts.forEach(c => { c.el.style.opacity = 0; });
+        calloutsShown = false;
+      }
       return;
     }
-
-    const relP = Math.min((p - oStart) / (oEnd - oStart), 0.999);
-    const idx = Math.floor(relP * highlightDefs.length);
-    const def = highlightDefs[idx];
-
-    gSel.position.set(def.pos[0], def.pos[1], def.pos[2]);
-    selBox.scale.set(def.sz[0], def.sz[1], def.sz[2]);
-    selMat.opacity = 0.26 + 0.12 * Math.sin(t * 2.4);
-
-    if (partLabel) partLabel.classList.add('active');
-    if (readout) readout.classList.add('active');
-
-    if (idx !== lastHighlightIdx) {
-      lastHighlightIdx = idx;
-      const nameEl = document.getElementById('hud-part-name');
-      const specEl = document.getElementById('hud-part-spec');
-      if (nameEl) nameEl.textContent = def.name;
-      if (specEl) specEl.textContent = def.spec;
+    calloutsShown = true;
+    const w = innerWidth, h = innerHeight;
+    for (let i = 0; i < callouts.length; i++) {
+      const c = callouts[i], pt = c.part;
+      c.v.set(pt.g.position.x + pt.anchor[0], pt.g.position.y + pt.anchor[1], pt.g.position.z + pt.anchor[2]);
+      heli.localToWorld(c.v).project(camera);
+      c.el.style.transform = 'translate(' + ((c.v.x + 1) * 0.5 * w).toFixed(1) + 'px,' + ((1 - c.v.y) * 0.5 * h).toFixed(1) + 'px)';
+      c.el.style.opacity = Math.max(0, Math.min(1, o * 1.6 - i * 0.12));
     }
   }
 
+  function setText(el, s) { if (el.textContent !== s) el.textContent = s; }
   function updateHudReadout(p) {
-    const rpmEl = document.getElementById('hud-rpm');
-    if (!rpmEl) return;
+    readoutEl.classList.toggle('active', p > 0.05);
     /* Displayed RPM tracks the visual rotor: 394 = 100% NR on a 206 */
     rpmDisplay += (Math.min(394, 438 * rotorSpd) - rpmDisplay) * 0.05;
-    rpmEl.textContent = rpmDisplay > 30 ? Math.round(rpmDisplay) : '—';
-
-    const sysEl = document.getElementById('hud-sys');
-    if (sysEl) sysEl.textContent = (p >= 0.62 && p < 0.85) ? 'MAINT' : (p > 0.02 ? 'ACTIVE' : 'STANDBY');
-    const seqEl = document.getElementById('hud-seq');
-    if (seqEl) {
-      const seqs = ['OVERVIEW', 'SYS CHECK', 'COCKPIT', 'DECONSTRUCT', 'ASSEMBLY'];
-      const si = p < 0.13 ? 0 : p < 0.40 ? 1 : p < 0.62 ? 2 : p < 0.85 ? 3 : 4;
-      seqEl.textContent = seqs[si];
-    }
+    setText(rpmEl, rpmDisplay > 30 ? String(Math.round(rpmDisplay)) : '—');
+    setText(sysEl, p < 0.02 ? 'STANDBY' : p < 0.26 ? 'ACTIVE' : 'MAINT');
+    setText(seqEl, ['OVERVIEW', 'DECONSTRUCT', 'EXPLODED'][phaseOf(p)]);
   }
 
 })();
 /* ══════════════════════════════════════════════════════════════
-   PORTFOLIO JS — cursor, nav, flow field, observers, counters
+   PORTFOLIO JS — smooth scroll, nav, reveals, project grid + view
 ══════════════════════════════════════════════════════════════ */
+const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (window.Flip) gsap.registerPlugin(Flip);
 
-/* Cursor */
-const cd = document.getElementById('cd');
-const cr = document.getElementById('cr');
-let mx=0, my=0, rx=0, ry=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cd.style.left = mx+'px'; cd.style.top = my+'px';
-});
-(function animCursor() {
-  rx += (mx-rx)*.12; ry += (my-ry)*.12;
-  cr.style.left = rx+'px'; cr.style.top = ry+'px';
-  requestAnimationFrame(animCursor);
-})();
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-});
-
-/* Nav scroll */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50);
-});
-
-/* Flow field canvas */
-const canvas2 = document.getElementById('canvas-bg');
-const ctx = canvas2.getContext('2d');
-let W, H;
-function resize2() { W = canvas2.width = innerWidth; H = canvas2.height = innerHeight; }
-resize2(); addEventListener('resize', resize2);
-
-const N = 180;
-const pts = Array.from({length: N}, () => ({
-  x: Math.random() * innerWidth,
-  y: Math.random() * innerHeight,
-  life: Math.random(),
-  maxLife: .3 + Math.random() * .7,
-}));
-let ft = 0;
-function angle(x, y) {
-  return Math.sin(x/280+ft) * Math.cos(y/200-ft*.7) * Math.PI * 2 + Math.cos(x/150-ft*.5) * .8;
+/* Smooth scroll — Lenis eases the wheel, GSAP's ticker drives it so
+   ScrollTrigger and the scroll position never drift apart */
+let lenis = null;
+if (!REDUCED_MOTION && window.Lenis) {
+  lenis = new Lenis({ lerp: 0.09 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(time => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
 }
-function drawFlow() {
-  ctx.fillStyle = 'rgba(0,0,0,.012)';
-  ctx.fillRect(0, 0, W, H);
-  ft += .0015;
-  for (const p of pts) {
-    const a  = angle(p.x, p.y);
-    const nx = p.x + Math.cos(a) * .6;
-    const ny = p.y + Math.sin(a) * .6;
-    const alpha = Math.sin(p.life / p.maxLife * Math.PI) * .12;
-    ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-    ctx.lineWidth = .5;
-    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
-    p.x = nx; p.y = ny; p.life += .004;
-    if (p.life > p.maxLife || p.x < 0 || p.x > W || p.y < 0 || p.y > H) {
-      p.x = Math.random()*W; p.y = Math.random()*H; p.life = 0; p.maxLife = .3+Math.random()*.7;
-    }
-  }
-  requestAnimationFrame(drawFlow);
+
+/* Mobile menu */
+const toggleBtn = document.querySelector('.nav-toggle');
+function closeMenu() {
+  if (!document.body.classList.contains('menu-open')) return;
+  document.body.classList.remove('menu-open');
+  toggleBtn.setAttribute('aria-expanded', 'false');
+  toggleBtn.setAttribute('aria-label', 'Open menu');
+  if (lenis) lenis.start();
 }
-drawFlow();
+toggleBtn.addEventListener('click', () => {
+  const open = document.body.classList.toggle('menu-open');
+  toggleBtn.setAttribute('aria-expanded', String(open));
+  toggleBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  if (lenis) open ? lenis.stop() : lenis.start();
+});
 
-/* Intersection observer */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: .1 });
-document.querySelectorAll('.reveal,.timeline-item,.skill-card,.edu-card,.vol-card,.proj-card,.stat-item').forEach(el => io.observe(el));
+/* In-page anchors (nav, hero buttons, mobile menu) — tiles open the project view instead */
+document.querySelectorAll('a[href^="#"]:not(.tile)').forEach(a => {
+  a.addEventListener('click', e => {
+    const hash = a.getAttribute('href');
+    const target = hash === '#hero' ? null : document.querySelector(hash);
+    if (hash !== '#hero' && !target) return;
+    e.preventDefault();
+    closeMenu();
+    if (lenis) lenis.scrollTo(target || 0, { duration: 1.6 });
+    else if (target) target.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+    else scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+  });
+});
 
-document.querySelectorAll('.timeline-item').forEach((el,i) => el.style.transitionDelay = i*.12+'s');
-document.querySelectorAll('.skill-card').forEach((el,i) => el.style.transitionDelay = i*.07+'s');
-document.querySelectorAll('.edu-card,.vol-card').forEach((el,i) => el.style.transitionDelay = i*.1+'s');
+/* Nav background once the page moves */
+const navbar = document.getElementById('navbar');
+function onScroll() { navbar.classList.toggle('scrolled', scrollY > 50); }
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
-/* Counters */
-const cio = new IntersectionObserver(entries => {
+/* Active nav link follows the section in the middle of the viewport */
+const navLinks = [...document.querySelectorAll('.nav-links a')];
+const sectionIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
-    const el = e.target.querySelector('.stat-number');
-    if (!el || el.dataset.done) return;
-    el.dataset.done = '1';
-    const target = parseFloat(el.dataset.target);
-    const prefix = el.dataset.prefix||'', suffix = el.dataset.suffix||'';
-    const dec = String(target).includes('.');
-    const dur = 1800, s = performance.now();
-    (function tick(now) {
-      const pct = Math.min((now-s)/dur,1), ease = 1-Math.pow(1-pct,3);
-      el.textContent = prefix + (dec ? (target*ease).toFixed(1) : Math.round(target*ease)) + suffix;
-      if (pct < 1) requestAnimationFrame(tick);
-    })(s);
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
   });
-}, { threshold: .3 });
-document.querySelectorAll('.stat-item').forEach(el => cio.observe(el));
+}, { rootMargin: '-45% 0px -50% 0px' });
+['wireframe-zone', 'projects', 'experience', 'skills', 'education', 'leadership', 'contact']
+  .forEach(id => { const s = document.getElementById(id); if (s) sectionIO.observe(s); });
+
+/* Reveal on scroll */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    io.unobserve(e.target);
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Hero copy drifts up and fades as the camera angles down */
+if (!REDUCED_MOTION) {
+  gsap.to('#hero .hero-inner, #hero .hero-scroll', {
+    opacity: 0, y: -70, ease: 'none',
+    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom 25%', scrub: true }
+  });
+}
+
+/* ── Projects: category filters ── */
+const tiles = [...document.querySelectorAll('.tile')];
+const filterBtns = [...document.querySelectorAll('.filter-btn')];
+const inCat = (tile, f) => f === 'all' || tile.dataset.cats.split(' ').includes(f);
+let currentFilter = 'all';
+
+filterBtns.forEach(btn => {
+  btn.querySelector('.count').textContent = tiles.filter(t => inCat(t, btn.dataset.filter)).length;
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+
+function applyFilter(f) {
+  if (f === currentFilter) return;
+  currentFilter = f;
+  filterBtns.forEach(b => {
+    const on = b.dataset.filter === f;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+  const state = window.Flip && !REDUCED_MOTION ? Flip.getState(tiles, { props: 'opacity' }) : null;
+  tiles.forEach(t => t.classList.toggle('is-hidden', !inCat(t, f)));
+  if (!state) { ScrollTrigger.refresh(); return; }
+  Flip.from(state, {
+    duration: 0.6, ease: 'power3.inOut', absolute: true, scale: true,
+    onEnter: els => gsap.fromTo(els, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.45, delay: 0.15, ease: 'power2.out' }),
+    onLeave: els => gsap.to(els, { opacity: 0, scale: 0.96, duration: 0.3, ease: 'power2.in' }),
+    onComplete: () => ScrollTrigger.refresh()
+  });
+}
+
+/* Illustrations only animate while their tile is on screen */
+const playIO = new IntersectionObserver(entries => {
+  entries.forEach(e => e.target.classList.toggle('playing', e.isIntersecting));
+});
+tiles.forEach(t => playIO.observe(t));
+
+/* ── Projects: detail view ──
+   The panel opens from the clicked tile (clip-path reveal), loads the
+   project's <template>, and keeps a history entry so Back closes it */
+const modal = document.getElementById('project-modal');
+const panel = modal.querySelector('.pm-panel');
+const backdrop = modal.querySelector('.pm-backdrop');
+const pmVisual = modal.querySelector('.pm-visual');
+const pmArt = modal.querySelector('.pm-art');
+const pmMetrics = modal.querySelector('.pm-metrics');
+const pmBody = modal.querySelector('.pm-body');
+const pmContent = modal.querySelector('.pm-content');
+const pmNav = modal.querySelector('.pm-nav');
+const pmPrev = modal.querySelector('.pm-prev');
+const pmNext = modal.querySelector('.pm-next');
+const pmClose = modal.querySelector('.pm-close');
+let openId = null, openTile = null, pushed = false, busy = false;
+
+const panelRadius = () => (innerWidth <= 900 ? 0 : 12);
+const pmParts = () => [pmVisual, ...pmContent.children, pmNav];
+
+/* clip-path that crops the open panel down to the tile's on-screen box */
+function clipTo(rect) {
+  const p = panel.getBoundingClientRect();
+  const v = [rect.top - p.top, p.right - rect.right, p.bottom - rect.bottom, rect.left - p.left]
+    .map(n => Math.max(0, n).toFixed(1) + 'px');
+  return 'inset(' + v.join(' ') + ' round 10px)';
+}
+
+function fillProject(id) {
+  const tile = document.getElementById('project-' + id);
+  const tpl = document.getElementById('pm-tpl-' + id).content.cloneNode(true);
+  /* Illustration: clone the tile's SVG, renaming ids so gradients stay unique */
+  const svg = tile.querySelector('.tile-art svg').cloneNode(true);
+  svg.querySelectorAll('[id]').forEach(el => {
+    const oldRef = 'url(#' + el.id + ')';
+    el.id += '-pm';
+    svg.querySelectorAll('*').forEach(n => [...n.attributes].forEach(a => {
+      if (a.value.includes(oldRef)) a.value = a.value.split(oldRef).join('url(#' + el.id + ')');
+    }));
+  });
+  pmArt.replaceChildren(svg);
+  pmMetrics.replaceChildren(...tpl.querySelector('.tpl-metrics').children);
+  pmContent.replaceChildren(...tpl.querySelector('.tpl-content').children);
+  pmContent.querySelector('.pm-title').id = 'pm-title';
+
+  /* Previous / next walk the projects visible under the current filter */
+  const list = tiles.filter(t => !t.classList.contains('is-hidden'));
+  const i = Math.max(0, list.indexOf(tile));
+  const prev = list[(i - 1 + list.length) % list.length];
+  const next = list[(i + 1) % list.length];
+  pmPrev.dataset.id = prev.dataset.id;
+  pmNext.dataset.id = next.dataset.id;
+  pmPrev.querySelector('.pm-nav-name').textContent = prev.querySelector('.tile-title').textContent;
+  pmNext.querySelector('.pm-nav-name').textContent = next.querySelector('.tile-title').textContent;
+  pmPrev.hidden = pmNext.hidden = list.length < 2;
+  pmBody.scrollTop = 0;
+  panel.scrollTop = 0;
+  openId = id;
+  openTile = tile;
+}
+
+function openProject(id, { push = true } = {}) {
+  const tile = document.getElementById('project-' + id);
+  if (!tile || busy) return;
+  if (openId) { swapProject(id); return; }
+  fillProject(id);
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.documentElement.classList.add('pm-lock');
+  if (lenis) lenis.stop();
+  pushed = push;
+  if (push) history.pushState({ pm: id }, '', '#project-' + id);
+  else history.replaceState({ pm: id }, '', '#project-' + id);
+  pmClose.focus({ preventScroll: true });
+
+  if (REDUCED_MOTION) { gsap.set(backdrop, { opacity: 1 }); return; }
+  busy = true;
+  gsap.set(panel, { clipPath: clipTo(tile.getBoundingClientRect()) });
+  gsap.set(pmParts(), { opacity: 0, y: 18 });
+  gsap.set(pmClose, { opacity: 0 });
+  gsap.to(backdrop, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+  gsap.to(panel, {
+    clipPath: 'inset(0px 0px 0px 0px round ' + panelRadius() + 'px)',
+    duration: 0.75, ease: 'expo.inOut',
+    onComplete: () => { panel.style.clipPath = ''; busy = false; }
+  });
+  gsap.to(pmParts(), { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.4 });
+  gsap.to(pmClose, { opacity: 1, duration: 0.4, delay: 0.5 });
+}
+
+function swapProject(id) {
+  if (id === openId || busy) return;
+  const replace = () => history.replaceState({ pm: id }, '', '#project-' + id);
+  if (REDUCED_MOTION) { fillProject(id); replace(); return; }
+  busy = true;
+  gsap.to(pmParts(), {
+    opacity: 0, y: -8, duration: 0.22, ease: 'power2.in',
+    onComplete: () => {
+      fillProject(id);
+      replace();
+      gsap.fromTo(pmParts(), { opacity: 0, y: 14 }, {
+        opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.04,
+        onComplete: () => { busy = false; }
+      });
+    }
+  });
+}
+
+/* Close via button / Esc / backdrop — goes through history if we pushed an entry */
+function closeProject() {
+  if (!openId || busy) return;
+  if (pushed) history.back();
+  else { finishClose(); history.replaceState(null, '', location.pathname + location.search); }
+}
+
+function finishClose() {
+  if (!openId) return;
+  const tile = openTile;
+  const done = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('pm-lock');
+    if (lenis) lenis.start();
+    gsap.set([panel, backdrop, pmClose], { clearProps: 'all' });
+    pmArt.replaceChildren();
+    openId = openTile = null;
+    pushed = false;
+    busy = false;
+    tile.focus({ preventScroll: true });
+  };
+  if (REDUCED_MOTION) { done(); return; }
+  busy = true;
+  gsap.to([...pmParts(), pmClose], { opacity: 0, duration: 0.2 });
+  gsap.to(backdrop, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+  gsap.fromTo(panel,
+    { clipPath: 'inset(0px 0px 0px 0px round ' + panelRadius() + 'px)' },
+    { clipPath: clipTo(tile.getBoundingClientRect()), duration: 0.6, ease: 'expo.inOut', onComplete: done });
+}
+
+tiles.forEach(t => t.addEventListener('click', e => { e.preventDefault(); openProject(t.dataset.id); }));
+pmPrev.addEventListener('click', () => openProject(pmPrev.dataset.id));
+pmNext.addEventListener('click', () => openProject(pmNext.dataset.id));
+pmClose.addEventListener('click', closeProject);
+backdrop.addEventListener('click', closeProject);
+
+addEventListener('popstate', e => {
+  const id = e.state && e.state.pm;
+  if (id && !openId) openProject(id, { push: false });
+  else if (!id && openId) finishClose();
+});
+
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (openId) closeProject(); else closeMenu(); return; }
+  if (!openId) return;
+  if (e.key === 'ArrowRight' && !pmNext.hidden) openProject(pmNext.dataset.id);
+  else if (e.key === 'ArrowLeft' && !pmPrev.hidden) openProject(pmPrev.dataset.id);
+  else if (e.key === 'Tab') {
+    /* keep focus inside the project view */
+    const f = [...modal.querySelectorAll('a[href], button')].filter(el => !el.hidden && el.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+/* Deep link: /#project-kalshi opens that project */
+const deepLink = location.hash.match(/^#project-([\w-]+)$/);
+if (deepLink && document.getElementById('pm-tpl-' + deepLink[1])) {
+  addEventListener('load', () => openProject(deepLink[1], { push: false }));
+}
+
+/* Layout settles once web fonts land — re-measure scroll triggers */
+if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+addEventListener('load', () => ScrollTrigger.refresh());
 </script>
 </body>
 </html>
