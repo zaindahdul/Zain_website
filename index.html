@@ -165,6 +165,7 @@
       min-height: 100vh; position: relative;
       display: flex; align-items: center; justify-content: center;
       padding: 6rem 2rem 4rem; text-align: center;
+      overflow-x: clip; /* the .hero-inner glow reaches past the screen edge on narrow viewports */
     }
     .hero-inner { position: relative; max-width: 760px; will-change: transform, opacity; }
     /* soft falloff so the copy reads over the wireframe */
@@ -184,6 +185,12 @@
       margin-top: 1.6rem; font-size: clamp(1rem, 1.9vw, 1.2rem); color: var(--text);
       text-shadow: 0 0 18px #000, 0 0 36px #000;
       animation-delay: .4s;
+    }
+    .hero-role span { white-space: nowrap; }
+    .hero-school {
+      margin-top: .35rem; font-size: clamp(.9rem, 1.5vw, 1rem); color: var(--text2);
+      text-shadow: 0 0 18px #000, 0 0 36px #000;
+      animation-delay: .47s;
     }
     .hero-intro {
       margin: .6rem auto 0; max-width: 540px;
@@ -453,6 +460,9 @@
       #wf-callouts { display: none; }
     }
     @media (max-width: 540px) {
+      /* The three fields don't fit on one line at phone width; stack them rather than wrap mid-list */
+      .hero-role span { display: block; }
+      .hero-role .sep { display: none; }
       .hero-ctas { flex-direction: column; align-items: stretch; }
       .tile-title { font-size: 1.6rem; }
       .metric-val { font-size: 1.35rem; }
@@ -524,7 +534,8 @@
   <section id="hero">
     <div class="hero-inner">
       <h1 class="hero-name">Zain Dahdul</h1>
-      <p class="hero-role">Mechanical Engineering at UC Berkeley, minor in EECS</p>
+      <p class="hero-role"><span>Mechanical Engineering</span> <span class="sep">·</span> <span>Electrical Engineering</span> <span class="sep">·</span> <span>Computer Sciences</span></p>
+      <p class="hero-school">University of California, Berkeley</p>
       <p class="hero-intro">I build things.</p>
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-solid">View projects</a>
@@ -866,7 +877,7 @@
         <div>
           <h3 class="cv-role">Millikan Robotics Club</h3>
           <p class="cv-org">Founder &amp; President</p>
-          <p class="cv-desc">Founded the school's first robotics club and grew it to 8–10 active members, independently securing $2,000+ in funding for VEX V5 hardware. Led design and build cycles from concept to working machine, and taught new members CAD and assembly.</p>
+          <p class="cv-desc">Founded the school's first robotics club and grew it to 8–10 active members, independently securing $2,000+ in funding for VEX V5 hardware. Led design and build cycles from concept to working machine.</p>
         </div>
       </div>
       <div class="cv-row reveal">
@@ -879,7 +890,7 @@
       </div>
     </div>
     <dl class="interests reveal">
-      <div class="def-row"><dt>Outside of class</dt><dd>Surfing, backpacking, cooking, pickleball, concerts, snowboarding, traveling</dd></div>
+      <div class="def-row"><dt>Outside of class</dt><dd>Surfing, Backpacking, Cooking, Pickleball, Concerts, Snowboarding, Traveling</dd></div>
     </dl>
   </div>
 </section>
