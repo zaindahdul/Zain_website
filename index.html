@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zain Dahdul · Mechanical Engineering, UC Berkeley</title>
-  <meta name="description" content="Zain Dahdul studies Mechanical Engineering at UC Berkeley with a minor in EECS. Projects include an AI medical-bill advocate, an iOS app, a Kalshi price-prediction model and a 3D-printed wind turbine." />
+  <meta name="description" content="Zain Dahdul studies Mechanical Engineering at UC Berkeley with a minor in EECS. I build." />
   <meta property="og:title" content="Zain Dahdul · Mechanical Engineering, UC Berkeley" />
   <meta property="og:description" content="Hardware and software projects by Zain Dahdul, UC Berkeley." />
   <meta property="og:type" content="website" />
@@ -260,7 +260,13 @@
       font-size: .74rem; color: var(--text); border: 1px solid var(--line2); background: rgba(0,0,0,.65);
     }
     .tile-flag { position: absolute; top: 14px; left: 14px; z-index: 2; }
-    .tile-flag.award, .pm-flag.award { color: var(--gold); border-color: rgba(217,185,121,.35); }
+    .tile-flag.award, .pm-flag.award { color: var(--gold); border-color: rgba(217,185,121,.45); }
+    .tile-flag.award { gap: .55rem; padding: .38rem .75rem .38rem .45rem; font-size: .84rem; font-weight: 500; }
+    .pm-flag.award { gap: .7rem; padding: .5rem .95rem .5rem .55rem; font-size: .95rem; font-weight: 500; background: rgba(217,185,121,.08); }
+    .pm-flag.award a { color: inherit; text-decoration: underline; text-decoration-color: rgba(217,185,121,.5); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+    .pm-flag.award a:hover { text-decoration-color: currentColor; }
+    .flag-logo { flex: none; width: 1.3em; height: 1.3em; }
+    .pm-flag .flag-logo { width: 1.5em; height: 1.5em; }
     .flag-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; }
     .tile-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.2rem; padding: 1.25rem 1.4rem 1.4rem; }
     .tile-kicker { font-family: var(--mono); font-size: .74rem; color: var(--text3); margin-bottom: .4rem; }
@@ -364,27 +370,6 @@
     .pv .tx-lg { font-size: 10px; }
     .tile:not(.playing) .pv *, .pm-lock .tile .pv * { animation-play-state: paused !important; }
 
-    /* Vellum — statement scan, flagged lines, live voice waveform */
-    .pv-vellum .scan { animation: vScan 5.2s linear infinite; }
-    @keyframes vScan { 0% { transform: translateY(56px); opacity: 0; } 6% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateY(198px); opacity: 0; } }
-    .pv-vellum .flag rect { fill: rgba(255,122,107,.09); stroke: rgba(255,122,107,.55); stroke-width: 1; }
-    .pv-vellum .flag line { stroke: rgba(255,122,107,.55); stroke-width: 1; }
-    .pv-vellum .flag text { fill: var(--coral); }
-    .pv-vellum .flag-1 { animation: vFlag1 5.2s linear infinite; }
-    .pv-vellum .flag-2 { animation: vFlag2 5.2s linear infinite; }
-    @keyframes vFlag1 { 0%, 29% { opacity: 0; } 33%, 90% { opacity: 1; } 100% { opacity: 0; } }
-    @keyframes vFlag2 { 0%, 63% { opacity: 0; } 67%, 90% { opacity: 1; } 100% { opacity: 0; } }
-    .pv-vellum .wv { fill: var(--accent); opacity: .75; transform-box: fill-box; transform-origin: center; animation: wave 1.3s ease-in-out infinite; animation-delay: calc(var(--d) * -1s); }
-    @keyframes wave { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
-
-    /* Tipsy — live leaderboard, safety toast, score ring */
-    .pv-tipsy .bar { fill: rgba(53,212,226,.65); transform-box: fill-box; transform-origin: left center; animation: tBar 4.8s var(--ease) infinite; animation-delay: calc(var(--d) * 1s); }
-    @keyframes tBar { 0% { transform: scaleX(var(--a)); } 45%, 55% { transform: scaleX(var(--b)); } 100% { transform: scaleX(var(--a)); } }
-    .pv-tipsy .toast { animation: tToast 6s var(--ease) infinite; }
-    @keyframes tToast { 0%, 52% { transform: translateY(-14px); opacity: 0; } 60%, 88% { transform: none; opacity: 1; } 96%, 100% { transform: translateY(-14px); opacity: 0; } }
-    .pv-tipsy .ring { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tRing 6s var(--ease) infinite; }
-    @keyframes tRing { 0% { stroke-dashoffset: 1; } 40%, 85% { stroke-dashoffset: .28; } 100% { stroke-dashoffset: 1; } }
-
     /* Kalshi — trade history draws in, data flows through the model */
     .pv-kalshi .price { stroke-dasharray: 1; stroke-dashoffset: 1; animation: kDraw 7s var(--ease) infinite; }
     @keyframes kDraw { 0% { stroke-dashoffset: 1; opacity: 1; } 55%, 92% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
@@ -479,8 +464,6 @@
       /* Illustrations rest on a fully drawn, static frame */
       .pv * { animation: none !important; }
       .pv-kalshi .price { stroke-dashoffset: 0; }
-      .pv-tipsy .ring { stroke-dashoffset: .28; }
-      .pv-vellum .scan { display: none; }
     }
   </style>
 </head>
@@ -542,7 +525,7 @@
     <div class="hero-inner">
       <h1 class="hero-name">Zain Dahdul</h1>
       <p class="hero-role">Mechanical Engineering at UC Berkeley, minor in EECS</p>
-      <p class="hero-intro">I build hardware and software. Recent work includes an AI medical-bill advocate, an iOS app on the App Store, and a 3D-printed wind turbine.</p>
+      <p class="hero-intro">I build things.</p>
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-solid">View projects</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
@@ -617,76 +600,8 @@
 
       <a class="tile" id="project-vellum" href="#project-vellum" data-id="vellum" aria-haspopup="dialog">
         <div class="tile-media">
-          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
-          <div class="tile-art">
-              <svg class="pv pv-vellum" viewBox="0 0 360 300" role="img" aria-label="Illustration: an itemized hospital bill being audited line by line, with two errors flagged, above a live voice-agent waveform">
-                <defs>
-                  <linearGradient id="vScanGrad" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0" stop-color="#35d4e2" stop-opacity="0"/>
-                    <stop offset="1" stop-color="#35d4e2" stop-opacity=".28"/>
-                  </linearGradient>
-                </defs>
-                <rect class="ln" x="78" y="16" width="204" height="214" rx="6"/>
-                <text class="tx" x="94" y="38">ITEMIZED STATEMENT</text>
-                <line class="dm" x1="94" y1="50" x2="266" y2="50"/>
-                <line class="dm cap" x1="94" y1="68" x2="186" y2="68"/><line class="dm cap" x1="236" y1="68" x2="266" y2="68"/>
-                <line class="dm cap" x1="94" y1="84" x2="164" y2="84"/><line class="dm cap" x1="240" y1="84" x2="266" y2="84"/>
-                <line class="dm cap" x1="94" y1="100" x2="198" y2="100"/><line class="dm cap" x1="232" y1="100" x2="266" y2="100"/>
-                <line class="dm cap" x1="94" y1="116" x2="174" y2="116"/><line class="dm cap" x1="238" y1="116" x2="266" y2="116"/>
-                <line class="dm cap" x1="94" y1="132" x2="190" y2="132"/><line class="dm cap" x1="234" y1="132" x2="266" y2="132"/>
-                <line class="dm cap" x1="94" y1="148" x2="158" y2="148"/><line class="dm cap" x1="242" y1="148" x2="266" y2="148"/>
-                <line class="dm cap" x1="94" y1="164" x2="182" y2="164"/><line class="dm cap" x1="236" y1="164" x2="266" y2="164"/>
-                <line class="dm cap" x1="94" y1="180" x2="168" y2="180"/><line class="dm cap" x1="240" y1="180" x2="266" y2="180"/>
-                <g class="flag flag-1">
-                  <rect x="86" y="92" width="188" height="16" rx="3"/>
-                  <line x1="274" y1="100" x2="288" y2="100"/>
-                  <text class="tx" x="292" y="103">FLAGGED</text>
-                </g>
-                <g class="flag flag-2">
-                  <rect x="86" y="140" width="188" height="16" rx="3"/>
-                  <line x1="274" y1="148" x2="288" y2="148"/>
-                  <text class="tx" x="292" y="151">FLAGGED</text>
-                </g>
-                <line class="ln" x1="94" y1="198" x2="266" y2="198"/>
-                <text class="tx" x="94" y="217">TOTAL</text>
-                <line class="br cap" x1="228" y1="213" x2="266" y2="213" stroke-width="2"/>
-                <g class="scan">
-                  <rect x="80" y="-16" width="200" height="16" fill="url(#vScanGrad)"/>
-                  <line class="br" x1="80" y1="0" x2="280" y2="0" stroke-opacity=".75"/>
-                </g>
-                <rect class="wv" x="96.0" y="254.0" width="2.4" height="8" rx="1.2" style="--d:0.00"/>
-                <rect class="wv" x="102.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:0.37"/>
-                <rect class="wv" x="108.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:0.74"/>
-                <rect class="wv" x="114.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:1.11"/>
-                <rect class="wv" x="120.0" y="245.0" width="2.4" height="26" rx="1.2" style="--d:0.18"/>
-                <rect class="wv" x="126.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.55"/>
-                <rect class="wv" x="132.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:0.92"/>
-                <rect class="wv" x="138.0" y="247.0" width="2.4" height="22" rx="1.2" style="--d:1.29"/>
-                <rect class="wv" x="144.0" y="244.0" width="2.4" height="28" rx="1.2" style="--d:0.36"/>
-                <rect class="wv" x="150.0" y="250.0" width="2.4" height="16" rx="1.2" style="--d:0.73"/>
-                <rect class="wv" x="156.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:1.10"/>
-                <rect class="wv" x="162.0" y="246.0" width="2.4" height="24" rx="1.2" style="--d:0.17"/>
-                <rect class="wv" x="168.0" y="243.0" width="2.4" height="30" rx="1.2" style="--d:0.54"/>
-                <rect class="wv" x="174.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:0.91"/>
-                <rect class="wv" x="180.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:1.28"/>
-                <rect class="wv" x="186.0" y="245.0" width="2.4" height="26" rx="1.2" style="--d:0.35"/>
-                <rect class="wv" x="192.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.72"/>
-                <rect class="wv" x="198.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:1.09"/>
-                <rect class="wv" x="204.0" y="247.0" width="2.4" height="22" rx="1.2" style="--d:0.16"/>
-                <rect class="wv" x="210.0" y="244.0" width="2.4" height="28" rx="1.2" style="--d:0.53"/>
-                <rect class="wv" x="216.0" y="251.0" width="2.4" height="14" rx="1.2" style="--d:0.90"/>
-                <rect class="wv" x="222.0" y="248.0" width="2.4" height="20" rx="1.2" style="--d:1.27"/>
-                <rect class="wv" x="228.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:0.34"/>
-                <rect class="wv" x="234.0" y="246.0" width="2.4" height="24" rx="1.2" style="--d:0.71"/>
-                <rect class="wv" x="240.0" y="250.0" width="2.4" height="16" rx="1.2" style="--d:1.08"/>
-                <rect class="wv" x="246.0" y="253.0" width="2.4" height="10" rx="1.2" style="--d:0.15"/>
-                <rect class="wv" x="252.0" y="249.0" width="2.4" height="18" rx="1.2" style="--d:0.52"/>
-                <rect class="wv" x="258.0" y="252.0" width="2.4" height="12" rx="1.2" style="--d:0.89"/>
-                <rect class="wv" x="264.0" y="254.0" width="2.4" height="8" rx="1.2" style="--d:1.26"/>
-                <text class="tx" x="180" y="292" text-anchor="middle">VOICE AGENT · NEGOTIATING LIVE</text>
-              </svg>
-          </div>
-          <span class="tile-flag award">ElevenLabs Track winner</span>
+          <img class="tile-cover" src="/projects/vellum/cover.webp" width="1600" height="1000" alt="The Vellum landing page: the headline Vellum negotiates your hospital bill, above a box for describing or attaching a bill" loading="lazy" decoding="async">
+          <span class="tile-flag award"><svg class="flag-logo" viewBox="0 0 500 500" aria-hidden="true"><rect width="500" height="500" rx="100" fill="#fff"/><path d="M314 355h-43V145h43zM229 355h-43V145h43z" fill="#000"/></svg>ElevenLabs Track winner</span>
         </div>
         <div class="tile-info">
           <p class="tile-kicker">2026</p>
@@ -698,55 +613,7 @@
 
       <a class="tile" id="project-tipsy" href="#project-tipsy" data-id="tipsy" aria-haspopup="dialog">
         <div class="tile-media">
-          <!-- MEDIA SLOT: cover image or looping video for the grid tile -->
-          <div class="tile-art">
-              <svg class="pv pv-tipsy" viewBox="0 0 360 300" role="img" aria-label="Illustration: the Tipsy iPhone app showing a live friend leaderboard, a safety alert and a hangover score">
-                <rect class="ln" x="125" y="12" width="110" height="276" rx="20"/>
-                <rect class="dm" x="131" y="18" width="98" height="264" rx="15"/>
-                <rect class="fl" x="161" y="24" width="38" height="10" rx="5"/>
-                <g class="toast">
-                  <rect x="134" y="40" width="92" height="22" rx="7" fill="rgba(53,212,226,.1)" stroke="rgba(53,212,226,.5)" stroke-width="1"/>
-                  <circle cx="145" cy="51" r="2.5" fill="#ff7a6b"/>
-                  <text class="tx tx-a" x="152" y="53.5" style="font-size:7px">SAFETY ALERT</text>
-                </g>
-                <text class="tx tx-a" x="137" y="83" style="font-size:7px">LEADERBOARD</text>
-                <circle cx="221" cy="80.5" r="2.5" fill="#35d4e2"/>
-                <line class="dm" x1="137" y1="91" x2="223" y2="91"/>
-                <text class="tx" x="137" y="109">1</text>
-                <circle class="ln" cx="156" cy="106" r="8"/>
-                <line class="dm cap" x1="170" y1="102" x2="200" y2="102"/>
-                <rect class="bar" x="170" y="108" width="44" height="3" rx="1.5" style="--a:.82;--b:.96;--d:0"/>
-                <text class="tx" x="137" y="137">2</text>
-                <circle class="dm" cx="156" cy="134" r="8"/>
-                <line class="dm cap" x1="170" y1="130" x2="196" y2="130"/>
-                <rect class="bar" x="170" y="136" width="44" height="3" rx="1.5" style="--a:.7;--b:.58;--d:.3"/>
-                <text class="tx" x="137" y="165">3</text>
-                <circle class="dm" cx="156" cy="162" r="8"/>
-                <line class="dm cap" x1="170" y1="158" x2="204" y2="158"/>
-                <rect class="bar" x="170" y="164" width="44" height="3" rx="1.5" style="--a:.5;--b:.68;--d:.6"/>
-                <text class="tx" x="137" y="193">4</text>
-                <circle class="dm" cx="156" cy="190" r="8"/>
-                <line class="dm cap" x1="170" y1="186" x2="192" y2="186"/>
-                <rect class="bar" x="170" y="192" width="44" height="3" rx="1.5" style="--a:.38;--b:.3;--d:.9"/>
-                <circle class="dm" cx="180" cy="238" r="17"/>
-                <circle class="br ring" cx="180" cy="238" r="17" pathLength="1" stroke-width="2" stroke-linecap="round" transform="rotate(-90 180 238)"/>
-                <circle cx="180" cy="238" r="2.5" fill="#35d4e2"/>
-                <line class="dm cap" x1="166" y1="279" x2="194" y2="279" stroke-width="2"/>
-                <!-- feature callouts -->
-                <text class="tx" x="104" y="54" text-anchor="end">SAFETY ALERTS</text>
-                <circle cx="110" cy="51" r="1.8" fill="#35d4e2"/>
-                <line class="dm" x1="112" y1="51" x2="134" y2="51"/>
-                <text class="tx" x="104" y="137" text-anchor="end">FRIEND GROUPS</text>
-                <circle cx="110" cy="134" r="1.8" fill="#35d4e2"/>
-                <line class="dm" x1="112" y1="134" x2="148" y2="134"/>
-                <text class="tx" x="256" y="83">LIVE LEADERBOARD</text>
-                <circle cx="250" cy="80.5" r="1.8" fill="#35d4e2"/>
-                <line class="dm" x1="226" y1="80.5" x2="248" y2="80.5"/>
-                <text class="tx" x="256" y="241">HANGOVER SCORE</text>
-                <circle cx="250" cy="238" r="1.8" fill="#35d4e2"/>
-                <line class="dm" x1="197" y1="238" x2="248" y2="238"/>
-              </svg>
-          </div>
+          <img class="tile-cover" src="/projects/tipsy/cover.webp" width="1600" height="1000" alt="The Tipsy logo: a gold T above the word TIPSY on a dark background" loading="lazy" decoding="async">
           <span class="tile-flag"><span class="flag-dot"></span>On the App Store</span>
         </div>
         <div class="tile-info">
@@ -825,6 +692,12 @@
 
     <!-- Project detail content, loaded into the project view on open -->
     <template id="pm-tpl-vellum">
+      <!-- Screenshots of the live site; images live in public/projects/vellum -->
+      <div class="tpl-gallery">
+        <figure><img src="/projects/vellum/1.webp" width="1400" height="825" loading="lazy" decoding="async" alt="Vellum landing page with the headline Vellum negotiates your hospital bill and a box to describe or attach a bill"><figcaption>Patients start by describing or uploading their bill</figcaption></figure>
+        <figure><img src="/projects/vellum/2.webp" width="1400" height="788" loading="lazy" decoding="async" alt="How it works in five steps, from the bill to the outcome, above a table of the services Vellum is built with"><figcaption>How it works, and what each sponsor tool does</figcaption></figure>
+        <figure><img src="/projects/vellum/3.webp" width="1400" height="675" loading="lazy" decoding="async" alt="Vellum clinic page for appealing a denied insurance claim, with two demo cases to choose from"><figcaption>Clinic side: appealing a denied insurance claim</figcaption></figure>
+      </div>
       <div class="tpl-metrics">
         <div class="metric"><div class="metric-val">27%</div><div class="metric-label">Avg. errors caught</div></div>
         <div class="metric"><div class="metric-val">500+</div><div class="metric-label">Tests</div></div>
@@ -832,7 +705,7 @@
       </div>
       <div class="tpl-content">
         <p class="pm-kicker">Blockchain at Berkeley Hackathon · Oct 2026</p>
-        <span class="pm-flag award">Winner, ElevenLabs Track</span>
+        <span class="pm-flag award"><svg class="flag-logo" viewBox="0 0 500 500" aria-hidden="true"><rect width="500" height="500" rx="100" fill="#fff"/><path d="M314 355h-43V145h43zM229 355h-43V145h43z" fill="#000"/></svg><span>Winner, <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> Track</span></span>
         <h3 class="pm-title">Vellum</h3>
         <p class="pm-sub">AI medical-bill advocate</p>
         <ul class="pm-points">
@@ -841,10 +714,18 @@
           <li>Team built two Claude Haiku voice agents that negotiate bills live, with spending caps enforced in code.</li>
         </ul>
         <p class="pm-stack"><span>Built with</span>TypeScript · ElevenLabs · Context.dev · Fly.io</p>
+        <a class="pm-link" href="https://vellum-advocate.vercel.app/" target="_blank" rel="noopener">View the live site <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
       </div>
     </template>
 
     <template id="pm-tpl-tipsy">
+      <!-- Carousel order follows the screenshot times; images live in public/projects/tipsy -->
+      <div class="tpl-gallery">
+        <figure><img src="/projects/tipsy/1.webp" width="660" height="1400" loading="lazy" decoding="async" alt="Tipsy sign-in screen with email and password fields and Apple and Google sign-in buttons"></figure>
+        <figure><img src="/projects/tipsy/2.webp" width="631" height="1400" loading="lazy" decoding="async" alt="Tipsy home screen showing tonight's drink count, a sober streak and this week's drinks, sessions, calories and spending"></figure>
+        <figure><img src="/projects/tipsy/3.webp" width="639" height="1400" loading="lazy" decoding="async" alt="Tipsy Track screen with a live drink counter, standard drinks, calories and spending, above a searchable drink list"></figure>
+        <figure><img src="/projects/tipsy/4.webp" width="659" height="1400" loading="lazy" decoding="async" alt="Tipsy drink menu grouped into beer, craft, spirits, wine and cocktails, each with calories, serving size and ABV"></figure>
+      </div>
       <div class="tpl-metrics">
         <div class="metric"><div class="metric-val">Live</div><div class="metric-label">On the App Store</div></div>
         <div class="metric"><div class="metric-val">iOS</div><div class="metric-label">React Native</div></div>
@@ -945,20 +826,18 @@
         <p class="edu-minor">Minor in Electrical Engineering &amp; Computer Sciences</p>
         <p class="edu-school">University of California, Berkeley · College of Engineering</p>
         <ul class="edu-points">
-          <li>3.3 / 4.0 GPA</li>
-          <li>Coursework: Solid Mechanics, 3D CAD &amp; Prototyping, Programming &amp; Data Analysis for Engineers, Linear Algebra &amp; Differential Equations, Multivariable Calculus, Physics for Engineers I &amp; II</li>
-          <li>Entrepreneurs at Berkeley</li>
-          <li>Cal Men's Club Water Polo</li>
-          <li>Phi Kappa Psi Fraternity</li>
+          <li>Relevant coursework: Solid Mechanics, 3D CAD &amp; Prototyping, Programming &amp; Data Analysis for Engineers, Linear Algebra &amp; Differential Equations, Multivariable Calculus, Physics for Engineers I &amp; II</li>
+          <li>Activities: Entrepreneurs at Berkeley; Space Enterprise at Berkeley; Cal Men's Club Water Polo; Phi Kappa Psi Fraternity</li>
         </ul>
       </div>
       <div class="reveal">
         <p class="edu-when">Aug 2021 – Jun 2025</p>
         <h3 class="edu-degree">High School Diploma</h3>
+        <p class="edu-minor">QUEST Program</p>
         <p class="edu-school">Millikan High School · Long Beach, CA</p>
         <ul class="edu-points">
           <li>Valedictorian, Gold Robe recipient</li>
-          <li>4.8 weighted GPA / 4.0 unweighted · QUEST Program</li>
+          <li>GPA: 4.8 (4.0 unweighted)</li>
           <li>Captain, Water Polo &amp; Swim · 2× All-Moore League · 2024 Offensive Player of the Year</li>
           <li>Founder &amp; President, Robotics Club · raised $2,000+ in funding</li>
         </ul>
