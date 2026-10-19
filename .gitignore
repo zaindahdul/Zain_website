@@ -29,3 +29,8 @@ dist-ssr
 Wind Turbine Images/
 Tipsy images/
 Wind Turbine Project.pdf
+
+# Private documents and local settings: keep out of the public repo
+*[Rr]esume*.pdf
+*[Rr]esume*.docx
+.claude/settings.local.json
