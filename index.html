@@ -274,6 +274,11 @@
     .pm-flag.award a:hover { text-decoration-color: currentColor; }
     .flag-logo { flex: none; width: 1.3em; height: 1.3em; }
     .pm-flag .flag-logo { width: 1.5em; height: 1.5em; }
+    /* Sub-award line under the flag: logo centred under the flag's logo, text aligned with its text */
+    .pm-track { display: flex; align-items: center; gap: .86rem; margin-top: .7rem; padding-left: calc(1px + .71rem); font-size: .88rem; color: var(--text2); }
+    .pm-track .flag-logo { width: 1.1rem; height: 1.1rem; }
+    .pm-track a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.3); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+    .pm-track a:hover { text-decoration-color: currentColor; }
     .flag-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; }
     .tile-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.2rem; padding: 1.25rem 1.4rem 1.4rem; }
     .tile-kicker { font-family: var(--mono); font-size: .74rem; color: var(--text3); margin-bottom: .4rem; }
@@ -333,7 +338,8 @@
     .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 1.6rem; }
     .pm-content { flex: 1; }
     .pm-kicker { font-family: var(--mono); font-size: .76rem; color: var(--text3); margin-bottom: 1rem; }
-    .pm-flag { margin-bottom: 1.1rem; }
+    .pm-flag, .pm-award { margin-bottom: 1.1rem; }
+    .pm-award .pm-flag { margin-bottom: 0; }
     .pm-title { font-family: var(--serif); font-size: clamp(2.3rem, 3.4vw, 3rem); font-weight: 500; line-height: 1.02; color: #fff; }
     .pm-sub { margin: .5rem 0 1.7rem; font-size: .98rem; color: var(--text2); }
     .pm-points, .cv-points, .edu-points { list-style: none; display: flex; flex-direction: column; }
@@ -612,7 +618,7 @@
       <a class="tile" id="project-vellum" href="#project-vellum" data-id="vellum" aria-haspopup="dialog">
         <div class="tile-media">
           <img class="tile-cover" src="/projects/vellum/cover.webp" width="1600" height="1000" alt="The Vellum landing page: the headline Vellum negotiates your hospital bill, above a box for describing or attaching a bill" loading="lazy" decoding="async">
-          <span class="tile-flag award"><svg class="flag-logo" viewBox="0 0 500 500" aria-hidden="true"><rect width="500" height="500" rx="100" fill="#fff"/><path d="M314 355h-43V145h43zM229 355h-43V145h43z" fill="#000"/></svg>ElevenLabs Track winner</span>
+          <span class="tile-flag award"><svg class="flag-logo" viewBox="-0.12 -1.88 39.73 39.73" aria-hidden="true"><path d="M10.66 7.33L14.91 0.23C15 0.09 15.15 0 15.32 0H24.13C24.49 0 24.72 0.37 24.54 0.67L20.24 7.77C20.15 7.91 20 8 19.83 8H11.07C10.71 8 10.48 7.63 10.66 7.33Z" fill="#FECB33"/><path d="M0.06 25.83L4.31 18.73C4.4 18.59 4.55 18.5 4.72 18.5H13.53C13.89 18.5 14.12 18.87 13.94 19.17L9.64 26.27C9.55 26.41 9.4 26.5 9.23 26.5H0.47C0.11 26.5-0.12 26.13 0.06 25.83Z" fill="#FECB33"/><path d="M25.56 34.93L29.81 27.83C29.9 27.69 30.05 27.6 30.22 27.6H39.03C39.39 27.6 39.62 27.97 39.44 28.27L35.14 35.37C35.05 35.51 34.9 35.6 34.73 35.6H25.97C25.61 35.6 25.38 35.23 25.56 34.93Z" fill="#EAA536"/><path d="M35.34 34.93L31.09 27.83C31 27.69 30.85 27.6 30.68 27.6H21.87C21.51 27.6 21.28 27.97 21.46 28.27L25.76 35.37C25.85 35.51 26 35.6 26.17 35.6H34.93C35.29 35.6 35.52 35.23 35.34 34.93Z" fill="#FECB33"/><path d="M18.94 27.65L14.77 34.78C14.69 34.92 14.53 35 14.37 35H5.45C5.1 35 4.88 34.63 5.07 34.34L9.69 27H18.55C18.89 27 19.11 27.36 18.94 27.65Z" fill="#FECB33"/><path d="M14.34 35.66L9.86 27.58C9.78 27.43 9.78 27.25 9.86 27.1L14.34 19.14C14.51 18.82 14.94 18.82 15.12 19.13L19.73 27.1C19.82 27.25 19.82 27.44 19.74 27.59L15.13 35.67C14.95 35.98 14.51 35.98 14.34 35.66Z" fill="#EAA536"/><path d="M34.06 18.9C34.4 18.9 34.61 19.27 34.44 19.57L30.45 26.68C30.37 26.81 30.23 26.9 30.07 26.9H21.94C21.6 26.9 21.39 26.53 21.56 26.23L25.46 19.2L27.38 22.71L26.97 23.47C26.95 23.51 26.98 23.57 27.04 23.58L28.36 23.62C28.39 23.62 28.41 23.61 28.43 23.58L29.13 22.38C29.16 22.33 29.13 22.27 29.07 22.26L28.21 22.23C27.75 21.34 26.83 19.72 26.36 18.9H34.06Z" fill="#FECB33"/><path d="M23.66 16.75C24 16.75 24.21 16.38 24.04 16.08L20.05 8.97C19.97 8.84 19.83 8.75 19.67 8.75H11.54C11.2 8.75 10.99 9.12 11.16 9.42L15.06 16.45L16.98 12.94L16.57 12.18C16.55 12.14 16.58 12.07 16.64 12.07L17.96 12.03C17.99 12.03 18.01 12.04 18.03 12.07L18.73 13.27C18.76 13.32 18.73 13.38 18.67 13.39L17.81 13.42C17.35 14.31 16.43 15.93 15.96 16.75H23.66Z" fill="#FECB33"/><path d="M27.57 8.75C27.9 8.75 28.11 9.12 27.94 9.42L24.03 16.53C23.96 16.66 23.82 16.75 23.66 16.75H16C16.46 15.93 17.36 14.31 17.82 13.42L18.66 13.39C18.71 13.38 18.74 13.32 18.72 13.27L18.03 12.07C18.01 12.05 17.99 12.03 17.96 12.03L17.52 12.05L19.19 8.98C19.27 8.84 19.41 8.75 19.57 8.75H27.57Z" fill="#EAA536"/></svg>Blockchain Hackathon winner</span>
         </div>
         <div class="tile-info">
           <p class="tile-kicker">2026</p>
@@ -716,7 +722,10 @@
       </div>
       <div class="tpl-content">
         <p class="pm-kicker">Blockchain at Berkeley Hackathon · Oct 2026</p>
-        <span class="pm-flag award"><svg class="flag-logo" viewBox="0 0 500 500" aria-hidden="true"><rect width="500" height="500" rx="100" fill="#fff"/><path d="M314 355h-43V145h43zM229 355h-43V145h43z" fill="#000"/></svg><span>Winner, <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> Track</span></span>
+        <div class="pm-award">
+          <span class="pm-flag award"><svg class="flag-logo" viewBox="-0.12 -1.88 39.73 39.73" aria-hidden="true"><path d="M10.66 7.33L14.91 0.23C15 0.09 15.15 0 15.32 0H24.13C24.49 0 24.72 0.37 24.54 0.67L20.24 7.77C20.15 7.91 20 8 19.83 8H11.07C10.71 8 10.48 7.63 10.66 7.33Z" fill="#FECB33"/><path d="M0.06 25.83L4.31 18.73C4.4 18.59 4.55 18.5 4.72 18.5H13.53C13.89 18.5 14.12 18.87 13.94 19.17L9.64 26.27C9.55 26.41 9.4 26.5 9.23 26.5H0.47C0.11 26.5-0.12 26.13 0.06 25.83Z" fill="#FECB33"/><path d="M25.56 34.93L29.81 27.83C29.9 27.69 30.05 27.6 30.22 27.6H39.03C39.39 27.6 39.62 27.97 39.44 28.27L35.14 35.37C35.05 35.51 34.9 35.6 34.73 35.6H25.97C25.61 35.6 25.38 35.23 25.56 34.93Z" fill="#EAA536"/><path d="M35.34 34.93L31.09 27.83C31 27.69 30.85 27.6 30.68 27.6H21.87C21.51 27.6 21.28 27.97 21.46 28.27L25.76 35.37C25.85 35.51 26 35.6 26.17 35.6H34.93C35.29 35.6 35.52 35.23 35.34 34.93Z" fill="#FECB33"/><path d="M18.94 27.65L14.77 34.78C14.69 34.92 14.53 35 14.37 35H5.45C5.1 35 4.88 34.63 5.07 34.34L9.69 27H18.55C18.89 27 19.11 27.36 18.94 27.65Z" fill="#FECB33"/><path d="M14.34 35.66L9.86 27.58C9.78 27.43 9.78 27.25 9.86 27.1L14.34 19.14C14.51 18.82 14.94 18.82 15.12 19.13L19.73 27.1C19.82 27.25 19.82 27.44 19.74 27.59L15.13 35.67C14.95 35.98 14.51 35.98 14.34 35.66Z" fill="#EAA536"/><path d="M34.06 18.9C34.4 18.9 34.61 19.27 34.44 19.57L30.45 26.68C30.37 26.81 30.23 26.9 30.07 26.9H21.94C21.6 26.9 21.39 26.53 21.56 26.23L25.46 19.2L27.38 22.71L26.97 23.47C26.95 23.51 26.98 23.57 27.04 23.58L28.36 23.62C28.39 23.62 28.41 23.61 28.43 23.58L29.13 22.38C29.16 22.33 29.13 22.27 29.07 22.26L28.21 22.23C27.75 21.34 26.83 19.72 26.36 18.9H34.06Z" fill="#FECB33"/><path d="M23.66 16.75C24 16.75 24.21 16.38 24.04 16.08L20.05 8.97C19.97 8.84 19.83 8.75 19.67 8.75H11.54C11.2 8.75 10.99 9.12 11.16 9.42L15.06 16.45L16.98 12.94L16.57 12.18C16.55 12.14 16.58 12.07 16.64 12.07L17.96 12.03C17.99 12.03 18.01 12.04 18.03 12.07L18.73 13.27C18.76 13.32 18.73 13.38 18.67 13.39L17.81 13.42C17.35 14.31 16.43 15.93 15.96 16.75H23.66Z" fill="#FECB33"/><path d="M27.57 8.75C27.9 8.75 28.11 9.12 27.94 9.42L24.03 16.53C23.96 16.66 23.82 16.75 23.66 16.75H16C16.46 15.93 17.36 14.31 17.82 13.42L18.66 13.39C18.71 13.38 18.74 13.32 18.72 13.27L18.03 12.07C18.01 12.05 17.99 12.03 17.96 12.03L17.52 12.05L19.19 8.98C19.27 8.84 19.41 8.75 19.57 8.75H27.57Z" fill="#EAA536"/></svg><span><a href="https://blockchain.berkeley.edu/" target="_blank" rel="noopener">Blockchain Hackathon</a> winner</span></span>
+          <span class="pm-track"><svg class="flag-logo" viewBox="0 0 500 500" aria-hidden="true"><rect width="500" height="500" rx="100" fill="#fff"/><path d="M314 355h-43V145h43zM229 355h-43V145h43z" fill="#000"/></svg><span><a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> Track</span></span>
+        </div>
         <h3 class="pm-title">Vellum</h3>
         <p class="pm-sub">AI medical-bill advocate</p>
         <ul class="pm-points">
