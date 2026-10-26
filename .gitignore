@@ -34,3 +34,5 @@ Wind Turbine Project.pdf
 *[Rr]esume*.pdf
 *[Rr]esume*.docx
 .claude/settings.local.json
+# Exception: the public copy of the SWE resume, phone number removed (served at /resume.pdf)
+!public/resume.pdf
