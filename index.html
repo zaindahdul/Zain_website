@@ -324,17 +324,23 @@
     .gal-track { position: absolute; inset: 0; display: flex; transition: transform .6s var(--ease); }
     .gal-slide { flex: 0 0 100%; height: 100%; margin: 0; padding: 1.8rem 2rem; display: flex; align-items: center; justify-content: center; }
     .gal-slide img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; user-select: none; -webkit-user-drag: none; }
-    .gal-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1.1rem .8rem 1.4rem; border-top: 1px solid var(--line); }
-    .gal-caption { min-width: 0; font-size: .84rem; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .gal-count { margin-right: .8rem; font-family: var(--mono); font-size: .74rem; color: var(--text3); font-variant-numeric: tabular-nums; }
-    .gal-btns { flex: none; display: flex; gap: .5rem; }
-    .gal-btns button {
-      width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
-      background: none; border: 1px solid var(--line2); color: var(--text);
+    /* Arrows sit on the image's side edges, overlapping it slightly, so they read as part of the picture */
+    .gal-btn {
+      position: absolute; top: 50%; z-index: 2; translate: 0 -50%;
+      width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      background: rgba(5,6,7,.72); border: 1px solid rgba(255,255,255,.32); color: #fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
       transition: background .2s, color .2s, border-color .2s;
     }
-    .gal-btns button:hover { background: #fff; color: #000; border-color: #fff; }
-    .gal-btns svg { width: 14px; height: 14px; }
+    .gal-btn[hidden] { display: none; }
+    .gal-prev { left: 16px; }
+    .gal-next { right: 16px; }
+    .gal-btn:hover { background: #fff; color: #000; border-color: #fff; }
+    .gal-btn svg { width: 18px; height: 18px; stroke-width: 1.7; }
+    .gal-bar { display: flex; align-items: center; padding: .9rem 1.4rem; border-top: 1px solid var(--line); }
+    .gal-caption { min-width: 0; font-size: .84rem; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .gal-count { margin-right: .8rem; font-family: var(--mono); font-size: .74rem; color: var(--text3); font-variant-numeric: tabular-nums; }
     .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 1.6rem; }
     .pm-content { flex: 1; }
     .pm-kicker { font-family: var(--mono); font-size: .76rem; color: var(--text3); margin-bottom: 1rem; }
@@ -457,6 +463,9 @@
       .pm-art.is-gallery { height: auto; }
       .gal-view { flex: none; height: min(84vw, 460px); }
       .gal-slide { padding: 1.2rem; }
+      .gal-btn { width: 46px; height: 46px; }
+      .gal-prev { left: 10px; }
+      .gal-next { right: 10px; }
       .pm-body { overflow: visible; min-height: auto; padding: 2.2rem 1.5rem 2rem; }
       footer { flex-direction: column; text-align: center; padding: 1.6rem; }
       #hud-readout { display: none; }
@@ -521,6 +530,7 @@
     <li><a href="#education">Education</a></li>
     <li><a href="#leadership">Leadership</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="/resume.pdf" target="_blank" rel="noopener">Resume</a></li>
   </ul>
   <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
 </nav>
@@ -532,6 +542,7 @@
   <a href="#education">Education</a>
   <a href="#leadership">Leadership</a>
   <a href="#contact">Contact</a>
+  <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a>
 </div>
 
 <!-- ══════════ WIREFRAME ZONE (280vh) ══════════ -->
@@ -546,6 +557,7 @@
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-solid">View projects</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <a href="/resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Resume</a>
       </div>
     </div>
     <div class="hero-scroll" aria-hidden="true">
@@ -912,6 +924,7 @@
       <a class="contact-row" href="mailto:zaindahdul@berkeley.edu"><span>Email</span><span class="contact-val">zaindahdul@berkeley.edu</span></a>
       <a class="contact-row" href="https://www.linkedin.com/in/zaindahdul" target="_blank" rel="noopener"><span>LinkedIn</span><span class="contact-val">linkedin.com/in/zaindahdul</span></a>
       <a class="contact-row" href="https://github.com/zaindahdul" target="_blank" rel="noopener"><span>GitHub</span><span class="contact-val">github.com/zaindahdul</span></a>
+      <a class="contact-row" href="/resume.pdf" target="_blank" rel="noopener"><span>Resume</span><span class="contact-val">resume.pdf</span></a>
       <a class="contact-row" href="tel:5626760788"><span>Phone</span><span class="contact-val">(562) 676-0788</span></a>
       <div class="contact-row"><span>Based in</span><span class="contact-val">Berkeley, CA</span></div>
     </div>
@@ -1927,10 +1940,10 @@ function gallery(src) {
   gal.setAttribute('aria-roledescription', 'carousel');
   gal.setAttribute('aria-label', 'Project images');
   gal.innerHTML =
-    '<div class="gal-view"><div class="gal-track"></div></div>' +
-    '<div class="gal-bar"><p class="gal-caption" aria-live="polite"><span class="gal-count"></span><span class="gal-text"></span></p>' +
-    '<div class="gal-btns"><button class="gal-prev" type="button" aria-label="Previous image">' + arrowIcon('M13 8H3M7 4L3 8l4 4') + '</button>' +
-    '<button class="gal-next" type="button" aria-label="Next image">' + arrowIcon('M3 8h10M9 4l4 4-4 4') + '</button></div></div>';
+    '<div class="gal-view"><div class="gal-track"></div>' +
+    '<button class="gal-btn gal-prev" type="button" aria-label="Previous image">' + arrowIcon('M13 8H3M7 4L3 8l4 4') + '</button>' +
+    '<button class="gal-btn gal-next" type="button" aria-label="Next image">' + arrowIcon('M3 8h10M9 4l4 4-4 4') + '</button></div>' +
+    '<div class="gal-bar"><p class="gal-caption" aria-live="polite"><span class="gal-count"></span><span class="gal-text"></span></p></div>';
   const track = gal.querySelector('.gal-track');
   const slides = [...src.querySelectorAll('figure')];
   const captions = slides.map(f => {
@@ -1977,7 +1990,7 @@ function gallery(src) {
     x0 = null;
     if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
   });
-  gal.querySelector('.gal-btns').hidden = n < 2;
+  gal.querySelectorAll('.gal-btn').forEach(b => { b.hidden = n < 2; });
   go(0);
   return gal;
 }
