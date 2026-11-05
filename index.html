@@ -322,26 +322,30 @@
     .gal { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; }
     .gal-view { position: relative; flex: 1; min-height: 0; overflow: hidden; touch-action: pan-y; }
     .gal-track { position: absolute; inset: 0; display: flex; transition: transform .6s var(--ease); }
-    .gal-slide { flex: 0 0 100%; height: 100%; margin: 0; padding: 1.8rem 2rem; display: flex; align-items: center; justify-content: center; }
+    /* An even margin on all sides. The side margin leaves room for the arrows beside wide images, and the
+       top and bottom margin keeps the portrait shots narrow enough to clear the arrows instead of grazing them */
+    .gal-slide { flex: 0 0 100%; height: 100%; margin: 0; padding: 3rem; display: flex; align-items: center; justify-content: center; }
     .gal-slide img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; user-select: none; -webkit-user-drag: none; }
-    /* Arrows sit on the image's side edges, overlapping it slightly, so they read as part of the picture */
+    /* Arrows stay in one place for the whole gallery. gallery() sets --gal-inset so they overlap the widest
+       image's edges slightly; light fill so they stand out on dark and light shots alike */
     .gal-btn {
       position: absolute; top: 50%; z-index: 2; translate: 0 -50%;
-      width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
-      background: rgba(5,6,7,.72); border: 1px solid rgba(255,255,255,.32); color: #fff;
-      box-shadow: 0 8px 24px rgba(0,0,0,.5);
-      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-      transition: background .2s, color .2s, border-color .2s;
+      width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      background: rgba(255,255,255,.94); border: 1px solid rgba(0,0,0,.14); color: #000;
+      box-shadow: 0 6px 22px rgba(0,0,0,.55);
+      transition: background .2s, scale .25s var(--ease);
     }
     .gal-btn[hidden] { display: none; }
-    .gal-prev { left: 16px; }
-    .gal-next { right: 16px; }
-    .gal-btn:hover { background: #fff; color: #000; border-color: #fff; }
-    .gal-btn svg { width: 18px; height: 18px; stroke-width: 1.7; }
+    .gal-prev { left: var(--gal-inset, 12px); }
+    .gal-next { right: var(--gal-inset, 12px); }
+    @media (hover: hover) {
+      .gal-btn:hover { background: #fff; scale: 1.06; }
+    }
+    .gal-btn svg { width: 22px; height: 22px; stroke-width: 1.8; }
     .gal-bar { display: flex; align-items: center; padding: .9rem 1.4rem; border-top: 1px solid var(--line); }
     .gal-caption { min-width: 0; font-size: .84rem; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .gal-count { margin-right: .8rem; font-family: var(--mono); font-size: .74rem; color: var(--text3); font-variant-numeric: tabular-nums; }
-    .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 1.6rem; }
+    .pm-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 3.2rem 2.8rem 2.8rem; }
     .pm-content { flex: 1; }
     .pm-kicker { font-family: var(--mono); font-size: .76rem; color: var(--text3); margin-bottom: 1rem; }
     .pm-flag, .pm-award { margin-bottom: 1.1rem; }
@@ -363,12 +367,6 @@
     }
     .pm-link:hover { text-decoration-color: #fff; }
     .pm-link svg { width: 11px; height: 11px; }
-    .pm-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
-    .pm-nav button { display: flex; flex-direction: column; gap: .15rem; background: none; border: 0; cursor: pointer; text-align: left; color: var(--text); font-family: var(--sans); }
-    .pm-nav .pm-next { text-align: right; margin-left: auto; }
-    .pm-nav-label { font-size: .74rem; color: var(--text3); }
-    .pm-nav-name { font-size: .9rem; transition: color .2s; }
-    .pm-nav button:hover .pm-nav-name { color: var(--accent); }
 
     .metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
     .metric { padding: 1.1rem .8rem 1.15rem; text-align: center; border-right: 1px solid var(--line); }
@@ -462,10 +460,9 @@
       .pm-art { flex: none; height: 300px; padding: 1.6rem; }
       .pm-art.is-gallery { height: auto; }
       .gal-view { flex: none; height: min(84vw, 460px); }
-      .gal-slide { padding: 1.2rem; }
-      .gal-btn { width: 46px; height: 46px; }
-      .gal-prev { left: 10px; }
-      .gal-next { right: 10px; }
+      .gal-slide { padding: 1.5rem 2.25rem; }
+      .gal-btn { width: 52px; height: 52px; }
+      .gal-btn svg { width: 20px; height: 20px; }
       .pm-body { overflow: visible; min-height: auto; padding: 2.2rem 1.5rem 2rem; }
       footer { flex-direction: column; text-align: center; padding: 1.6rem; }
       #hud-readout { display: none; }
@@ -958,10 +955,6 @@
     </div>
     <div class="pm-body" data-lenis-prevent>
       <div class="pm-content"></div>
-      <div class="pm-nav">
-        <button class="pm-prev" type="button"><span class="pm-nav-label">← Previous</span><span class="pm-nav-name"></span></button>
-        <button class="pm-next" type="button"><span class="pm-nav-label">Next →</span><span class="pm-nav-name"></span></button>
-      </div>
     </div>
   </div>
   <button class="pm-close" type="button" aria-label="Close project"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
@@ -1905,9 +1898,6 @@ const pmArt = modal.querySelector('.pm-art');
 const pmMetrics = modal.querySelector('.pm-metrics');
 const pmBody = modal.querySelector('.pm-body');
 const pmContent = modal.querySelector('.pm-content');
-const pmNav = modal.querySelector('.pm-nav');
-const pmPrev = modal.querySelector('.pm-prev');
-const pmNext = modal.querySelector('.pm-next');
 const pmClose = modal.querySelector('.pm-close');
 let openId = null, openTile = null, pushed = false, busy = false, closing = false, closeQueued = false;
 
@@ -1918,7 +1908,7 @@ function settle() {
 }
 
 const panelRadius = () => (innerWidth <= 900 ? 0 : 12);
-const pmParts = () => [pmVisual, ...pmContent.children, pmNav];
+const pmParts = () => [pmVisual, ...pmContent.children];
 
 /* clip-path that crops the open panel down to the tile's on-screen box */
 function clipTo(rect) {
@@ -1968,8 +1958,32 @@ function gallery(src) {
     f.querySelector('img').draggable = false;
     track.append(f);
   });
+  const view = gal.querySelector('.gal-view');
+  const prevBtn = gal.querySelector('.gal-prev');
+  const nextBtn = gal.querySelector('.gal-next');
   const n = slides.length;
-  let cur = 0;
+  let cur = 0, touched = false, peekTimer = 0;
+
+  /* On-screen width of slide i's image: scaled down to fit the slide's padded box, never up */
+  const shownWidth = i => {
+    const f = slides[i], img = f.querySelector('img'), cs = getComputedStyle(f);
+    const w = f.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const h = f.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const iw = img.naturalWidth || +img.getAttribute('width');
+    const ih = img.naturalHeight || +img.getAttribute('height');
+    return iw && ih ? iw * Math.min(1, w / iw, h / ih) : w;
+  };
+  /* The arrows get one spot per gallery and stay there while stepping, so they never move out from
+     under the cursor. They overlap the widest image's edges by about a third of their width, and
+     narrower images sit between them. They never sit closer than 8px to the view's edge */
+  let inset = 8;
+  const place = () => {
+    if (!view.clientWidth || n < 2) return;
+    const widest = Math.max(...slides.map((_, i) => shownWidth(i)));
+    inset = Math.max(8, (view.clientWidth - widest) / 2 - nextBtn.offsetWidth * 0.64);
+    gal.style.setProperty('--gal-inset', inset.toFixed(1) + 'px');
+  };
+
   const go = i => {
     cur = (i + n) % n;
     track.style.transform = 'translateX(' + (-100 * cur) + '%)';
@@ -1982,27 +1996,62 @@ function gallery(src) {
     gal.querySelector('.gal-count').textContent = (cur + 1) + ' / ' + n;
     gal.querySelector('.gal-text').textContent = captions[cur];
   };
-  gal.querySelector('.gal-prev').addEventListener('click', () => go(cur - 1));
-  gal.querySelector('.gal-next').addEventListener('click', () => go(cur + 1));
-  /* With focus in the carousel, arrow keys step images instead of switching projects */
-  gal.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    e.preventDefault();
-    go(cur + (e.key === 'ArrowRight' ? 1 : -1));
-  });
+
+  /* Teaser: a few seconds after the project opens, the strip nudges left until a slice of the
+     next image shows, then settles back. Runs once, and not at all after the visitor steps or swipes */
+  const peek = () => {
+    if (touched || !gal.isConnected || cur >= n - 1) return;
+    const r = view.getBoundingClientRect();
+    const onScreen = Math.min(r.bottom, innerHeight) - Math.max(r.top, 0) >= r.height / 2;
+    /* hold off while the tab is hidden, the images are scrolled away, or the next image is still loading */
+    if (document.hidden || !onScreen || !slides[cur + 1].querySelector('img').complete) {
+      peekTimer = setTimeout(peek, 1000);
+      return;
+    }
+    const vw = view.clientWidth;
+    const slice = Math.min(96, Math.max(48, vw * 0.13));
+    /* The slice shows beside the next arrow, or just inside it when the arrow sits near the edge */
+    const reveal = inset >= slice / 2 ? slice : inset + nextBtn.offsetWidth + slice / 2;
+    const shift = (vw - shownWidth(cur + 1)) / 2 + reveal;
+    const at = -100 * cur + '%';
+    track.style.transition = 'transform .5s cubic-bezier(.25,.8,.3,1)';
+    track.style.transform = 'translateX(calc(' + at + ' - ' + shift.toFixed(1) + 'px))';
+    peekTimer = setTimeout(() => {
+      track.style.transition = 'transform .7s cubic-bezier(.5,0,.2,1)';
+      track.style.transform = 'translateX(' + at + ')';
+      peekTimer = setTimeout(() => { track.style.transition = ''; }, 700);
+    }, 500 + 400);
+  };
+  /* The visitor took over: drop the teaser, and if it is mid-nudge, ease back from where it is */
+  const stopPeek = () => {
+    touched = true;
+    clearTimeout(peekTimer);
+    if (track.style.transition) { track.style.transition = ''; go(cur); }
+  };
+  const step = d => { stopPeek(); go(cur + d); };
+
+  prevBtn.addEventListener('click', () => step(-1));
+  nextBtn.addEventListener('click', () => step(1));
   /* Swipe / drag */
-  const view = gal.querySelector('.gal-view');
   let x0 = null;
-  view.addEventListener('pointerdown', e => { x0 = e.clientX; });
+  view.addEventListener('pointerdown', e => { stopPeek(); x0 = e.clientX; });
   view.addEventListener('pointercancel', () => { x0 = null; });
   view.addEventListener('pointerup', e => {
     if (x0 === null) return;
     const dx = e.clientX - x0;
     x0 = null;
-    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
   });
   gal.querySelectorAll('.gal-btn').forEach(b => { b.hidden = n < 2; });
   go(0);
+
+  /* The gallery is built before it's in the page, so arrows are placed once it has a size, and again on resize */
+  const ro = new ResizeObserver(() => {
+    if (!gal.isConnected) { ro.disconnect(); clearTimeout(peekTimer); return; }
+    place();
+  });
+  ro.observe(view);
+  if (n > 1 && !REDUCED_MOTION) peekTimer = setTimeout(peek, 5000);
   return gal;
 }
 
@@ -2015,16 +2064,6 @@ function fillProject(id) {
   pmMetrics.replaceChildren(...tpl.querySelector('.tpl-metrics').children);
   pmContent.replaceChildren(...tpl.querySelector('.tpl-content').children);
   pmContent.querySelector('.pm-title').id = 'pm-title';
-
-  /* Previous / next wrap around the grid order */
-  const i = tiles.indexOf(tile);
-  const prev = tiles[(i - 1 + tiles.length) % tiles.length];
-  const next = tiles[(i + 1) % tiles.length];
-  pmPrev.dataset.id = prev.dataset.id;
-  pmNext.dataset.id = next.dataset.id;
-  pmPrev.querySelector('.pm-nav-name').textContent = prev.querySelector('.tile-title').textContent;
-  pmNext.querySelector('.pm-nav-name').textContent = next.querySelector('.tile-title').textContent;
-  pmPrev.hidden = pmNext.hidden = tiles.length < 2;
   pmBody.scrollTop = 0;
   panel.scrollTop = 0;
   openId = id;
@@ -2033,8 +2072,7 @@ function fillProject(id) {
 
 function openProject(id, { push = true } = {}) {
   const tile = document.getElementById('project-' + id);
-  if (!tile || busy) return;
-  if (openId) { swapProject(id); return; }
+  if (!tile || busy || openId) return;
   fillProject(id);
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
@@ -2058,24 +2096,6 @@ function openProject(id, { push = true } = {}) {
   });
   gsap.to(pmParts(), { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.4 });
   gsap.to(pmClose, { opacity: 1, duration: 0.4, delay: 0.5 });
-}
-
-function swapProject(id) {
-  if (id === openId || busy) return;
-  const replace = () => history.replaceState({ pm: id }, '', '#project-' + id);
-  if (REDUCED_MOTION) { fillProject(id); replace(); return; }
-  busy = true;
-  gsap.to(pmParts(), {
-    opacity: 0, y: -8, duration: 0.22, ease: 'power2.in',
-    onComplete: () => {
-      fillProject(id);
-      replace();
-      gsap.fromTo(pmParts(), { opacity: 0, y: 14 }, {
-        opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.04,
-        onComplete: settle
-      });
-    }
-  });
 }
 
 /* Close via button / Esc / backdrop — goes through history if we pushed an entry */
@@ -2114,8 +2134,6 @@ function finishClose() {
 }
 
 tiles.forEach(t => t.addEventListener('click', e => { e.preventDefault(); openProject(t.dataset.id); }));
-pmPrev.addEventListener('click', () => openProject(pmPrev.dataset.id));
-pmNext.addEventListener('click', () => openProject(pmNext.dataset.id));
 pmClose.addEventListener('click', closeProject);
 backdrop.addEventListener('click', closeProject);
 
@@ -2128,8 +2146,11 @@ addEventListener('popstate', e => {
 addEventListener('keydown', e => {
   if (e.key === 'Escape') { if (openId) closeProject(); else closeMenu(); return; }
   if (!openId || e.defaultPrevented) return;
-  if (e.key === 'ArrowRight' && !pmNext.hidden) openProject(pmNext.dataset.id);
-  else if (e.key === 'ArrowLeft' && !pmPrev.hidden) openProject(pmPrev.dataset.id);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    /* Arrow keys step the open project's images */
+    const btn = pmArt.querySelector(e.key === 'ArrowRight' ? '.gal-next' : '.gal-prev');
+    if (btn && !btn.hidden) { e.preventDefault(); btn.click(); }
+  }
   else if (e.key === 'Tab') {
     /* keep focus inside the project view */
     const f = [...modal.querySelectorAll('a[href], button')].filter(el => !el.hidden && el.offsetParent !== null);
